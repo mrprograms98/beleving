@@ -17,3 +17,15 @@ elements.forEach(el => {
     el.style.transition = "all 1.2s ease";
     observer.observe(el);
 });
+
+const menuToggle = document.querySelector(".menu-toggle");
+const fullscreenMenu = document.querySelector(".fullscreen-menu");
+const menuClose = document.querySelector(".menu-close");
+
+menuToggle.addEventListener("click", () => {
+    fullscreenMenu.classList.add("active");
+});
+
+menuClose.addEventListener("click", () => {
+    fullscreenMenu.classList.remove("active");
+});
