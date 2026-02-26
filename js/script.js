@@ -29,3 +29,45 @@ menuToggle.addEventListener("click", () => {
 menuClose.addEventListener("click", () => {
     fullscreenMenu.classList.remove("active");
 });
+// Dropdown toggle
+const langBtnHeader = document.querySelector('.lang-btn-header');
+const langMenu = document.querySelector('.lang-menu');
+
+langBtnHeader.addEventListener('click', () => {
+    langMenu.style.display = langMenu.style.display === 'block' ? 'none' : 'block';
+});
+
+// Selecteer taal
+document.querySelectorAll('.lang-option').forEach(btn => {
+    btn.addEventListener('click', () => {
+        document.querySelectorAll('.lang-option').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        langMenu.style.display = 'none';
+        langBtnHeader.textContent = btn.textContent + " ▼";
+        // Hier kun je eventueel de taal switch functionaliteit toevoegen
+        console.log("Gekozen taal:", btn.dataset.lang);
+    });
+});
+
+// Sluiten als je buiten klikt
+document.addEventListener('click', (e) => {
+    if (!e.target.closest('.lang-dropdown')) {
+        langMenu.style.display = 'none';
+    }
+});
+
+window.addEventListener("scroll", function() {
+    const header = document.querySelector(".header");
+    if (window.scrollY > 50) {
+        header.classList.add("scrolled");
+    } else {
+        header.classList.remove("scrolled");
+    }
+});
+
+document.querySelector(".intake-form").addEventListener("submit", function(e){
+    e.preventDefault();
+    const btn = this.querySelector(".submit-btn");
+    btn.innerText = "Verzonden ✓";
+    btn.style.background = "#6f8f87";
+});
