@@ -22,11 +22,18 @@
             <div class="logo-circle">olive tree</div>
         </div>
 
-        <nav class="nav-right">
-            <a href="#">Verwijzers</a>
-            <a href="#">Praktijk</a>
-            <a href="contact.html">Contact</a>
-        </nav>
+<nav class="nav-right">
+    <div class="lang-dropdown">
+        <button class="lang-btn-header">NL ▼</button>
+        <div class="lang-menu">
+            <button class="lang-option active" data-lang="nl">NL</button>
+            <button class="lang-option" data-lang="en">EN</button>
+            <button class="lang-option" data-lang="ar">AR</button>
+        </div>
+    </div>
+    <a href="#">Praktijk</a>
+    <a href="contact.html">Contact</a>
+</nav>
 
 <div class="menu-toggle">
     <div class="menu-circle">
@@ -63,6 +70,7 @@
 <section class="hero">
     <h1>Over<br>Praktijk Belevingswereld</h1>
     <p>Psychologische zorg in Eindhoven met aandacht voor persoonlijke verhalen en culturele context.</p>
+    <div class="hero-shape"></div>
 </section>
 
 <section class="hero-image"></section>
@@ -178,16 +186,98 @@
 </section>
 
 <footer class="footer">
-    <div class="footer-container">
-        <div>
-            <h4>Praktijk Belevingswereld</h4>
-            <p>Eindhoven</p>
-        </div>
-        <div>
-            <a href="#">Privacy</a>
-            <a href="#">Algemene voorwaarden</a>
+
+    <div class="footer-top">
+        <div class="footer-grid">
+
+            <!-- Praktijk -->
+            <div class="footer-col">
+                <h4>Praktijk Belevingswereld</h4>
+                <p>
+                    Psychologische zorg in Eindhoven met aandacht voor persoonlijke verhalen,
+                    culturele context en maatwerk behandeling.
+                </p>
+
+                <div class="footer-contact">
+                    <p><strong>Adres</strong><br>
+                    Straatnaam 123<br>
+                    5611 AA Eindhoven</p>
+
+                    <p><strong>Email</strong><br>
+                    info@praktijkbelevingswereld.nl</p>
+
+                    <p><strong>Telefoon</strong><br>
+                    +31 (0)6 12345678</p>
+                </div>
+            </div>
+
+            <!-- Navigatie -->
+            <div class="footer-col">
+                <h4>Navigatie</h4>
+                <ul>
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#">Behandeling</a></li>
+                    <li><a href="#">Voor wie</a></li>
+                    <li><a href="#">Verwijzers</a></li>
+                    <li><a href="#">Praktijk</a></li>
+                    <li><a href="#">Contact</a></li>
+                </ul>
+            </div>
+
+            <!-- Behandelingen -->
+            <div class="footer-col">
+                <h4>Behandelingen</h4>
+                <ul>
+                    <li>Traumatherapie</li>
+                    <li>Angst & Stress</li>
+                    <li>Somberheid</li>
+                    <li>Identiteitsvraagstukken</li>
+                    <li>Relatieproblematiek</li>
+                    <li>Jeugd & Volwassenen</li>
+                </ul>
+            </div>
+
+            <!-- Praktijk info -->
+            <div class="footer-col">
+                <h4>Praktijkinformatie</h4>
+                <ul>
+                    <li>Geen wachttijden</li>
+                    <li>Meertalige zorg (NL / EN / AR)</li>
+                    <li>Online therapie mogelijk</li>
+                    <li>Vergoeding via zorgverzekering</li>
+                </ul>
+
+                <div class="footer-opening">
+                    <p><strong>Openingstijden</strong></p>
+                    <p>Ma – Vr: 09:00 – 17:30</p>
+                </div>
+            </div>
+            
+            <div class="footer-social">
+    <h5>Volg ons</h5>
+    <div class="social-links">
+        <a href="#" target="_blank">Instagram</a>
+        <a href="#" target="_blank">LinkedIn</a>
+        <a href="#" target="_blank">Facebook</a>
+    </div>
+</div>
         </div>
     </div>
+
+    <!-- Onderste balk -->
+    <div class="footer-bottom">
+        <div class="footer-bottom-inner">
+            <p>© 2026 Praktijk Belevingswereld – Alle rechten voorbehouden</p>
+
+            <div class="footer-legal">
+                <a href="#">Privacyverklaring</a>
+                <a href="#">Algemene voorwaarden</a>
+                <a href="#">Cookiebeleid</a>
+                <a href="#">Klachtenregeling</a>
+            </div>
+        </div>
+    </div>
+
 </footer>
 
 <script src="js/script.js"></script>
