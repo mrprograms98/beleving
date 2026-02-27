@@ -844,3 +844,141 @@ select:focus {
 .route-btn:hover {
     opacity: 0.85;
 }
+
+/* ============================= */
+/* LUXURY FORM ANIMATIONS */
+/* ============================= */
+
+.luxury-form {
+    position: relative;
+    padding: 60px;
+    background: white;
+    border-radius: 24px;
+    box-shadow: 0 30px 80px rgba(0,0,0,0.04);
+    overflow: hidden;
+}
+
+/* Subtiele achtergrond glow */
+.luxury-form::before {
+    content: "";
+    position: absolute;
+    width: 500px;
+    height: 500px;
+    background: radial-gradient(circle, rgba(143,163,154,0.12) 0%, transparent 70%);
+    top: -200px;
+    right: -200px;
+    z-index: 0;
+}
+
+.luxury-form * {
+    position: relative;
+    z-index: 2;
+}
+
+/* Inputs animation */
+input,
+textarea,
+select {
+    transition: all 0.35s cubic-bezier(.77,0,.18,1);
+}
+
+/* Focus effect */
+input:focus,
+textarea:focus,
+select:focus {
+    border-bottom: 1px solid var(--accent);
+    transform: translateY(-2px);
+}
+
+/* Hover subtiel */
+input:hover,
+textarea:hover,
+select:hover {
+    border-bottom: 1px solid var(--accent);
+}
+
+/* Form rows iets luchtiger */
+.form-row {
+    gap: 30px;
+}
+
+/* Floating textarea */
+textarea {
+    resize: none;
+}
+
+/* Radio luxe styling */
+.luxury-radio label {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    position: relative;
+    padding-left: 30px;
+}
+
+.luxury-radio input {
+    position: absolute;
+    opacity: 0;
+}
+
+.luxury-radio span::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    width: 18px;
+    height: 18px;
+    border: 1px solid var(--line);
+    border-radius: 50%;
+    transition: 0.3s;
+}
+
+.luxury-radio input:checked + span::before {
+    background: var(--accent);
+    border-color: var(--accent);
+}
+
+/* Checkbox subtiel */
+.checkbox-group input {
+    accent-color: var(--accent);
+}
+
+/* Submit button upgrade */
+.submit-btn {
+    border-radius: 50px;
+    font-weight: 500;
+    letter-spacing: 1px;
+    box-shadow: 0 15px 35px rgba(143,163,154,0.25);
+    transition: all 0.4s cubic-bezier(.77,0,.18,1);
+}
+
+.submit-btn:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 20px 45px rgba(143,163,154,0.35);
+}
+/* ============================= */
+/* SCROLL REVEAL ANIMATION */
+/* ============================= */
+
+.contact-info,
+.contact-form-wrapper,
+.map-section {
+    opacity: 0;
+    transform: translateY(60px);
+    animation: fadeUp 1.2s cubic-bezier(.77,0,.18,1) forwards;
+}
+
+.contact-form-wrapper {
+    animation-delay: 0.2s;
+}
+
+.map-section {
+    animation-delay: 0.4s;
+}
+
+@keyframes fadeUp {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
