@@ -806,3 +806,41 @@ select:focus {
     background: var(--accent);
     color: white;
 }
+/* ========== MAP SECTION ========== */
+
+.map-section {
+    margin-top: 80px;
+    padding-top: 60px;
+    border-top: 1px solid var(--line);
+}
+
+.map-section h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 32px;
+    margin-bottom: 10px;
+}
+
+.map-section p {
+    color: var(--text-muted);
+    margin-bottom: 30px;
+}
+
+.map-wrapper {
+    overflow: hidden;
+    border-radius: 16px;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.05);
+    margin-bottom: 30px;
+}
+
+.route-btn {
+    display: inline-block;
+    padding: 14px 36px;
+    background: var(--accent);
+    color: white;
+    text-decoration: none;
+    transition: 0.3s;
+}
+
+.route-btn:hover {
+    opacity: 0.85;
+}
