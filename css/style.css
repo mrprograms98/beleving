@@ -891,5 +891,19 @@ textarea { resize: none; }
 }
 }
 
+.social-links a.email:hover { 
+    background: #ea4335; 
+    border-color: transparent; 
+    color: white; 
+    box-shadow: 0 8px 25px rgba(234,67,53,0.3); 
+}
+
+.social-links a.whatsapp:hover { 
+    background: #25d366; 
+    border-color: transparent; 
+    color: white; 
+    box-shadow: 0 8px 25px rgba(37,211,102,0.3); 
+}
+
 
 
