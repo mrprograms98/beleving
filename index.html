@@ -3,249 +3,153 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>olive tree</title>
-
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<title>praktijk de beleving — Home</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 
+<div class="progress-bar" id="progressBar"></div>
+
 <header class="header">
     <div class="nav-container">
-        <nav class="nav-left">  
+        <a href="index.html" class="logo">
+            <div class="logo-circle"><img src="img/transparantlogo.png" alt="praktijk de beleving"></div>
+            <span class="logo-text">praktijk de beleving</span>
+        </a>
+
+        <nav class="nav-right">
+            <a href="contact.html">Contact</a>
             <a href="index.html">Home</a>
-            <a href="therapie.html">therapie</a>
-            <!--<a href="#">Voor wie</a>-->
+            <a href="therapie.html">Therapie</a>
+            <div class="lang-dropdown">
+                <button class="lang-btn-header">NL ▼</button>
+                <div class="lang-menu">
+                    <button class="lang-option active" data-lang="nl">NL <span class="lang-flag"><img src="https://flagcdn.com/nl.svg" width="30" alt="NL"></span></button>
+                    <button class="lang-option" data-lang="en">EN <span class="lang-flag"><img src="https://flagcdn.com/gb.svg" width="30" alt="EN"></span></button>
+                    <button class="lang-option" data-lang="ar">AR <span class="lang-flag"><img src="https://flagcdn.com/sa.svg" width="30" alt="SA"></span></button>
+                </div>
+            </div>
         </nav>
-
-        <div class="logo">
-            <div class="logo-circle"><img src="img/transparantlogo.png"></div>
-        </div>
-
-<nav class="nav-right">
-    <div class="lang-dropdown">
-        <button class="lang-btn-header">NL ▼</button>
-        <div class="lang-menu">
-            <button class="lang-option active" data-lang="nl">NL</button>
-            <button class="lang-option" data-lang="en">EN</button>
-            <button class="lang-option" data-lang="ar">AR</button>
-        </div>
-    </div>
-    <!--<a href="#">Praktijk</a>-->
-    <a href="contact.html">Contact</a>
-</nav>
-
-<div class="menu-toggle">
-    <div class="menu-circle">
-        <span>Menu</span>
-    </div>
-</div>
-
+        <div class="menu-toggle"><div class="menu-circle"><span>Menu</span></div></div>
     </div>
 </header>
 
-<!-- FULLSCREEN MENU -->
 <div class="fullscreen-menu">
     <div class="menu-top">
-        <div class="menu-logo">olive tree</div>
+        <div class="menu-logo">praktijk de beleving</div>
         <div class="menu-close">✕</div>
     </div>
-
     <div class="menu-links">
         <a href="index.html">Home</a>
-        <a href="therapie.html">therapie</a>
-        <!--<a href="#">Voor wie</a>-->
-        <!--<a href="#">Verwijzers</a>-->
-        <!--<a href="#">Praktijk</a>-->
+        <a href="therapie.html">Therapie</a>
         <a href="contact.html">Contact</a>
     </div>
-
     <div class="menu-bottom">
-        <button class="lang-btn active">NL</button>
-        <button class="lang-btn">EN</button>
-        <button class="lang-btn">AR</button>
+        <button class="lang-btn active"><span>NL</span><img src="https://flagcdn.com/nl.svg" width="30" alt="NL"></button>
+        <button class="lang-btn"><span>EN</span><img src="https://flagcdn.com/gb.svg" width="30" alt="EN"></button>
+        <button class="lang-btn"><span>AR</span><img src="https://flagcdn.com/sa.svg" width="30" alt="SA"></button>
     </div>
 </div>
 
-
+<!-- HERO with multiple floating circles -->
 <section class="hero">
-    <h1>olive tree psychology</h1>
-    <p>“When we are no longer able to change a situation, we are challenged to change ourselves.”</p>
+    <div class="hero-circle hero-circle-1"></div>
+    <div class="hero-circle hero-circle-2"></div>
+    <div class="hero-circle hero-circle-3"></div>
+    <div class="hero-circle hero-circle-4"></div>
+    <h1>praktijk de beleving</h1>
+    <p>"When we are no longer able to change a situation, we are challenged to change ourselves."</p>
     <p>Viktor E. Frankl, psychiater</p>
-    <div class="hero-shape"></div>
 </section>
 
 <section class="hero-image"></section>
 
-<!--<section class="team-section">
-
-    <div class="team-card">
-        <img src="https://images.unsplash.com/photo-1551836022-d5d88e9218df" alt="">
-        <div class="team-content">
-            <h2>Naam Achternaam</h2>
-            <span>GZ-psycholoog</span>
-            <p>Gespecialiseerd in trauma, identiteitsvraagstukken en culturele context binnen een veilige behandelrelatie.</p>
-            <a href="#" class="btn-outline">Lees meer</a>
-        </div>
-    </div>
-
-    <div class="team-card">
-        <img src="https://images.unsplash.com/photo-1544725176-7c40e5a2c9f9" alt="">
-        <div class="team-content">
-            <h2>Naam Achternaam</h2>
-            <span>Psycholoog MSc</span>
-            <p>Traumagerichte therapie en emotionele verwerking gericht op duurzame verandering en persoonlijke groei.</p>
-            <a href="#" class="btn-outline">Lees meer</a>
-        </div>
-    </div>
-
-</section>-->
-
 <section class="values-section">
-
-    <div class="values-grid">
-
-        <h1>De pilaren van Olive Tree Psychology</h1>
-
-        <h2><strong>Hier kunt u op vertrouwen:</strong> een praktijk die dichtbij staat, snel schakelt en echt naar u luistert.</h2>
-
-        <div class="value-box">
-            <h3>Interculturele benadering</h3>
-            <p>
-                Wij begrijpen dat achtergrond, cultuur en identiteit een grote rol spelen in hoe je klachten ervaart én verwerkt. 
-                In onze praktijk is er ruimte voor jouw verhaal, in jouw context — met oog voor culturele diversiteit en sensitiviteit.
-            </p>
+    <div class="values-inner">
+        <div class="values-heading reveal">
+            <h1>De pilaren van praktijk de beleving</h1>
+            <h2><strong>Hier kunt u op vertrouwen:</strong> een praktijk die dichtbij staat, snel schakelt en echt naar u luistert.</h2>
         </div>
-
-        <div class="value-box">
-            <h3>Geen wachttijden</h3>
-            <p>
-                Bij ons hoef je niet maanden te wachten op hulp. Wij geloven dat als je de stap naar therapie zet, je ook snel terecht moet kunnen.
-                Daarom bieden we directe instroom en flexibele planning.
-            </p>
+        <div class="values-grid">
+            <div class="value-box">
+                <div class="value-number">01</div>
+                <h3>Interculturele benadering</h3>
+                <p>Wij begrijpen dat achtergrond, cultuur en identiteit een grote rol spelen in hoe je klachten ervaart én verwerkt. In onze praktijk is er ruimte voor jouw verhaal, in jouw context — met oog voor culturele diversiteit en sensitiviteit.</p>
+            </div>
+            <div class="value-box">
+                <div class="value-number">02</div>
+                <h3>Geen wachttijden</h3>
+                <p>Bij ons hoef je niet maanden te wachten op hulp. Wij geloven dat als je de stap naar therapie zet, je ook snel terecht moet kunnen. Daarom bieden we directe instroom en flexibele planning.</p>
+            </div>
+            <div class="value-box">
+                <div class="value-number">03</div>
+                <h3>Individueel afgestemd aanbod</h3>
+                <p>Geen standaardtrajecten, maar therapie op maat. We kijken naar wie jij bent, wat je nodig hebt, en stemmen het behandeltraject af op jouw doelen, tempo en draagkracht.</p>
+            </div>
+            <div class="value-box">
+                <div class="value-number">04</div>
+                <h3>Meertalige zorg — NL, EN &amp; AR</h3>
+                <p>Bij onze praktijk begrijpen we hoe belangrijk het is om in je eigen taal gehoord en begrepen te worden. Wij bieden therapie en begeleiding aan in Nederlands, Engels en Arabisch, zonder taalbarrières.</p>
+            </div>
+            <div class="value-box">
+                <div class="value-number">05</div>
+                <h3>Zorg voor kind, jeugd en volwassenen</h3>
+                <p>Onze praktijk biedt psychologische begeleiding voor alle leeftijden. Of het nu gaat om een kind met angstklachten, of een volwassene met burn-out — we bieden zorg die past bij elke levensfase.</p>
+            </div>
+            <div class="value-box">
+                <div class="value-number">06</div>
+                <h3>Flexibele behandeling op maat</h3>
+                <p>Onze praktijk biedt therapie op meerdere locaties: in Eindhoven en Breda, maar ook volledig online. Zo kun je kiezen wat het beste bij jouw situatie past.</p>
+            </div>
         </div>
-
-        <div class="value-box">
-            <h3>Individueel afgestemd aanbod</h3>
-            <p>
-                Geen standaardtrajecten, maar therapie op maat. We kijken naar wie jij bent, wat je nodig hebt, 
-                en stemmen het behandeltraject af op jouw doelen, tempo en draagkracht.
-            </p>
-        </div>
-
-        <div class="value-box">
-            <h3>Meertalige zorg — in Nederlands, Engels en Arabisch</h3>
-            <p>
-                Bij onze praktijk begrijpen we hoe belangrijk het is om in je eigen taal gehoord en begrepen te worden. 
-                Daarom bieden wij therapie en begeleiding aan in Nederlands, Engels en Arabisch. 
-                Zo kunnen we met respect voor jouw achtergrond en cultuur samen aan jouw hulpvraag werken, zonder taalbarrières.
-            </p>
-        </div>
-
-        <div class="value-box">
-            <h3>Zorg voor kind, jeugd en volwassenen</h3>
-            <p>
-                Onze praktijk biedt psychologische begeleiding voor alle leeftijden. 
-                Of het nu gaat om een kind met angstklachten, of een volwassene met burn-out — 
-                we bieden zorg die past bij elke levensfase.
-            </p>
-        </div>
-
-        <div class="value-box">
-            <h3>Flexibele behandeling op maat — waar en wanneer het jou uitkomt</h3>
-            <p>
-                Onze praktijk biedt therapie op meerdere locaties: in Eindhoven en Breda, maar ook volledig online.
-                Zo kun je kiezen wat het beste bij jouw situatie past.
-            </p>
-        </div>
-
     </div>
-
 </section>
 
-    <h1>“De rust van de ziel is het resultaat van een juiste omgang met de eigen gedachten.”</h1>
-
-    <h2>Imam al-Ghazali</h2>    
-    
-<!--<section class="treatment-section">
-    <div class="organic-shape"></div>
-
-    <div class="treatment-grid">
-        <div>
-            <h2>Behandeling in Eindhoven</h2>
-            <h3>Waarvoor kunt u terecht?</h3>
-            <ul>
-                <li>Stress en overbelasting</li>
-                <li>Angstklachten</li>
-                <li>Somberheid</li>
-                <li>Identiteitsvragen</li>
-                <li>Relationele problematiek</li>
-            </ul>
-        </div>
-        <div class="treatment-image"></div>
-    </div>
-</section>-->
+<div class="mid-quote reveal">
+    <h1>"De rust van de ziel is het resultaat van een juiste omgang met de eigen gedachten."</h1>
+    <h2>Imam al-Ghazali</h2>
+</div>
 
 <section class="contact-section">
     <div class="contact-container">
         <h2>Start uw healing journey</h2>
-        <a href="#" class="btn-primary">aanmelden</a>
+        <p>Neem vrijblijvend contact op — we staan voor u klaar.</p>
+        <a href="contact.html" class="btn-primary">aanmelden</a>
     </div>
 </section>
 
 <footer class="footer">
-
     <div class="footer-top">
         <div class="footer-grid">
-
-            <!-- Praktijk -->
             <div class="footer-col">
-                <h4>Praktijk Belevingswereld</h4>
-                <p>
-                    Psychologische zorg in Eindhoven met aandacht voor persoonlijke verhalen,
-                    culturele context en maatwerk behandeling.
-                </p>
-
+                <h4>praktijk de beleving</h4>
+                <p>Psychologische zorg met aandacht voor persoonlijke verhalen, culturele context en maatwerk behandeling.</p>
                 <div class="footer-contact">
-                    <p><strong>Adres</strong><br>
-                    Straatnaam 123<br>
-                    5611 AA Eindhoven</p>
-
-                    <p><strong>Email</strong><br>
-                    info@praktijkbelevingswereld.nl</p>
-
-                    <p><strong>Telefoon</strong><br>
-                    +31 (0)6 12345678</p>
+                    <p><strong>Adres</strong><br>Tarasconweg 2<br>5627 GB Eindhoven</p>
+                    <p><strong>Email</strong><br>info@beleving.nl</p>
+                    <p><strong>Telefoon</strong><br>+31 (0)6 12345678</p>
                 </div>
             </div>
-
-            <!-- Navigatie -->
             <div class="footer-col">
                 <h4>Navigatie</h4>
                 <ul>
-                    <li><a href="#">Home</a></li>
-                    <li><a href="#">Behandeling</a></li>
-                    <li><a href="#">Voor wie</a></li>
-                    <li><a href="#">Verwijzers</a></li>
-                    <li><a href="#">Praktijk</a></li>
-                    <li><a href="#">Contact</a></li>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="therapie.html">Therapie</a></li>
+                    <li><a href="contact.html">Contact</a></li>
                 </ul>
             </div>
-
-            <!-- Behandelingen -->
             <div class="footer-col">
                 <h4>Behandelingen</h4>
                 <ul>
                     <li>Traumatherapie</li>
-                    <li>Angst & Stress</li>
+                    <li>Angst &amp; Stress</li>
                     <li>Somberheid</li>
                     <li>Identiteitsvraagstukken</li>
                     <li>Relatieproblematiek</li>
-                    <li>Jeugd & Volwassenen</li>
+                    <li>Jeugd &amp; Volwassenen</li>
                 </ul>
             </div>
-
-            <!-- Praktijk info -->
             <div class="footer-col">
                 <h4>Praktijkinformatie</h4>
                 <ul>
@@ -254,29 +158,30 @@
                     <li>Online therapie mogelijk</li>
                     <li>Vergoeding via zorgverzekering</li>
                 </ul>
-
                 <div class="footer-opening">
                     <p><strong>Openingstijden</strong></p>
                     <p>Ma – Vr: 09:00 – 17:30</p>
                 </div>
+                <div class="footer-social">
+                    <h5>Volg ons</h5>
+                    <div class="social-links">
+                        <a href="#" class="instagram" target="_blank" aria-label="Instagram">
+                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+                        </a>
+                        <a href="#" class="linkedin" target="_blank" aria-label="LinkedIn">
+                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+                        </a>
+                        <a href="#" class="facebook" target="_blank" aria-label="Facebook">
+                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+                        </a>
+                    </div>
+                </div>
             </div>
-            
-            <div class="footer-social">
-    <h5>Volg ons</h5>
-    <div class="social-links">
-        <a href="#" target="_blank">Instagram</a>
-        <a href="#" target="_blank">LinkedIn</a>
-        <a href="#" target="_blank">Facebook</a>
-    </div>
-</div>
         </div>
     </div>
-
-    <!-- Onderste balk -->
     <div class="footer-bottom">
         <div class="footer-bottom-inner">
-            <p>© 2026 Praktijk Belevingswereld – Alle rechten voorbehouden</p>
-
+            <p>© 2026 praktijk de beleving – Alle rechten voorbehouden</p>
             <div class="footer-legal">
                 <a href="#">Privacyverklaring</a>
                 <a href="#">Algemene voorwaarden</a>
@@ -285,12 +190,8 @@
             </div>
         </div>
     </div>
-
 </footer>
 
 <script src="js/script.js"></script>
 </body>
 </html>
-
-
-
