@@ -858,3 +858,35 @@ textarea { resize: none; }
     .fullscreen-menu { padding: 36px 28px; }
     .menu-links a { font-size: 44px; }
 }
+
+@media (max-width:700px){
+
+.hero-circle-1{
+    width:260px;
+    height:260px;
+    right:-60px;
+    top:40px;
+}
+
+.hero-circle-2{
+    width:140px;
+    height:140px;
+    left:-40px;
+    bottom:-20px;
+}
+
+.hero-circle-3{
+    width:100px;
+    height:100px;
+    left:40px;
+    top:20px;
+}
+
+.hero-circle-4{
+    width:70px;
+    height:70px;
+    right:40px;
+    bottom:40px;
+}
+
+}
