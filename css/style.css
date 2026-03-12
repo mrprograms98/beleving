@@ -463,6 +463,9 @@ input[type="radio"]{
     background: url('https://images.unsplash.com/photo-1505691938895-1758d7feb511?w=1400') center/cover no-repeat;
     position: relative;
     overflow: hidden;
+    display: block;
+    margin: 0;
+    padding: 0;
 }
 
 .hero-image::after {
@@ -479,6 +482,7 @@ input[type="radio"]{
     text-align: center;
     position: relative;
     overflow: hidden;
+    margin-bottom: 0;   /* voeg toe aan bestaande regel */
 }
 
 .small-hero h1 {
@@ -904,6 +908,7 @@ textarea { resize: none; }
     color: white; 
     box-shadow: 0 8px 25px rgba(37,211,102,0.3); 
 }
+
 
 
 
