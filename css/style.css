@@ -1,6 +1,3 @@
-/* ========================================
-   OLIVE TREE PSYCHOLOGY — SHARED STYLES
-   ======================================== */
 
 :root {
     --bg-main: #f7f5f2;
@@ -761,7 +758,7 @@ textarea { resize: none; }
 .footer-bottom-inner { max-width: 1200px; margin: auto; display: flex; justify-content: space-between; align-items: center; font-size: 13px; color: var(--text-muted); }
 .footer-legal a { margin-left: 24px; text-decoration: none; color: var(--text-muted); transition: 0.3s; }
 .footer-legal a:hover { color: var(--text-dark); }
-.footer-social { margin-top: 40px; }
+.footer-social { margin-top: 40px; align-items:center;}
 .footer-social h5 { font-size: 12px; margin-bottom: 16px; letter-spacing: 2px; text-transform: uppercase; color: var(--text-muted); }
 
 /* ── SOCIAL ICON BUTTONS ── */
@@ -893,5 +890,6 @@ textarea { resize: none; }
     height:420px;
 }
 }
+
 
 
