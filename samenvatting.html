@@ -2,99 +2,315 @@
 <html lang="nl">
 <head>
 <meta charset="UTF-8">
-<title>Controleer uw gegevens</title>
-
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Controleer uw gegevens – praktijk belevingswereld</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
-body{
-font-family: Arial;
-background:#f7f5f2;
-max-width:700px;
-margin:80px auto;
-line-height:1.7;
-}
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
-.box{
-background:white;
-padding:40px;
-box-shadow:0 20px 60px rgba(0,0,0,0.08);
-}
+  :root {
+    --bg:     #f4f7f5;
+    --soft:   #edf2ee;
+    --accent: #6b8f7a;
+    --dark:   #2e2e2e;
+    --muted:  #8a8783;
+    --line:   #dce6df;
+  }
 
-button{
-margin-top:30px;
-padding:16px 40px;
-background:#8fa39a;
-color:white;
-border:none;
-cursor:pointer;
-font-size:14px;
-}
+  body {
+    background: var(--bg);
+    font-family: 'Inter', sans-serif;
+    color: var(--dark);
+    min-height: 100vh;
+    padding: 60px 20px;
+  }
+
+  .page-label {
+    text-align: center;
+    font-size: 10px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 12px;
+  }
+
+  h1 {
+    text-align: center;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(28px, 5vw, 40px);
+    font-weight: 400;
+    color: var(--dark);
+    margin-bottom: 8px;
+  }
+
+  .subtitle {
+    text-align: center;
+    font-size: 13px;
+    color: var(--muted);
+    margin-bottom: 40px;
+  }
+
+  .card {
+    max-width: 680px;
+    margin: 0 auto;
+    background: #fff;
+    border-top: 4px solid var(--accent);
+    box-shadow: 0 20px 60px rgba(0,0,0,0.08);
+  }
+
+  .card-header {
+    background: var(--soft);
+    padding: 28px 40px;
+    border-bottom: 1px solid var(--line);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .card-header .name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 20px;
+    font-weight: 400;
+    color: var(--dark);
+  }
+
+  .card-header .badge {
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--accent);
+    background: rgba(107,143,122,0.1);
+    padding: 6px 14px;
+  }
+
+  .section {
+    padding: 28px 40px 0;
+  }
+
+  .section:last-of-type {
+    padding-bottom: 0;
+  }
+
+  .section-label {
+    font-size: 10px;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 6px;
+  }
+
+  .rows {
+    border-top: 1px solid var(--line);
+  }
+
+  .row {
+    display: grid;
+    grid-template-columns: 38% 1fr;
+    border-bottom: 1px solid var(--bg);
+    padding: 13px 0;
+    align-items: baseline;
+  }
+
+  .row-key {
+    font-size: 11px;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+  }
+
+  .row-val {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 15px;
+    color: var(--dark);
+    line-height: 1.5;
+  }
+
+  .reden-block {
+    padding: 28px 40px;
+  }
+
+  .reden-text {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 15px;
+    font-style: italic;
+    color: var(--dark);
+    line-height: 1.9;
+    border-left: 3px solid var(--line);
+    padding-left: 20px;
+    margin-top: 8px;
+  }
+
+  .card-footer {
+    background: var(--soft);
+    border-top: 1px solid var(--line);
+    padding: 28px 40px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+
+  .note {
+    font-size: 12px;
+    color: var(--muted);
+    line-height: 1.6;
+    max-width: 340px;
+  }
+
+  .btn-send {
+    display: inline-block;
+    padding: 15px 40px;
+    background: var(--accent);
+    color: #fff;
+    font-family: 'Inter', sans-serif;
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    border: none;
+    cursor: pointer;
+    transition: background 0.3s ease;
+    white-space: nowrap;
+  }
+
+  .btn-send:hover { background: #5a7d6a; }
+
+  .btn-back {
+    display: block;
+    text-align: center;
+    margin-top: 20px;
+    font-size: 12px;
+    color: var(--muted);
+    text-decoration: none;
+    letter-spacing: 1px;
+  }
+
+  .btn-back:hover { color: var(--accent); }
+
+  @media(max-width: 520px) {
+    .card-header, .section, .reden-block, .card-footer { padding-left: 24px; padding-right: 24px; }
+    .card-footer { flex-direction: column; align-items: stretch; }
+    .btn-send { text-align: center; width: 100%; }
+  }
 </style>
-
 </head>
-
 <body>
 
+<p class="page-label">Stap 2 van 2</p>
 <h1>Controleer uw gegevens</h1>
+<p class="subtitle">Klopt alles? Dan kunt u uw aanmelding bevestigen.</p>
 
-<div class="box">
+<div class="card">
 
-<p><strong>Voornaam:</strong> <span id="voornaam"></span></p>
-<p><strong>Achternaam:</strong> <span id="achternaam"></span></p>
-<p><strong>Email:</strong> <span id="email"></span></p>
-<p><strong>Telefoon:</strong> <span id="telefoon"></span></p>
-<p><strong>Adres:</strong> <span id="adres"></span></p>
-<p><strong>Postcode:</strong> <span id="postcode"></span></p>
-<p><strong>Stad:</strong> <span id="stad"></span></p>
-<p><strong>Polisnummer:</strong> <span id="polis"></span></p>
-<p><strong>Reden:</strong></p>
-<p id="reden"></p>
+  <div class="card-header">
+    <span class="name" id="fullname">—</span>
+    <span class="badge">Intake formulier</span>
+  </div>
 
-<form action="send.php" method="POST">
+  <!-- Persoonsgegevens -->
+  <div class="section">
+    <p class="section-label">Persoonsgegevens</p>
+    <div class="rows">
+      <div class="row"><span class="row-key">E-mail</span><span class="row-val" id="d-email">—</span></div>
+      <div class="row"><span class="row-key">Telefoon</span><span class="row-val" id="d-telefoon">—</span></div>
+    </div>
+  </div>
 
-<input type="hidden" name="voornaam" id="i1">
-<input type="hidden" name="achternaam" id="i2">
-<input type="hidden" name="email" id="i3">
-<input type="hidden" name="telefoon" id="i4">
-<input type="hidden" name="adres" id="i5">
-<input type="hidden" name="postcode" id="i6">
-<input type="hidden" name="stad" id="i7">
-<input type="hidden" name="polis" id="i8">
-<input type="hidden" name="reden" id="i9">
+  <!-- Adres -->
+  <div class="section">
+    <p class="section-label">Adresgegevens</p>
+    <div class="rows">
+      <div class="row"><span class="row-key">Adres</span><span class="row-val" id="d-adres">—</span></div>
+      <div class="row"><span class="row-key">Postcode &amp; Stad</span><span class="row-val" id="d-postcodstad">—</span></div>
+      <div class="row"><span class="row-key">Land</span><span class="row-val" id="d-land">—</span></div>
+    </div>
+  </div>
 
-<button type="submit">Akkoord & Versturen</button>
+  <!-- Voorkeuren -->
+  <div class="section">
+    <p class="section-label">Voorkeuren &amp; Verzekering</p>
+    <div class="rows">
+      <div class="row"><span class="row-key">Taalvoorkeur</span><span class="row-val" id="d-taal">—</span></div>
+      <div class="row"><span class="row-key">Locatie</span><span class="row-val" id="d-locatie">—</span></div>
+      <div class="row"><span class="row-key">Zorgverzekering</span><span class="row-val" id="d-verzekering">—</span></div>
+      <div class="row"><span class="row-key">Polisnummer</span><span class="row-val" id="d-polis">—</span></div>
+      <div class="row"><span class="row-key">Verwijzing huisarts</span><span class="row-val" id="d-verwijzing">—</span></div>
+    </div>
+  </div>
 
-</form>
+  <!-- Reden -->
+  <div class="reden-block">
+    <p class="section-label">Reden van aanmelding</p>
+    <p class="reden-text" id="d-reden">—</p>
+  </div>
+
+  <!-- Footer / submit -->
+  <form action="send.php" method="POST">
+    <!-- Hidden fields -->
+    <input type="hidden" name="voornaam"       id="h-voornaam">
+    <input type="hidden" name="achternaam"     id="h-achternaam">
+    <input type="hidden" name="email"          id="h-email">
+    <input type="hidden" name="telefoon"       id="h-telefoon">
+    <input type="hidden" name="adres"          id="h-adres">
+    <input type="hidden" name="adres2"         id="h-adres2">
+    <input type="hidden" name="postcode"       id="h-postcode">
+    <input type="hidden" name="stad"           id="h-stad">
+    <input type="hidden" name="land"           id="h-land">
+    <input type="hidden" name="taal"           id="h-taal">
+    <input type="hidden" name="locatie"        id="h-locatie">
+    <input type="hidden" name="zorgverzekering" id="h-verzekering">
+    <input type="hidden" name="polis"          id="h-polis">
+    <input type="hidden" name="verwijzing"     id="h-verwijzing">
+    <input type="hidden" name="reden"          id="h-reden">
+
+    <div class="card-footer">
+      <p class="note">Door op "Bevestigen &amp; Versturen" te klikken geeft u toestemming voor de verwerking van uw gegevens conform ons privacybeleid.</p>
+      <button type="submit" class="btn-send">Bevestigen &amp; Versturen</button>
+    </div>
+  </form>
 
 </div>
 
+<a href="contact.html" class="btn-back">← Terug naar formulier</a>
+
 <script>
+const p = new URLSearchParams(window.location.search);
+const g = name => p.get(name) || '';
 
-const p = new URLSearchParams(window.location.search)
+// Display values
+const voornaam   = g('voornaam');
+const achternaam = g('achternaam');
+document.getElementById('fullname').textContent     = voornaam + ' ' + achternaam;
+document.getElementById('d-email').textContent      = g('email');
+document.getElementById('d-telefoon').textContent   = g('telefoon');
 
-function set(id,name){
-document.getElementById(id).textContent=p.get(name)
-}
+const adres = g('adres') + (g('adres2') ? ', ' + g('adres2') : '');
+document.getElementById('d-adres').textContent      = adres;
+document.getElementById('d-postcodstad').textContent= g('postcode') + ' ' + g('stad');
+document.getElementById('d-land').textContent       = g('land');
+document.getElementById('d-taal').textContent       = g('taal');
+document.getElementById('d-locatie').textContent    = g('locatie');
+document.getElementById('d-verzekering').textContent= g('zorgverzekering');
+document.getElementById('d-polis').textContent      = g('polisnummer');
+document.getElementById('d-verwijzing').textContent = g('verwijzing');
+document.getElementById('d-reden').textContent      = g('reden');
 
-set("voornaam","voornaam")
-set("achternaam","achternaam")
-set("email","email")
-set("telefoon","telefoon")
-set("adres","adres")
-set("postcode","postcode")
-set("stad","stad")
-set("polis","polisnummer")
-set("reden","reden")
-
-document.getElementById("i1").value=p.get("voornaam")
-document.getElementById("i2").value=p.get("achternaam")
-document.getElementById("i3").value=p.get("email")
-document.getElementById("i4").value=p.get("telefoon")
-document.getElementById("i5").value=p.get("adres")
-document.getElementById("i6").value=p.get("postcode")
-document.getElementById("i7").value=p.get("stad")
-document.getElementById("i8").value=p.get("polisnummer")
-document.getElementById("i9").value=p.get("reden")
-
+// Hidden inputs
+document.getElementById('h-voornaam').value    = voornaam;
+document.getElementById('h-achternaam').value  = achternaam;
+document.getElementById('h-email').value       = g('email');
+document.getElementById('h-telefoon').value    = g('telefoon');
+document.getElementById('h-adres').value       = g('adres');
+document.getElementById('h-adres2').value      = g('adres2');
+document.getElementById('h-postcode').value    = g('postcode');
+document.getElementById('h-stad').value        = g('stad');
+document.getElementById('h-land').value        = g('land');
+document.getElementById('h-taal').value        = g('taal');
+document.getElementById('h-locatie').value     = g('locatie');
+document.getElementById('h-verzekering').value = g('zorgverzekering');
+document.getElementById('h-polis').value       = g('polisnummer');
+document.getElementById('h-verwijzing').value  = g('verwijzing');
+document.getElementById('h-reden').value       = g('reden');
 </script>
 
 </body>
