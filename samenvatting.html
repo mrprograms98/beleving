@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<title>Controleer uw gegevens</title>
+
+<style>
+body{
+font-family: Arial;
+background:#f7f5f2;
+max-width:700px;
+margin:80px auto;
+line-height:1.7;
+}
+
+.box{
+background:white;
+padding:40px;
+box-shadow:0 20px 60px rgba(0,0,0,0.08);
+}
+
+button{
+margin-top:30px;
+padding:16px 40px;
+background:#8fa39a;
+color:white;
+border:none;
+cursor:pointer;
+font-size:14px;
+}
+</style>
+
+</head>
+
+<body>
+
+<h1>Controleer uw gegevens</h1>
+
+<div class="box">
+
+<p><strong>Voornaam:</strong> <span id="voornaam"></span></p>
+<p><strong>Achternaam:</strong> <span id="achternaam"></span></p>
+<p><strong>Email:</strong> <span id="email"></span></p>
+<p><strong>Telefoon:</strong> <span id="telefoon"></span></p>
+<p><strong>Adres:</strong> <span id="adres"></span></p>
+<p><strong>Postcode:</strong> <span id="postcode"></span></p>
+<p><strong>Stad:</strong> <span id="stad"></span></p>
+<p><strong>Polisnummer:</strong> <span id="polis"></span></p>
+<p><strong>Reden:</strong></p>
+<p id="reden"></p>
+
+<form action="send.php" method="POST">
+
+<input type="hidden" name="voornaam" id="i1">
+<input type="hidden" name="achternaam" id="i2">
+<input type="hidden" name="email" id="i3">
+<input type="hidden" name="telefoon" id="i4">
+<input type="hidden" name="adres" id="i5">
+<input type="hidden" name="postcode" id="i6">
+<input type="hidden" name="stad" id="i7">
+<input type="hidden" name="polis" id="i8">
+<input type="hidden" name="reden" id="i9">
+
+<button type="submit">Akkoord & Versturen</button>
+
+</form>
+
+</div>
+
+<script>
+
+const p = new URLSearchParams(window.location.search)
+
+function set(id,name){
+document.getElementById(id).textContent=p.get(name)
+}
+
+set("voornaam","voornaam")
+set("achternaam","achternaam")
+set("email","email")
+set("telefoon","telefoon")
+set("adres","adres")
+set("postcode","postcode")
+set("stad","stad")
+set("polis","polisnummer")
+set("reden","reden")
+
+document.getElementById("i1").value=p.get("voornaam")
+document.getElementById("i2").value=p.get("achternaam")
+document.getElementById("i3").value=p.get("email")
+document.getElementById("i4").value=p.get("telefoon")
+document.getElementById("i5").value=p.get("adres")
+document.getElementById("i6").value=p.get("postcode")
+document.getElementById("i7").value=p.get("stad")
+document.getElementById("i8").value=p.get("polisnummer")
+document.getElementById("i9").value=p.get("reden")
+
+</script>
+
+</body>
+</html>
