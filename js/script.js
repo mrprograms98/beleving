@@ -81,6 +81,16 @@ document.addEventListener('DOMContentLoaded', () => {
         '.value-box, .reveal, .team-card, .contact-container, .map-section, .treatment-grid > div'
     ).forEach(el => revealObserver.observe(el));
 
+/* ── LUXURY FORM REVEAL ── */
+    document.querySelectorAll('.luxury-form').forEach(el => revealObserver.observe(el));
+
+    /* ── FORM FILLED STATE (floating label) ── */
+    document.querySelectorAll('.form-group input, .form-group textarea, .form-group select').forEach(el => {
+        el.addEventListener('input', () => {
+            el.closest('.form-group').classList.toggle('filled', el.value.trim() !== '');
+        });
+    });
+
     /* ── INTAKE FORM SUBMIT ── */
     const intakeForm = document.querySelector('.intake-form');
     if (intakeForm) {
@@ -124,3 +134,4 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
 });
+
