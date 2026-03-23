@@ -2,6 +2,62 @@
    OLIVE TREE PSYCHOLOGY — SHARED SCRIPT
    ============================================================ */
 
+// ── PRELOADER
+(function () {
+    const bl = document.getElementById('bl');
+    const bf = document.getElementById('bf');
+    const pb = document.getElementById('pb');
+
+    const phases = [
+        { label: 'adem rustig in',    dur: 4000, from: 0,   to: 100 },
+        { label: 'houd even vast',    dur: 2000, from: 100, to: 100 },
+        { label: 'adem langzaam uit', dur: 6000, from: 100, to: 0   },
+        { label: '',                  dur: 600,  from: 0,   to: 0   },
+    ];
+
+    let pi = 0, ps = null;
+
+    function ease(t) { return t < .5 ? 2 * t * t : -1 + (4 - 2 * t) * t; }
+
+    function breath(ts) {
+        if (!ps) ps = ts;
+        const p = phases[pi];
+        const e = ts - ps;
+        const v = p.from + (p.to - p.from) * ease(Math.min(e / p.dur, 1));
+        bf.style.width = v + '%';
+        if (e < p.dur) {
+            requestAnimationFrame(breath);
+        } else {
+            pi = (pi + 1) % phases.length;
+            ps = null;
+            bl.textContent = phases[pi].label;
+            requestAnimationFrame(breath);
+        }
+    }
+
+    requestAnimationFrame(breath);
+
+    // voortgangsbalk
+    let prog = 0;
+    const iv = setInterval(() => {
+        prog += Math.random() * 6 + 2;
+        if (prog >= 100) { prog = 100; clearInterval(iv); }
+        pb.style.width = prog + '%';
+    }, 200);
+
+    // verbergen na laden (minimaal 5 seconden)
+    const start = Date.now();
+    window.addEventListener('load', () => {
+        const wait = Math.max(0, 5000 - (Date.now() - start));
+        setTimeout(hide, wait);
+    });
+    setTimeout(hide, 7000); // absolute fallback
+
+    function hide() {
+        document.getElementById('preloader').classList.add('fade-out');
+    }
+})();
+
 document.addEventListener('DOMContentLoaded', () => {
 
     /* ── SCROLL PROGRESS BAR ── */
