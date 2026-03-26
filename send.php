@@ -38,7 +38,7 @@ try {
     $mail->Host       = 'mail.ggzbelevingswereld.nl'; // mailserver van jouw domein
     $mail->SMTPAuth   = true;
     $mail->Username   = 'info@ggzbelevingswereld.nl'; // jouw mailbox
-    $mail->Password   = 'JE_MAILBOX_WACHTWOORD';      // wachtwoord van mailbox
+    $mail->Password   = 'Idecide33!!';      // wachtwoord van mailbox
     $mail->SMTPSecure = 'tls';                        // of 'ssl' afhankelijk van je server
     $mail->Port       = 587;                          // 587 voor TLS, 465 voor SSL
 
