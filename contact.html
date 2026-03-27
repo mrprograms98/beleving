@@ -51,15 +51,15 @@
  
 <header class="header">
     <div class="nav-container">
-        <a href="index.html" class="logo">
+        <a href="index.php" class="logo">
             <div class="logo-circle"><img src="img/transparantlogo.png" alt="praktijk belevinsgwereld"></div>
             <span class="logo-text">praktijk belevinsgwereld</span>
         </a>
 
         <nav class="nav-right">
-            <a href="contact.html">Contact</a>
-            <a href="index.html">Home</a>
-            <a href="therapie.html">Therapie</a>
+            <a href="contact.php">Contact</a>
+            <a href="index.php">Home</a>
+            <a href="therapie.php">Therapie</a>
             <div class="lang-dropdown">
                 <button class="lang-btn-header">NL ▼</button>
                 <div class="lang-menu">
@@ -79,9 +79,9 @@
         <div class="menu-close">✕</div>
     </div>
     <div class="menu-links">
-        <a href="index.html">Home</a>
-        <a href="therapie.html">Therapie</a>
-        <a href="contact.html">Contact</a>
+        <a href="index.php">Home</a>
+        <a href="therapie.php">Therapie</a>
+        <a href="contact.php">Contact</a>
     </div>
     <div class="menu-bottom">
         <button class="lang-btn active"><span>NL</span><img src="https://flagcdn.com/nl.svg" width="30" alt="NL"></button>
@@ -98,7 +98,7 @@
     <p>"When we are no longer able to change a situation, we are challenged to change ourselves."</p>
     <p>Viktor E. Frankl, psychiater</p>
  <div class="hero-buttons">
-    <a href="contact.html" class="btn-hero-primary">contact</a>
+    <a href="contact.php" class="btn-hero-primary">contact</a>
     <a href="#behandelingen" class="btn-hero-secondary">aanmelden</a>
 </div>
 </section>
@@ -134,21 +134,21 @@
     <div class="contact-form-wrapper luxury-form">
 
         <h2>Online Intake &amp; Aanmelding</h2>
-        <form class="intake-form">
+        <form class="intake-form" action="samenvatting.php" method="GET">
             <div class="form-row">
-                <input name="Voornaam" type="text" placeholder="Voornaam" required>
-                <input name="Achternaam" type="text" placeholder="Achternaam" required>
+                <input name="voornaam" type="text" placeholder="voornaam" required>
+                <input name="achternaam" type="text" placeholder="achternaam" required>
             </div>
             <div class="form-row">
-                <input name="date" type="date" required>
-                <input name="Telefoonnummer" type="tel" placeholder="Telefoonnummer" required>
-                <input name="E-mailadres" type="email" placeholder="E-mailadres" required>
+                <input name="geboortedatum" type="date" required>
+                <input name="telefoon" type="tel" placeholder="telefoonnummer" required>
+                <input name="email" type="email" placeholder="e-mailadres" required>
             </div>
             <div class="form-row">
-                <input name="Adres" type="text" placeholder="Adres" required>
-                <input name="Adres regel 2" type="text" placeholder="Adres regel 2">
-                <input name="Postcode" type="text" placeholder="Postcode" required>
-                <input name="Stad" type="text" placeholder="Stad" required>
+                <input name="adres" type="text" placeholder="adres" required>
+                <input name="adres2" type="text" placeholder="adres regel 2">
+                <input name="postcode" type="text" placeholder="postcode" required>
+                <input name="stad" type="text" placeholder="stad" required>
   <select name="land" required>
     <option value="">Land *</option>
 <option value="AF">Afghanistan</option>
@@ -269,6 +269,7 @@
 <option value="MA">Marokko</option>
 <option value="MZ">Mozambique</option>
 <option value="MM">Myanmar</option>
+<option value="NL">Nederlands</option>
 <option value="NA">Namibië</option>
 <option value="NR">Nauru</option>
 <option value="NP">Nepal</option>
@@ -348,13 +349,13 @@
 </select>
             </div>
             <div class="form-row">
-                <select required>
+                <select name="taal" required>
                     <option value="">Taalvoorkeur</option>
                     <option>Nederlands</option>
                     <option>English</option>
                     <option>Arabisch</option>
                 </select>
-                <select required>
+                <select name="locatie" required>
                     <option value="">Locatievoorkeur</option>
                     <option>Eindhoven</option>
                     <option>Breda</option>
@@ -374,7 +375,7 @@
                     <option>Interpolis</option>
                     <option>Mijn zorgverzekering staat er niet tussen</option>
                 </select>
-                <input type="text" placeholder="Polisnummer" required>
+                <input type="text" name="polisnummer" placeholder="Polisnummer" required>
             </div>
             <div class="form-group">
                 <label class="form-label">Verwijzing van huisarts *</label>
@@ -385,11 +386,11 @@
             </div>
             <div class="form-group">
                 <label class="form-label">Reden van aanmelding / vraag</label>
-                <textarea rows="5" placeholder="Omschrijf hier uw reden van aanmelding of vraag" required></textarea>
+                <textarea name="reden" rows="5" placeholder="Omschrijf hier uw reden van aanmelding of vraag" required></textarea>
             </div>
             <div class="form-group checkbox-group">
                 <label>
-                    <input type="checkbox" required>
+                    <input type="checkbox" name="privacy" required>
                     Ik ga akkoord met het privacybeleid en verwerking van mijn persoonsgegevens.
                 </label>
             </div>
@@ -423,9 +424,9 @@
             <div class="footer-col">
                 <h4>Navigatie</h4>
                 <ul>
-                    <li><a href="index.html">Home</a></li>
-                    <li><a href="therapie.html">Therapie</a></li>
-                    <li><a href="contact.html">Contact</a></li>
+                    <li><a href="index.php">Home</a></li>
+                    <li><a href="therapie.php">Therapie</a></li>
+                    <li><a href="contact.php">Contact</a></li>
                 </ul>
             </div>
             <div class="footer-col">
