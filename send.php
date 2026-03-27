@@ -13,12 +13,15 @@ use PHPMailer\PHPMailer\Exception;
 
 // Functie om input te saniteren
 function clean($val) {
-    return htmlspecialchars(strip_tags(trim($_POST[$val] ?? '')), ENT_QUOTES, 'UTF-8');
+    return strip_tags(trim($_POST[$val] ?? ''));
 }
 
 $voornaam   = clean('voornaam');
 $achternaam = clean('achternaam');
 $email      = clean('email');
+if (!$email || !filter_var($email, FILTER_VALIDATE_EMAIL)) {
+    die("Ongeldig e-mailadres");
+}
 $telefoon   = clean('telefoon');
 $adres      = clean('adres');
 $adres2     = clean('adres2');
@@ -112,9 +115,15 @@ Verzonden op '.$datum.'
 </td>
 </tr>
 
-<a href="mailto:'.$email.'" style="display:inline-block; margin-top:20px; padding:12px 24px; background:#8fa39a; color:white; text-decoration:none; border-radius:4px;">
+</tr>
+
+<tr>
+<td style="padding:20px; text-align:center;">
+<a href="mailto:'.$email.'" style="display:inline-block; padding:12px 24px; background:#8fa39a; color:white; text-decoration:none; border-radius:4px;">
 Reageer op deze aanvraag
 </a>
+</td>
+</tr>
 
 <!-- FOOTER -->
 <tr>
@@ -144,7 +153,7 @@ try {
     $mail->SMTPAuth   = true;
     $mail->Username   = 'info@ggzbelevingswereld.nl'; // jouw mailbox
     $mail->Password   = SMTP_PASSWORD;      // wachtwoord van mailbox
-    $mail->SMTPSecure = 'ssl';                        // of 'ssl' afhankelijk van je server
+    $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;  // of 'ssl' afhankelijk van je server
     $mail->Port       = 465;                          // 587 voor TLS, 465 voor SSL
 
     // Ontvanger & afzender
