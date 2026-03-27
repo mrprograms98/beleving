@@ -1,3 +1,8 @@
+<?php
+function g($name) {
+    return htmlspecialchars($_POST[$name] ?? '', ENT_QUOTES, 'UTF-8');
+}
+?>
 <!DOCTYPE html>
 <html lang="nl">
 <head>
@@ -203,7 +208,7 @@
 <div class="card">
 
   <div class="card-header">
-    <span class="name" id="fullname">—</span>
+    <span class="name"><?= g('voornaam') . ' ' . g('achternaam') ?></span>
     <span class="badge">Intake formulier</span>
   </div>
 
@@ -211,8 +216,8 @@
   <div class="section">
     <p class="section-label">Persoonsgegevens</p>
     <div class="rows">
-      <div class="row"><span class="row-key">E-mail</span><span class="row-val" id="d-email">—</span></div>
-      <div class="row"><span class="row-key">Telefoon</span><span class="row-val" id="d-telefoon">—</span></div>
+      <div class="row"><span class="row-key">E-mail</span><span class="row-val"><?= g('email') ?></span></div>
+      <div class="row"><span class="row-key">Telefoon</span><span class="row-val"><?= g('telefoon') ?></span></div>
     </div>
   </div>
 
@@ -220,9 +225,9 @@
   <div class="section">
     <p class="section-label">Adresgegevens</p>
     <div class="rows">
-      <div class="row"><span class="row-key">Adres</span><span class="row-val" id="d-adres">—</span></div>
-      <div class="row"><span class="row-key">Postcode &amp; Stad</span><span class="row-val" id="d-postcodstad">—</span></div>
-      <div class="row"><span class="row-key">Land</span><span class="row-val" id="d-land">—</span></div>
+      <div class="row"><span class="row-key">Adres</span><span class="row-val"><?= g('adres') ?> <?= g('adres2') ?></span></div>
+      <div class="row"><span class="row-key">Postcode &amp; Stad</span><span class="row-val"><?= g('postcode') ?> <?= g('stad') ?></span></div>
+      <div class="row"><span class="row-key">Land</span><span class="row-val"><?= g('land') ?></span></div>
     </div>
   </div>
 
@@ -230,38 +235,38 @@
   <div class="section">
     <p class="section-label">Voorkeuren &amp; Verzekering</p>
     <div class="rows">
-      <div class="row"><span class="row-key">Taalvoorkeur</span><span class="row-val" id="d-taal">—</span></div>
-      <div class="row"><span class="row-key">Locatie</span><span class="row-val" id="d-locatie">—</span></div>
-      <div class="row"><span class="row-key">Zorgverzekering</span><span class="row-val" id="d-verzekering">—</span></div>
-      <div class="row"><span class="row-key">Polisnummer</span><span class="row-val" id="d-polis">—</span></div>
-      <div class="row"><span class="row-key">Verwijzing huisarts</span><span class="row-val" id="d-verwijzing">—</span></div>
+      <div class="row"><span class="row-key">Taalvoorkeur</span><span class="row-val"><?= g('taal') ?></span></div>
+      <div class="row"><span class="row-key">Locatie</span><span class="row-val"><?= g('locatie') ?></span></div>
+      <div class="row"><span class="row-key">Zorgverzekering</span><span class="row-val"><?= g('zorgverzekering') ?></span></div>
+      <div class="row"><span class="row-key">Polisnummer</span><span class="row-val"><?= g('polis') ?></span></div>
+      <div class="row"><span class="row-key">Verwijzing huisarts</span><span class="row-val"><?= g('verwijzing') ?></span></div>
     </div>
   </div>
 
   <!-- Reden -->
   <div class="reden-block">
     <p class="section-label">Reden van aanmelding</p>
-    <p class="reden-text" id="d-reden">—</p>
+    <p class="reden-text"><?= g('reden') ?></p>
   </div>
 
   <!-- Footer / submit -->
   <form action="send.php" method="POST">
     <!-- Hidden fields -->
-    <input type="hidden" name="voornaam"       id="h-voornaam">
-    <input type="hidden" name="achternaam"     id="h-achternaam">
-    <input type="hidden" name="email"          id="h-email">
-    <input type="hidden" name="telefoon"       id="h-telefoon">
-    <input type="hidden" name="adres"          id="h-adres">
-    <input type="hidden" name="adres2"         id="h-adres2">
-    <input type="hidden" name="postcode"       id="h-postcode">
-    <input type="hidden" name="stad"           id="h-stad">
-    <input type="hidden" name="land"           id="h-land">
-    <input type="hidden" name="taal"           id="h-taal">
-    <input type="hidden" name="locatie"        id="h-locatie">
-    <input type="hidden" name="zorgverzekering" id="h-verzekering">
-    <input type="hidden" name="polis"          id="h-polis">
-    <input type="hidden" name="verwijzing"     id="h-verwijzing">
-    <input type="hidden" name="reden"          id="h-reden">
+<input type="hidden" name="voornaam" value="<?= g('voornaam') ?>">
+<input type="hidden" name="achternaam" value="<?= g('achternaam') ?>">
+<input type="hidden" name="email" value="<?= g('email') ?>">
+<input type="hidden" name="telefoon" value="<?= g('telefoon') ?>">
+<input type="hidden" name="adres" value="<?= g('adres') ?>">
+<input type="hidden" name="adres2" value="<?= g('adres2') ?>">
+<input type="hidden" name="postcode" value="<?= g('postcode') ?>">
+<input type="hidden" name="stad" value="<?= g('stad') ?>">
+<input type="hidden" name="land" value="<?= g('land') ?>">
+<input type="hidden" name="taal" value="<?= g('taal') ?>">
+<input type="hidden" name="locatie" value="<?= g('locatie') ?>">
+<input type="hidden" name="zorgverzekering" value="<?= g('zorgverzekering') ?>">
+<input type="hidden" name="polis" value="<?= g('polis') ?>">
+<input type="hidden" name="verwijzing" value="<?= g('verwijzing') ?>">
+<input type="hidden" name="reden" value="<?= g('reden') ?>">
 
     <div class="card-footer">
       <p class="note">Door op "Bevestigen &amp; Versturen" te klikken geeft u toestemming voor de verwerking van uw gegevens conform ons privacybeleid.</p>
@@ -272,46 +277,6 @@
 </div>
 
 <a href="contact.php" class="btn-back">← Terug naar formulier</a>
-
-<script>
-const p = new URLSearchParams(window.location.search);
-const g = name => p.get(name) || '';
-
-// Display values
-const voornaam   = g('voornaam');
-const achternaam = g('achternaam');
-document.getElementById('fullname').textContent     = voornaam + ' ' + achternaam;
-document.getElementById('d-email').textContent      = g('email');
-document.getElementById('d-telefoon').textContent   = g('telefoon');
-
-const adres = g('adres') + (g('adres2') ? ', ' + g('adres2') : '');
-document.getElementById('d-adres').textContent      = adres;
-document.getElementById('d-postcodstad').textContent= g('postcode') + ' ' + g('stad');
-document.getElementById('d-land').textContent       = g('land');
-document.getElementById('d-taal').textContent       = g('taal');
-document.getElementById('d-locatie').textContent    = g('locatie');
-document.getElementById('d-verzekering').textContent= g('zorgverzekering');
-document.getElementById('d-polis').textContent      = g('polisnummer');
-document.getElementById('d-verwijzing').textContent = g('verwijzing');
-document.getElementById('d-reden').textContent      = g('reden');
-
-// Hidden inputs
-document.getElementById('h-voornaam').value    = voornaam;
-document.getElementById('h-achternaam').value  = achternaam;
-document.getElementById('h-email').value       = g('email');
-document.getElementById('h-telefoon').value    = g('telefoon');
-document.getElementById('h-adres').value       = g('adres');
-document.getElementById('h-adres2').value      = g('adres2');
-document.getElementById('h-postcode').value    = g('postcode');
-document.getElementById('h-stad').value        = g('stad');
-document.getElementById('h-land').value        = g('land');
-document.getElementById('h-taal').value        = g('taal');
-document.getElementById('h-locatie').value     = g('locatie');
-document.getElementById('h-verzekering').value = g('zorgverzekering');
-document.getElementById('h-polis').value       = g('polisnummer');
-document.getElementById('h-verwijzing').value  = g('verwijzing');
-document.getElementById('h-reden').value       = g('reden');
-</script>
 
 </body>
 </html>
