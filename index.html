@@ -3,268 +3,1439 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>praktijk belevingswereld — Home</title>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/style.css">
+<title>Vis Enzo Food — Vers uit Zee · Eindhoven</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --ink: #0c1117;
+  --deep: #0e1f33;
+  --ocean: #0f3460;
+  --tide: #1a5c9a;
+  --wave: #2e86c1;
+  --foam: #7ec8e3;
+  --mist: #d4eaf7;
+  --parchment: #f9f6f0;
+  --gold: #c8a84b;
+  --gold-light: #e8c97a;
+  --white: #ffffff;
+  --nav-h: 76px;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; font-size: 16px; }
+
+body {
+  font-family: 'Outfit', sans-serif;
+  background: var(--ink);
+  color: var(--white);
+  overflow-x: hidden;
+}
+
+/* ══════════════════════════════════════════
+   NAVIGATION
+══════════════════════════════════════════ */
+#nav {
+  position: fixed; top: 0; left: 0; right: 0;
+  height: var(--nav-h);
+  z-index: 1000;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 5%;
+  transition: background .4s, border-color .4s;
+}
+#nav.solid {
+  background: rgba(12,17,23,.96);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(46,134,193,.15);
+}
+
+.nav-logo {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.55rem; font-weight: 700;
+  letter-spacing: .03em; color: var(--white);
+  text-decoration: none;
+  display: flex; align-items: baseline; gap: .35rem;
+}
+.nav-logo em {
+  font-style: italic; color: var(--foam);
+  font-weight: 300;
+}
+.nav-logo .dot { color: var(--gold); font-size: .6rem; margin: 0 .1rem; vertical-align: middle; }
+
+.nav-center {
+  display: flex; gap: 2.5rem; list-style: none;
+  align-items: center;
+}
+.nav-center a {
+  font-size: .82rem; font-weight: 500;
+  letter-spacing: .1em; text-transform: uppercase;
+  color: rgba(255,255,255,.6);
+  text-decoration: none;
+  transition: color .25s;
+  position: relative;
+}
+.nav-center a::after {
+  content: ''; position: absolute; bottom: -3px; left: 0; right: 0;
+  height: 1px; background: var(--foam);
+  transform: scaleX(0); transition: transform .3s;
+  transform-origin: left;
+}
+.nav-center a:hover { color: var(--white); }
+.nav-center a:hover::after { transform: scaleX(1); }
+
+.nav-right {
+  display: flex; align-items: center; gap: 1rem;
+}
+
+.lang-switcher {
+  display: flex; align-items: center; gap: .2rem;
+  font-size: .75rem; font-weight: 600; letter-spacing: .08em;
+}
+.lang-btn {
+  padding: .3rem .55rem; border-radius: 4px;
+  background: transparent; border: none; cursor: pointer;
+  color: rgba(255,255,255,.45); font-family: 'Outfit', sans-serif;
+  font-size: .75rem; font-weight: 600; letter-spacing: .08em;
+  text-transform: uppercase; transition: all .2s;
+}
+.lang-btn.active, .lang-btn:hover {
+  color: var(--white); background: rgba(46,134,193,.2);
+}
+.lang-sep { color: rgba(255,255,255,.2); font-size: .65rem; }
+
+.nav-cta {
+  padding: .55rem 1.4rem;
+  background: linear-gradient(135deg, var(--tide), var(--wave));
+  color: #fff; border: none; border-radius: 6px;
+  font-family: 'Outfit', sans-serif;
+  font-size: .8rem; font-weight: 600; letter-spacing: .06em; text-transform: uppercase;
+  cursor: pointer; text-decoration: none;
+  transition: all .3s;
+  box-shadow: 0 4px 20px rgba(46,134,193,.3);
+}
+.nav-cta:hover { transform: translateY(-1px); box-shadow: 0 8px 30px rgba(46,134,193,.5); }
+
+.menu-toggle {
+  display: none;
+  flex-direction: column; gap: 5px; cursor: pointer;
+  background: none; border: none; padding: .3rem;
+}
+.menu-toggle span {
+  display: block; width: 24px; height: 1.5px;
+  background: var(--white); transition: all .35s;
+}
+.menu-toggle.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+.menu-toggle.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+.menu-toggle.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+
+/* ══════════════════════════════════════════
+   FULLSCREEN MENU OVERLAY
+══════════════════════════════════════════ */
+#overlay {
+  position: fixed; inset: 0; z-index: 990;
+  display: grid; grid-template-columns: 1fr 1fr;
+  opacity: 0; pointer-events: none;
+  transition: opacity .5s;
+}
+#overlay.open { opacity: 1; pointer-events: all; }
+
+.overlay-left {
+  background: var(--ink);
+  display: flex; flex-direction: column; justify-content: center;
+  padding: calc(var(--nav-h) + 3rem) 8% 4rem;
+  position: relative; overflow: hidden;
+}
+.overlay-left::after {
+  content: '';
+  position: absolute; right: 0; top: 10%; bottom: 10%;
+  width: 1px; background: linear-gradient(to bottom, transparent, rgba(46,134,193,.2), transparent);
+}
+
+.overlay-bg-text {
+  position: absolute; bottom: -3rem; left: -1rem;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 18rem; font-weight: 700;
+  color: rgba(255,255,255,.02); line-height: 1;
+  pointer-events: none; user-select: none; white-space: nowrap;
+}
+
+.overlay-nav-list { list-style: none; }
+.overlay-nav-list li {
+  overflow: hidden;
+  margin-bottom: .25rem;
+}
+.overlay-nav-list a {
+  display: flex; align-items: center; gap: 1.5rem;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(2.8rem, 5vw, 4.5rem);
+  font-weight: 600; line-height: 1.2;
+  color: rgba(255,255,255,.2);
+  text-decoration: none;
+  padding: .4rem 0;
+  transition: color .4s, transform .4s;
+  transform: translateY(100%);
+}
+#overlay.open .overlay-nav-list a {
+  transform: translateY(0);
+  transition: color .4s, transform .6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+#overlay.open .overlay-nav-list li:nth-child(1) a { transition-delay: .1s; }
+#overlay.open .overlay-nav-list li:nth-child(2) a { transition-delay: .15s; }
+#overlay.open .overlay-nav-list li:nth-child(3) a { transition-delay: .2s; }
+#overlay.open .overlay-nav-list li:nth-child(4) a { transition-delay: .25s; }
+#overlay.open .overlay-nav-list li:nth-child(5) a { transition-delay: .3s; }
+
+.overlay-nav-list a .nav-num {
+  font-size: .8rem; font-weight: 400; font-family: 'Outfit', sans-serif;
+  color: rgba(255,255,255,.2); letter-spacing: .1em; margin-top: .4rem;
+  transition: color .4s;
+}
+.overlay-nav-list a:hover { color: var(--white); }
+.overlay-nav-list a:hover .nav-num { color: var(--foam); }
+
+.overlay-right {
+  background: var(--deep);
+  display: flex; flex-direction: column; justify-content: space-between;
+  padding: calc(var(--nav-h) + 3rem) 7% 4rem;
+}
+
+.overlay-tagline {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.1rem; font-style: italic;
+  color: rgba(255,255,255,.4); line-height: 1.7;
+  max-width: 320px;
+  opacity: 0; transform: translateY(20px);
+  transition: opacity .5s .35s, transform .5s .35s;
+}
+#overlay.open .overlay-tagline { opacity: 1; transform: translateY(0); }
+
+.overlay-info {
+  opacity: 0; transform: translateY(20px);
+  transition: opacity .5s .4s, transform .5s .4s;
+}
+#overlay.open .overlay-info { opacity: 1; transform: translateY(0); }
+
+.overlay-info-block { margin-bottom: 2.5rem; }
+.overlay-info-block label {
+  display: block; font-size: .7rem; font-weight: 600;
+  letter-spacing: .14em; text-transform: uppercase;
+  color: var(--foam); margin-bottom: .6rem;
+}
+.overlay-info-block p {
+  font-size: .92rem; color: rgba(255,255,255,.55); line-height: 1.7;
+}
+.overlay-info-block a {
+  color: rgba(255,255,255,.55); text-decoration: none;
+  transition: color .25s;
+}
+.overlay-info-block a:hover { color: var(--white); }
+
+.overlay-langs {
+  display: flex; gap: .75rem; flex-wrap: wrap;
+}
+.o-lang {
+  padding: .45rem 1rem;
+  border: 1px solid rgba(255,255,255,.12);
+  border-radius: 4px; cursor: pointer; background: transparent;
+  font-family: 'Outfit', sans-serif; font-size: .8rem; font-weight: 500;
+  color: rgba(255,255,255,.45); transition: all .25s;
+}
+.o-lang.active, .o-lang:hover {
+  border-color: var(--foam); color: var(--white);
+  background: rgba(126,200,227,.08);
+}
+
+.overlay-social {
+  display: flex; gap: 1rem;
+}
+.s-link {
+  width: 38px; height: 38px; border: 1px solid rgba(255,255,255,.1);
+  border-radius: 6px; display: flex; align-items: center; justify-content: center;
+  text-decoration: none; color: rgba(255,255,255,.4);
+  font-size: .78rem; font-weight: 600; letter-spacing: .06em;
+  transition: all .25s;
+}
+.s-link:hover { border-color: var(--foam); color: var(--white); background: rgba(126,200,227,.08); }
+
+/* ══════════════════════════════════════════
+   HERO
+══════════════════════════════════════════ */
+#hero {
+  min-height: 100vh;
+  display: flex; align-items: center;
+  position: relative; overflow: hidden;
+  padding: var(--nav-h) 5% 0;
+  background: linear-gradient(170deg, var(--ink) 0%, var(--deep) 55%, #112949 100%);
+}
+
+.hero-grid {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 4rem; align-items: center;
+  max-width: 1240px; margin: 0 auto; width: 100%;
+  padding: 5rem 0;
+}
+
+.hero-left { position: relative; z-index: 2; }
+
+.hero-overline {
+  display: inline-flex; align-items: center; gap: .6rem;
+  font-size: .72rem; font-weight: 600; letter-spacing: .18em; text-transform: uppercase;
+  color: var(--foam);
+  margin-bottom: 1.5rem;
+}
+.hero-overline::before {
+  content: ''; width: 28px; height: 1px; background: var(--foam);
+}
+
+.hero-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(3.5rem, 7vw, 6.5rem);
+  font-weight: 700; line-height: 1.0;
+  margin-bottom: 1.5rem;
+}
+.hero-title em {
+  font-style: italic; color: var(--foam);
+  display: block; font-weight: 300;
+}
+.hero-title strong { color: var(--gold); }
+
+.hero-desc {
+  font-size: .98rem; color: rgba(255,255,255,.55);
+  line-height: 1.85; margin-bottom: 2.5rem;
+  max-width: 420px;
+}
+
+.hero-actions {
+  display: flex; gap: 1rem; align-items: center; flex-wrap: wrap;
+}
+.btn-gold {
+  padding: .85rem 2.2rem;
+  background: linear-gradient(135deg, #b8932a, var(--gold));
+  color: var(--ink); border: none; border-radius: 6px;
+  font-family: 'Outfit', sans-serif; font-size: .85rem;
+  font-weight: 600; letter-spacing: .06em; text-transform: uppercase;
+  cursor: pointer; text-decoration: none;
+  transition: all .3s; box-shadow: 0 4px 24px rgba(200,168,75,.3);
+}
+.btn-gold:hover { transform: translateY(-2px); box-shadow: 0 8px 36px rgba(200,168,75,.5); }
+
+.btn-ghost {
+  padding: .85rem 2.2rem;
+  background: transparent;
+  color: rgba(255,255,255,.65);
+  border: 1px solid rgba(255,255,255,.15);
+  border-radius: 6px;
+  font-family: 'Outfit', sans-serif; font-size: .85rem;
+  font-weight: 500; letter-spacing: .04em;
+  cursor: pointer; text-decoration: none;
+  transition: all .3s;
+}
+.btn-ghost:hover { border-color: rgba(255,255,255,.4); color: var(--white); }
+
+.hero-awards {
+  display: flex; gap: 2.5rem; margin-top: 3.5rem; flex-wrap: wrap;
+}
+.award { text-align: left; }
+.award-num {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 2.2rem; font-weight: 700; color: var(--white);
+  line-height: 1;
+}
+.award-num sub { font-size: 1rem; vertical-align: baseline; }
+.award-label {
+  font-size: .72rem; color: rgba(255,255,255,.4);
+  letter-spacing: .1em; text-transform: uppercase; margin-top: .2rem;
+}
+.award-divider { width: 1px; background: rgba(255,255,255,.08); align-self: stretch; }
+
+.hero-right { position: relative; z-index: 2; }
+
+.hero-visual-wrap {
+  position: relative;
+  display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: auto auto;
+  gap: 1rem;
+}
+
+.h-card {
+  border-radius: 16px; overflow: hidden;
+  position: relative;
+}
+.h-card:nth-child(1) { grid-column: 1 / 3; }
+
+.h-img {
+  width: 100%; aspect-ratio: 16/10;
+  object-fit: cover; display: block;
+  background: linear-gradient(135deg, #0f3460, #1a5c9a);
+  position: relative;
+}
+.h-card:nth-child(1) .h-img { aspect-ratio: 21/10; }
+
+.h-img-inner {
+  width: 100%; height: 100%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 5rem;
+  position: absolute; inset: 0;
+}
+.h-card:nth-child(2) .h-img-inner,
+.h-card:nth-child(3) .h-img-inner { font-size: 3.5rem; }
+
+.h-card-label {
+  position: absolute; bottom: 0; left: 0; right: 0;
+  padding: 1.2rem 1.2rem .9rem;
+  background: linear-gradient(to top, rgba(12,17,23,.9) 60%, transparent);
+}
+.h-card-label strong {
+  display: block; font-size: .9rem; font-weight: 600; color: var(--white);
+}
+.h-card-label span {
+  font-size: .75rem; color: rgba(255,255,255,.45); margin-top: .1rem; display: block;
+}
+
+.price-badge {
+  position: absolute; top: 1rem; right: 1rem;
+  background: rgba(12,17,23,.75);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(200,168,75,.3);
+  color: var(--gold-light); font-size: .82rem; font-weight: 600;
+  padding: .3rem .8rem; border-radius: 50px;
+}
+
+.hero-deco {
+  position: absolute; right: -6%; top: 20%;
+  width: 380px; height: 380px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(26,92,154,.25) 0%, transparent 70%);
+  pointer-events: none;
+}
+.hero-deco2 {
+  position: absolute; left: -4%; bottom: 15%;
+  width: 260px; height: 260px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(46,134,193,.1) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+/* ══════════════════════════════════════════
+   WAVE
+══════════════════════════════════════════ */
+.wave-sep { line-height: 0; }
+.wave-sep svg { display: block; width: 100%; }
+
+/* ══════════════════════════════════════════
+   GALLERY
+══════════════════════════════════════════ */
+#gallery {
+  background: var(--deep);
+  padding: 7rem 5%;
+}
+
+.section-header {
+  display: flex; justify-content: space-between; align-items: flex-end;
+  margin-bottom: 3.5rem; max-width: 1240px; margin-left: auto; margin-right: auto;
+}
+.section-header.center { text-align: center; flex-direction: column; align-items: center; gap: 1rem; margin-bottom: 3.5rem; }
+
+.s-overline {
+  font-size: .7rem; font-weight: 600; letter-spacing: .18em; text-transform: uppercase;
+  color: var(--foam); display: flex; align-items: center; gap: .6rem; margin-bottom: .75rem;
+}
+.s-overline::before { content: ''; width: 24px; height: 1px; background: var(--foam); }
+
+.s-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(2.2rem, 4.5vw, 3.8rem);
+  font-weight: 600; line-height: 1.1; color: var(--white);
+}
+.s-title em { font-style: italic; color: var(--foam); }
+
+.s-link {
+  font-size: .78rem; font-weight: 600; letter-spacing: .1em; text-transform: uppercase;
+  color: rgba(255,255,255,.45); text-decoration: none;
+  display: flex; align-items: center; gap: .5rem; transition: color .3s;
+  white-space: nowrap;
+}
+.s-link:hover { color: var(--foam); }
+.s-link::after { content: '→'; transition: transform .3s; }
+.s-link:hover::after { transform: translateX(4px); }
+
+/* Gallery masonry grid */
+.gallery-grid {
+  max-width: 1240px; margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  grid-template-rows: repeat(3, 220px);
+  gap: 12px;
+}
+
+.g-item {
+  border-radius: 12px; overflow: hidden;
+  position: relative; cursor: pointer;
+  background: linear-gradient(135deg, var(--ocean), var(--deep));
+}
+.g-item:hover .g-overlay { opacity: 1; }
+.g-item:hover .g-img-bg { transform: scale(1.05); }
+
+.g-item:nth-child(1) { grid-column: 1/6; grid-row: 1/3; }
+.g-item:nth-child(2) { grid-column: 6/9; grid-row: 1/2; }
+.g-item:nth-child(3) { grid-column: 9/13; grid-row: 1/2; }
+.g-item:nth-child(4) { grid-column: 6/10; grid-row: 2/3; }
+.g-item:nth-child(5) { grid-column: 10/13; grid-row: 2/3; }
+.g-item:nth-child(6) { grid-column: 1/5; grid-row: 3/4; }
+.g-item:nth-child(7) { grid-column: 5/9; grid-row: 3/4; }
+.g-item:nth-child(8) { grid-column: 9/13; grid-row: 3/4; }
+
+.g-img-bg {
+  position: absolute; inset: 0;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 4.5rem; transition: transform .5s ease;
+}
+.g-item:nth-child(1) .g-img-bg { font-size: 6rem; }
+
+.g-overlay {
+  position: absolute; inset: 0;
+  background: linear-gradient(to top, rgba(12,17,23,.85) 0%, rgba(12,17,23,.2) 60%, transparent 100%);
+  opacity: 0; transition: opacity .4s;
+  display: flex; align-items: flex-end;
+  padding: 1.2rem;
+}
+.g-item:nth-child(1) .g-overlay { opacity: .7; }
+.g-item:nth-child(1) .g-overlay { align-items: flex-end; }
+
+.g-caption strong {
+  display: block; font-size: .95rem; font-weight: 600; color: var(--white);
+}
+.g-caption span {
+  font-size: .75rem; color: rgba(255,255,255,.5);
+}
+.g-tag {
+  position: absolute; top: .9rem; left: .9rem;
+  font-size: .65rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase;
+  background: rgba(200,168,75,.2); color: var(--gold-light);
+  border: 1px solid rgba(200,168,75,.3);
+  padding: .25rem .65rem; border-radius: 4px;
+}
+
+/* color variants for gallery backgrounds */
+.g-v1 { background: linear-gradient(135deg, #0f3460, #1a5c9a); }
+.g-v2 { background: linear-gradient(135deg, #0c2a4a, #0e4d8a); }
+.g-v3 { background: linear-gradient(135deg, #1a3a5c, #2e6a9e); }
+.g-v4 { background: linear-gradient(135deg, #082540, #0f3460); }
+.g-v5 { background: linear-gradient(135deg, #0d2845, #1a4d7a); }
+.g-v6 { background: linear-gradient(135deg, #091e38, #1254a3); }
+.g-v7 { background: linear-gradient(135deg, #0a2a50, #205ea0); }
+.g-v8 { background: linear-gradient(135deg, #0e1f33, #1e4070); }
+
+/* ══════════════════════════════════════════
+   MENU SECTION
+══════════════════════════════════════════ */
+#menu {
+  background: var(--ink);
+  padding: 7rem 5%;
+}
+
+.menu-wrap { max-width: 1240px; margin: 0 auto; }
+
+.menu-tabs-bar {
+  display: flex; gap: .5rem; flex-wrap: wrap;
+  margin-bottom: 3rem;
+}
+.m-tab {
+  padding: .5rem 1.4rem; border-radius: 4px;
+  background: transparent;
+  border: 1px solid rgba(255,255,255,.08);
+  color: rgba(255,255,255,.45);
+  font-family: 'Outfit', sans-serif; font-size: .8rem;
+  font-weight: 600; letter-spacing: .08em; text-transform: uppercase;
+  cursor: pointer; transition: all .3s;
+}
+.m-tab.active, .m-tab:hover {
+  background: rgba(46,134,193,.15);
+  border-color: rgba(46,134,193,.4);
+  color: var(--foam);
+}
+
+.menu-list {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 0;
+}
+.menu-row {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 1.4rem 0;
+  border-bottom: 1px solid rgba(255,255,255,.05);
+  gap: 1.5rem;
+  transition: background .25s;
+  cursor: default;
+}
+.menu-row:hover { background: rgba(46,134,193,.04); }
+
+.menu-row-left { display: flex; align-items: center; gap: 1rem; }
+.menu-icon { font-size: 1.8rem; width: 52px; text-align: center; flex-shrink: 0; }
+.menu-row-info {}
+.menu-row-name {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.1rem; font-weight: 600; color: var(--white);
+}
+.menu-row-desc { font-size: .78rem; color: rgba(255,255,255,.4); margin-top: .15rem; }
+
+.menu-row-right { display: flex; align-items: center; gap: .75rem; flex-shrink: 0; }
+.menu-price {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.15rem; font-weight: 700; color: var(--foam);
+}
+.m-badge {
+  font-size: .65rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase;
+  padding: .2rem .6rem; border-radius: 3px;
+}
+.m-badge.pop { background: rgba(200,168,75,.15); color: var(--gold-light); border: 1px solid rgba(200,168,75,.2); }
+.m-badge.vers { background: rgba(46,134,193,.15); color: var(--foam); border: 1px solid rgba(46,134,193,.2); }
+.m-badge.prem { background: rgba(255,255,255,.05); color: rgba(255,255,255,.5); border: 1px solid rgba(255,255,255,.08); }
+
+.menu-col-divider { grid-column: 1; border-right: 1px solid rgba(255,255,255,.04); }
+
+/* ══════════════════════════════════════════
+   ABOUT
+══════════════════════════════════════════ */
+#over {
+  background: var(--deep);
+  padding: 7rem 5%;
+}
+
+.about-wrap {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 6rem; align-items: center;
+  max-width: 1240px; margin: 0 auto;
+}
+
+.about-left {}
+.about-left .s-overline { margin-bottom: .75rem; }
+.about-left .s-title { margin-bottom: 1.5rem; }
+.about-left p {
+  font-size: .95rem; color: rgba(255,255,255,.55);
+  line-height: 1.9; margin-bottom: 1rem;
+}
+
+.features-grid {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 1.25rem; margin-top: 2.5rem;
+}
+.feat-item {
+  padding: 1.2rem;
+  background: rgba(255,255,255,.03);
+  border: 1px solid rgba(255,255,255,.06);
+  border-radius: 10px;
+  transition: border-color .3s;
+}
+.feat-item:hover { border-color: rgba(46,134,193,.25); }
+.feat-item .fi {
+  font-size: 1.5rem; margin-bottom: .6rem; display: block;
+}
+.feat-item strong {
+  display: block; font-size: .88rem; font-weight: 600; color: var(--white); margin-bottom: .2rem;
+}
+.feat-item span { font-size: .78rem; color: rgba(255,255,255,.4); line-height: 1.5; }
+
+.about-right {
+  position: relative;
+}
+
+.about-img-stack {
+  position: relative; padding-bottom: 5rem;
+}
+
+.a-img-main {
+  border-radius: 16px; overflow: hidden;
+  background: linear-gradient(135deg, var(--ocean), var(--tide));
+  aspect-ratio: 4/5;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 7rem; position: relative;
+  box-shadow: 0 30px 80px rgba(12,17,23,.6);
+}
+.a-img-float {
+  position: absolute; bottom: 0; left: -2rem;
+  width: 60%; border-radius: 12px; overflow: hidden;
+  background: linear-gradient(135deg, var(--tide), var(--wave));
+  aspect-ratio: 4/3;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 3.5rem;
+  border: 4px solid var(--deep);
+  box-shadow: 0 20px 50px rgba(12,17,23,.5);
+}
+
+.badge-years {
+  position: absolute; top: 2rem; right: -1.5rem;
+  width: 80px; height: 80px; border-radius: 50%;
+  background: linear-gradient(135deg, #b8932a, var(--gold));
+  display: flex; align-items: center; justify-content: center;
+  flex-direction: column;
+  box-shadow: 0 8px 30px rgba(200,168,75,.4);
+}
+.badge-years strong { font-family: 'Cormorant Garamond', serif; font-size: 1.6rem; font-weight: 700; color: var(--ink); line-height: 1; }
+.badge-years span { font-size: .55rem; font-weight: 700; text-transform: uppercase; letter-spacing: .1em; color: var(--ink); opacity: .7; }
+
+/* ══════════════════════════════════════════
+   OPENING HOURS
+══════════════════════════════════════════ */
+#tijden {
+  background: var(--ink);
+  padding: 7rem 5%;
+}
+
+.tijden-wrap {
+  max-width: 900px; margin: 0 auto;
+}
+.tijden-header { text-align: center; margin-bottom: 3.5rem; }
+
+.hours-table {
+  border: 1px solid rgba(255,255,255,.06);
+  border-radius: 14px; overflow: hidden;
+}
+.hours-row {
+  display: grid; grid-template-columns: 1fr auto auto;
+  align-items: center;
+  padding: 1rem 1.75rem;
+  border-bottom: 1px solid rgba(255,255,255,.04);
+  transition: background .25s;
+  gap: 1rem;
+}
+.hours-row:last-child { border-bottom: none; }
+.hours-row:hover { background: rgba(46,134,193,.04); }
+.hours-row.today-row {
+  background: rgba(26,92,154,.12);
+  border-left: 2px solid var(--wave);
+}
+.h-day { font-size: .9rem; font-weight: 500; color: var(--white); }
+.h-time { font-family: 'Cormorant Garamond', serif; font-size: 1.05rem; color: var(--foam); font-weight: 600; }
+.h-time.closed { color: rgba(255,255,255,.2); font-family: 'Outfit', sans-serif; font-size: .85rem; }
+.h-tag {
+  font-size: .65rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase;
+  background: rgba(46,134,193,.2); color: var(--foam);
+  border: 1px solid rgba(46,134,193,.3);
+  padding: .2rem .65rem; border-radius: 3px;
+}
+
+/* ══════════════════════════════════════════
+   CONTACT
+══════════════════════════════════════════ */
+#contact {
+  background: var(--deep);
+  padding: 7rem 5%;
+}
+
+.contact-wrap {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 5rem; max-width: 1240px; margin: 0 auto;
+  align-items: start;
+}
+
+.contact-left .s-overline { margin-bottom: .75rem; }
+.contact-left .s-title { margin-bottom: 2.5rem; }
+
+.c-item {
+  display: flex; gap: 1.25rem; align-items: flex-start;
+  margin-bottom: 2rem;
+}
+.c-icon {
+  width: 48px; height: 48px; flex-shrink: 0;
+  background: rgba(46,134,193,.12);
+  border: 1px solid rgba(46,134,193,.2);
+  border-radius: 10px; display: flex; align-items: center; justify-content: center;
+  font-size: 1.2rem;
+}
+.c-text label {
+  display: block; font-size: .7rem; font-weight: 600;
+  letter-spacing: .12em; text-transform: uppercase;
+  color: var(--foam); margin-bottom: .35rem;
+}
+.c-text p, .c-text a {
+  font-size: .95rem; color: rgba(255,255,255,.6);
+  line-height: 1.7; text-decoration: none;
+}
+.c-text a:hover { color: var(--white); }
+
+.map-placeholder {
+  background: linear-gradient(135deg, var(--ocean), #0a2040);
+  border: 1px solid rgba(46,134,193,.15);
+  border-radius: 16px; overflow: hidden;
+  position: relative; height: 380px;
+  display: flex; align-items: center; justify-content: center;
+  flex-direction: column; gap: 1.25rem; text-align: center; padding: 2.5rem;
+}
+
+.map-placeholder::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: radial-gradient(ellipse at center, rgba(26,92,154,.3) 0%, transparent 70%);
+}
+
+.map-placeholder > * { position: relative; z-index: 1; }
+
+.map-pin-lg { font-size: 3.5rem; animation: pinBounce 2.5s ease-in-out infinite; }
+@keyframes pinBounce {
+  0%,100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+.map-placeholder h3 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.4rem; font-weight: 600;
+}
+.map-placeholder p { font-size: .85rem; color: rgba(255,255,255,.45); line-height: 1.6; }
+.map-open-btn {
+  display: inline-flex; align-items: center; gap: .5rem;
+  padding: .7rem 1.8rem; border-radius: 6px;
+  background: linear-gradient(135deg, var(--tide), var(--wave));
+  color: #fff; text-decoration: none; font-size: .82rem;
+  font-weight: 600; letter-spacing: .06em; text-transform: uppercase;
+  transition: all .3s; box-shadow: 0 4px 20px rgba(26,92,154,.4);
+  margin-top: .5rem;
+}
+.map-open-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(26,92,154,.6); }
+
+/* ══════════════════════════════════════════
+   FOOTER
+══════════════════════════════════════════ */
+footer {
+  background: #070d16;
+  border-top: 1px solid rgba(255,255,255,.05);
+  padding: 5rem 5% 2.5rem;
+}
+
+.footer-top {
+  display: grid; grid-template-columns: 2fr 1fr 1fr 1fr;
+  gap: 4rem; max-width: 1240px; margin: 0 auto;
+  padding-bottom: 4rem;
+  border-bottom: 1px solid rgba(255,255,255,.05);
+}
+
+.footer-brand .nav-logo { font-size: 1.7rem; margin-bottom: 1rem; display: inline-flex; }
+.footer-brand p {
+  font-size: .85rem; color: rgba(255,255,255,.3);
+  line-height: 1.8; max-width: 260px; margin-bottom: 1.5rem;
+}
+
+.footer-social { display: flex; gap: .6rem; }
+.footer-social .s-link { font-size: .7rem; }
+
+.footer-col {}
+.footer-col h4 {
+  font-size: .7rem; font-weight: 700; letter-spacing: .15em; text-transform: uppercase;
+  color: rgba(255,255,255,.3); margin-bottom: 1.25rem;
+}
+.footer-col ul { list-style: none; }
+.footer-col li { margin-bottom: .65rem; }
+.footer-col a {
+  font-size: .85rem; color: rgba(255,255,255,.45);
+  text-decoration: none; transition: color .25s;
+}
+.footer-col a:hover { color: var(--white); }
+.footer-col .f-contact-item {
+  font-size: .82rem; color: rgba(255,255,255,.4); line-height: 1.7;
+  margin-bottom: .5rem;
+}
+.footer-col .f-contact-item a {
+  color: rgba(255,255,255,.4); text-decoration: none; transition: color .25s;
+}
+.footer-col .f-contact-item a:hover { color: var(--white); }
+
+.footer-bottom {
+  display: flex; justify-content: space-between; align-items: center;
+  max-width: 1240px; margin: 2rem auto 0;
+  flex-wrap: wrap; gap: 1rem;
+}
+.footer-bottom p {
+  font-size: .75rem; color: rgba(255,255,255,.2);
+}
+.footer-bottom-links {
+  display: flex; gap: 1.5rem;
+}
+.footer-bottom-links a {
+  font-size: .75rem; color: rgba(255,255,255,.2);
+  text-decoration: none; transition: color .25s;
+}
+.footer-bottom-links a:hover { color: rgba(255,255,255,.5); }
+
+/* ══════════════════════════════════════════
+   SCROLL REVEAL
+══════════════════════════════════════════ */
+.sr { opacity: 0; transform: translateY(32px); transition: opacity .8s ease, transform .8s ease; }
+.sr.visible { opacity: 1; transform: translateY(0); }
+.sr-delay-1 { transition-delay: .1s !important; }
+.sr-delay-2 { transition-delay: .2s !important; }
+.sr-delay-3 { transition-delay: .3s !important; }
+
+/* ══════════════════════════════════════════
+   BACK TO TOP
+══════════════════════════════════════════ */
+#btt {
+  position: fixed; bottom: 2rem; right: 2rem; z-index: 500;
+  width: 44px; height: 44px; border-radius: 8px;
+  background: rgba(26,92,154,.9);
+  border: 1px solid rgba(46,134,193,.3);
+  color: var(--white); cursor: pointer; font-size: 1rem;
+  display: flex; align-items: center; justify-content: center;
+  opacity: 0; transform: translateY(10px);
+  transition: all .3s;
+  backdrop-filter: blur(8px);
+}
+#btt.show { opacity: 1; transform: translateY(0); }
+#btt:hover { background: var(--wave); }
+
+/* ══════════════════════════════════════════
+   RESPONSIVE
+══════════════════════════════════════════ */
+@media (max-width: 1080px) {
+  .gallery-grid {
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: auto;
+  }
+  .g-item:nth-child(1) { grid-column: 1/3; grid-row: auto; }
+  .g-item:nth-child(n) { grid-column: auto; grid-row: auto; }
+  .footer-top { grid-template-columns: 1fr 1fr; }
+}
+
+@media (max-width: 860px) {
+  .hero-grid, .about-wrap, .contact-wrap { grid-template-columns: 1fr; }
+  .hero-right { display: none; }
+  .menu-list { grid-template-columns: 1fr; }
+  .overlay-right { display: none; }
+  #overlay { grid-template-columns: 1fr; }
+  .nav-center { display: none; }
+  .menu-toggle { display: flex; }
+  .nav-cta { display: none; }
+  .lang-switcher { display: none; }
+  .gallery-grid {
+    display: flex; flex-direction: column;
+  }
+  .g-item { height: 200px; }
+  .footer-top { grid-template-columns: 1fr; gap: 2.5rem; }
+}
+</style>
 </head>
 <body>
 
-    <div id="preloader">
-  <div class="bg-c bg-c1"></div>
-  <div class="bg-c bg-c2"></div>
-  <div class="bg-c bg-c3"></div>
+<!-- ═══ NAVIGATION ═══ -->
+<nav id="nav">
+  <a href="#hero" class="nav-logo">Vis Enzo<span class="dot">●</span><em>Food</em></a>
+  <ul class="nav-center">
+    <li><a href="#gallery">Galerij</a></li>
+    <li><a href="#menu">Menu</a></li>
+    <li><a href="#over">Over Ons</a></li>
+    <li><a href="#tijden">Tijden</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <div class="nav-right">
+    <div class="lang-switcher" id="langNav">
+      <button class="lang-btn active" data-lang="nl" onclick="setLang('nl',this)">NL</button>
+      <span class="lang-sep">|</span>
+      <button class="lang-btn" data-lang="en" onclick="setLang('en',this)">EN</button>
+      <span class="lang-sep">|</span>
+      <button class="lang-btn" data-lang="tr" onclick="setLang('tr',this)">TR</button>
+    </div>
+    <a href="#contact" class="nav-cta">Kom Langs</a>
+    <button class="menu-toggle" id="mToggle" onclick="toggleOverlay()">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
 
-  <div class="ripple-wrap">
-    <div class="rpl"></div>
-    <div class="rpl"></div>
-    <div class="rpl"></div>
-    <div class="rpl"></div>
-    <div class="orb">
-      <img src="img/transparantlogo.png" alt=""
-           onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
-      <div class="orb-fallback"></div>
+<!-- ═══ FULLSCREEN OVERLAY ═══ -->
+<div id="overlay">
+  <div class="overlay-left">
+    <div class="overlay-bg-text">VERS</div>
+    <nav>
+      <ul class="overlay-nav-list">
+        <li><a href="#gallery" onclick="closeOverlay()"><span class="nav-num">01</span> Galerij</a></li>
+        <li><a href="#menu" onclick="closeOverlay()"><span class="nav-num">02</span> Menu</a></li>
+        <li><a href="#over" onclick="closeOverlay()"><span class="nav-num">03</span> Over Ons</a></li>
+        <li><a href="#tijden" onclick="closeOverlay()"><span class="nav-num">04</span> Tijden</a></li>
+        <li><a href="#contact" onclick="closeOverlay()"><span class="nav-num">05</span> Contact</a></li>
+      </ul>
+    </nav>
+  </div>
+  <div class="overlay-right">
+    <p class="overlay-tagline">"Iedere dag brengen wij het beste uit zee naar uw bord — vers, eerlijk en met passie bereid."</p>
+    <div class="overlay-info">
+      <div class="overlay-info-block">
+        <label>Adres</label>
+        <p>Tongelresestraat 270A<br>5613 DV Eindhoven<br>Winkelcentrum Haagdijk</p>
+      </div>
+      <div class="overlay-info-block">
+        <label>Contact</label>
+        <p><a href="tel:0402024756">040 202 4756</a></p>
+      </div>
+      <div class="overlay-info-block">
+        <label>Taal / Language</label>
+        <div class="overlay-langs" id="langOverlay">
+          <button class="o-lang active" data-lang="nl" onclick="setLang('nl',this)">Nederlands</button>
+          <button class="o-lang" data-lang="en" onclick="setLang('en',this)">English</button>
+          <button class="o-lang" data-lang="tr" onclick="setLang('tr',this)">Türkçe</button>
+        </div>
+      </div>
+      <div class="overlay-social">
+        <a class="s-link" href="#">FB</a>
+        <a class="s-link" href="#">IG</a>
+        <a class="s-link" href="#">WA</a>
+      </div>
     </div>
   </div>
+</div>
 
-  <div class="pl-name"><img src="img/logoimg.png" alt="praktijk belevingswereld"></div>
-  <div class="pl-name"><img src="img/logowrd.png" alt="praktijk belevingswereld"></div>
-
-  <div class="breath-guide">
-    <div class="breath-lbl" id="bl">adem rustig in</div>
-    <div class="bar-track">
-      <div class="bar-fill" id="bf"></div>
+<!-- ═══ HERO ═══ -->
+<section id="hero">
+  <div class="hero-deco"></div>
+  <div class="hero-deco2"></div>
+  <div class="hero-grid">
+    <div class="hero-left">
+      <div class="hero-overline" data-i18n="hero.overline">Vers uit de Zee · Eindhoven</div>
+      <h1 class="hero-title">
+        Vis Enzo<br>
+        <em data-i18n="hero.subtitle">Food</em>
+      </h1>
+      <p class="hero-desc" data-i18n="hero.desc">De lekkerste verse vis, zeevruchten en meer — dagvers bij u in Winkelcentrum Haagdijk, Eindhoven.</p>
+      <div class="hero-actions">
+        <a href="#menu" class="btn-gold" data-i18n="hero.cta1">Bekijk Menu</a>
+        <a href="#contact" class="btn-ghost" data-i18n="hero.cta2">Vind Ons</a>
+      </div>
+      <div class="hero-awards">
+        <div class="award">
+          <div class="award-num">20<sub>+</sub></div>
+          <div class="award-label" data-i18n="stat.products">Producten</div>
+        </div>
+        <div class="award-divider"></div>
+        <div class="award">
+          <div class="award-num">6</div>
+          <div class="award-label" data-i18n="stat.days">Dagen/week open</div>
+        </div>
+        <div class="award-divider"></div>
+        <div class="award">
+          <div class="award-num">100<sub>%</sub></div>
+          <div class="award-label" data-i18n="stat.fresh">Dagvers</div>
+        </div>
+      </div>
+    </div>
+    <div class="hero-right">
+      <div class="hero-visual-wrap">
+        <div class="h-card g-v1">
+          <div class="h-img g-v1"><div class="h-img-inner">🐟</div></div>
+          <div class="h-card-label"><strong>Verse Zeebaars</strong><span>Dagelijks vers</span></div>
+          <span class="price-badge">€8,50</span>
+        </div>
+        <div class="h-card g-v2">
+          <div class="h-img g-v2"><div class="h-img-inner">🦐</div></div>
+          <div class="h-card-label"><strong>Hollandse Garnalen</strong><span>Dagvers</span></div>
+          <span class="price-badge">€6,50</span>
+        </div>
+        <div class="h-card g-v3">
+          <div class="h-img g-v3"><div class="h-img-inner">🍣</div></div>
+          <div class="h-card-label"><strong>Gerookte Zalm</strong><span>Ambachtelijk</span></div>
+          <span class="price-badge">€7,50</span>
+        </div>
+      </div>
     </div>
   </div>
+</section>
 
-  <div class="pl-divider"></div>
-  <p class="pl-quote">"Rust begint van binnenuit — welkom."</p>
+<div class="wave-sep" style="background:var(--deep)">
+  <svg viewBox="0 0 1440 50" xmlns="http://www.w3.org/2000/svg">
+    <path d="M0,25 C360,50 720,0 1440,25 L1440,50 L0,50 Z" fill="#0c1117"/>
+  </svg>
+</div>
 
-  <div class="pl-dots">
-    <div class="dot"></div>
-    <div class="dot"></div>
-    <div class="dot"></div>
+<!-- ═══ GALLERY ═══ -->
+<section id="gallery">
+  <div class="section-header sr" style="max-width:1240px;margin:0 auto 3.5rem;">
+    <div>
+      <div class="s-overline" data-i18n="gallery.overline">Ons Aanbod</div>
+      <h2 class="s-title">Verse <em>Galerij</em></h2>
+    </div>
+    <a href="#menu" class="s-link" data-i18n="gallery.link">Bekijk menu</a>
   </div>
-
-  <div class="pl-progress" id="pb"></div>
-</div>
-    
-<div class="progress-bar" id="progressBar"></div>
-
-<header class="header">
-    <div class="nav-container">
-        <a href="index.php" class="logo">
-            <div class="logo-circle"><img src="img/logowrd.png" alt="praktijk belevingswereld"></div>
-        </a>
-
-        <nav class="nav-right">
-            <a href="contact.php">Contact</a>
-            <a href="index.php">Home</a>
-            <a href="therapie.php">Therapie</a>
-            <div class="lang-dropdown">
-                <button class="lang-btn-header">NL ▼</button>
-                <div class="lang-menu">
-                    <button class="lang-option active" data-lang="nl">NL <span class="lang-flag"><img src="https://flagcdn.com/nl.svg" width="30" alt="NL"></span></button>
-                    <button class="lang-option" data-lang="en">EN <span class="lang-flag"><img src="https://flagcdn.com/gb.svg" width="30" alt="EN"></span></button>
-                    <button class="lang-option" data-lang="ar">AR <span class="lang-flag"><img src="https://flagcdn.com/iq.svg" width="30" alt="SA"></span></button>
-                </div>
-            </div>
-        </nav>
-        <div class="menu-toggle"><div class="menu-circle"><span>Menu</span></div></div>
+  <div class="gallery-grid sr">
+    <div class="g-item g-v1">
+      <div class="g-img-bg">🐟</div>
+      <div class="g-overlay"><div class="g-caption"><strong>Verse Zeebaars</strong><span>Dagelijks vers aangeleverd</span></div></div>
+      <span class="g-tag">Bestseller</span>
     </div>
-</header>
-
-<div class="fullscreen-menu">
-    <div class="menu-top">
-        <div class="menu-logo"><img src="img/logoimg.png" alt="praktijk belevingswereld"></div>
-        <div class="menu-close">✕</div>
+    <div class="g-item g-v2">
+      <div class="g-img-bg">🦐</div>
+      <div class="g-overlay"><div class="g-caption"><strong>Hollandse Garnalen</strong><span>100% Dagvers</span></div></div>
     </div>
-    <div class="menu-links">
-        <a href="index.php">Home</a>
-        <a href="therapie.php">Therapie</a>
-        <a href="contact.php">Contact</a>
+    <div class="g-item g-v3">
+      <div class="g-img-bg">🦞</div>
+      <div class="g-overlay"><div class="g-caption"><strong>Kreeft</strong><span>Op bestelling</span></div></div>
+      <span class="g-tag">Premium</span>
     </div>
-    <div class="menu-bottom">
-        <button class="lang-btn active"><span>NL</span><img src="https://flagcdn.com/nl.svg" width="30" alt="NL"></button>
-        <button class="lang-btn"><span>EN</span><img src="https://flagcdn.com/gb.svg" width="30" alt="EN"></button>
-        <button class="lang-btn"><span>AR</span><img src="https://flagcdn.com/iq.svg" width="30" alt="SA"></button>
+    <div class="g-item g-v4">
+      <div class="g-img-bg">🦑</div>
+      <div class="g-overlay"><div class="g-caption"><strong>Calamares</strong><span>Vers inktvis</span></div></div>
     </div>
-</div>
-
-<!-- HERO with multiple floating circles -->
-<section class="hero">
-    <div class="hero-circle hero-circle-1"></div>
-    <div class="hero-circle hero-circle-2"></div>
-    <div class="hero-circle hero-circle-3"></div>
-    <div class="hero-circle hero-circle-4"></div>
-    <h1><img src="img/logoimg.png" alt="praktijk belevingswereld"></h1>
-    <p>"When we are no longer able to change a situation, we are challenged to change ourselves."</p>
-    <p>Viktor E. Frankl, psychiater</p>
-    <div class="hero-buttons">
-    <a href="contact.php" class="btn-hero-primary">contact</a>
-    <a href="#behandelingen" class="btn-hero-secondary">aanmelden</a>
-</div>
+    <div class="g-item g-v5">
+      <div class="g-img-bg">🍤</div>
+      <div class="g-overlay"><div class="g-caption"><strong>Gebakken Scampi</strong><span>Krokant & lekker</span></div></div>
+    </div>
+    <div class="g-item g-v6">
+      <div class="g-img-bg">🐠</div>
+      <div class="g-overlay"><div class="g-caption"><strong>Dorade</strong><span>Heel of filet</span></div></div>
+    </div>
+    <div class="g-item g-v7">
+      <div class="g-img-bg">🍣</div>
+      <div class="g-overlay"><div class="g-caption"><strong>Gerookte Zalm</strong><span>Ambachtelijk gerookt</span></div></div>
+    </div>
+    <div class="g-item g-v8">
+      <div class="g-img-bg">🥪</div>
+      <div class="g-overlay"><div class="g-caption"><strong>Visbroodje</strong><span>Snel & vers</span></div></div>
+      <span class="g-tag">Favoriet</span>
+    </div>
+  </div>
 </section>
 
-<section class="hero-image"></section>
-
-<section class="values-section">
-    <div class="values-inner">
-        <div class="values-heading reveal">
-            <h1>De pilaren van praktijk belevingswereld</h1>
-            <h2><strong>Hier kunt u op vertrouwen:</strong> een praktijk die dichtbij staat, snel schakelt en echt naar u luistert.</h2>
-        </div>
-        <div class="values-grid">
-            <div class="value-box">
-                <div class="value-number">I</div>
-                <h3>Interculturele benadering</h3>
-                <p>Wij begrijpen dat achtergrond, cultuur en identiteit een grote rol spelen in hoe je klachten ervaart én verwerkt. In onze praktijk is er ruimte voor jouw verhaal, in jouw context — met oog voor culturele diversiteit en sensitiviteit.</p>
-            </div>
-            <div class="value-box">
-                <div class="value-number">II</div>
-                <h3>Geen wachttijden</h3>
-                <p>Bij ons hoef je niet maanden te wachten op hulp. Wij geloven dat als je de stap naar therapie zet, je ook snel terecht moet kunnen. Daarom bieden we directe instroom en flexibele planning.</p>
-            </div>
-            <div class="value-box">
-                <div class="value-number">III</div>
-                <h3>Individueel afgestemd aanbod</h3>
-                <p>Geen standaardtrajecten, maar therapie op maat. We kijken naar wie jij bent, wat je nodig hebt, en stemmen het behandeltraject af op jouw doelen, tempo en draagkracht.</p>
-            </div>
-            <div class="value-box">
-                <div class="value-number">IV</div>
-                <h3>Meertalige zorg — NL, EN &amp; AR</h3>
-                <p>Bij onze praktijk begrijpen we hoe belangrijk het is om in je eigen taal gehoord en begrepen te worden. Wij bieden therapie en begeleiding aan in Nederlands, Engels en Arabisch, zonder taalbarrières.</p>
-            </div>
-            <div class="value-box">
-                <div class="value-number">V</div>
-                <h3>Zorg voor kind, jeugd en volwassenen</h3>
-                <p>Onze praktijk biedt psychologische begeleiding voor alle leeftijden. Of het nu gaat om een kind met angstklachten, of een volwassene met burn-out — we bieden zorg die past bij elke levensfase.</p>
-            </div>
-            <div class="value-box">
-                <div class="value-number">VI</div>
-                <h3>Flexibele behandeling op maat</h3>
-                <p>Onze praktijk biedt therapie op meerdere locaties: in Eindhoven en Breda, maar ook volledig online. Zo kun je kiezen wat het beste bij jouw situatie past.</p>
-            </div>
-        </div>
-    </div>
-</section>
-
-<div class="mid-quote reveal">
-    <h1>"De rust van de ziel is het resultaat van een juiste omgang met de eigen gedachten."</h1>
-    <h2>Imam al-Ghazali</h2>
+<div class="wave-sep" style="background:var(--ink)">
+  <svg viewBox="0 0 1440 50" xmlns="http://www.w3.org/2000/svg">
+    <path d="M0,30 C480,55 960,5 1440,30 L1440,50 L0,50 Z" fill="#0e1f33"/>
+  </svg>
 </div>
 
-<section class="contact-section">
-    <div class="contact-container">
-        <h2>Start uw healing journey</h2>
-        <p>Neem vrijblijvend contact op — we staan voor u klaar.</p>
-        <a href="contact.php" class="btn-primary">aanmelden</a>
+<!-- ═══ MENU ═══ -->
+<section id="menu">
+  <div class="menu-wrap">
+    <div class="section-header sr" style="margin-bottom:2.5rem;">
+      <div>
+        <div class="s-overline" data-i18n="menu.overline">Ons Aanbod</div>
+        <h2 class="s-title">Vers <em>Menu</em></h2>
+      </div>
     </div>
+    <div class="menu-tabs-bar sr">
+      <button class="m-tab active" onclick="filterMenu('all',this)" data-i18n="tab.all">Alles</button>
+      <button class="m-tab" onclick="filterMenu('vis',this)" data-i18n="tab.vis">Vis</button>
+      <button class="m-tab" onclick="filterMenu('zeevruchten',this)" data-i18n="tab.zee">Zeevruchten</button>
+      <button class="m-tab" onclick="filterMenu('snack',this)" data-i18n="tab.snack">Snacks</button>
+    </div>
+    <div class="menu-list sr" id="menuGrid"></div>
+  </div>
 </section>
 
-<!--<footer class="footer">
-    <div class="footer-top">
-        <div class="footer-grid">
-            <div class="footer-col">
-                <h4>praktijk belevingswereld</h4>
-                <p>Psychologische zorg met aandacht voor persoonlijke verhalen, culturele context en maatwerk behandeling.</p>
-                <div class="footer-contact">
-                    <p><strong>Adres</strong><br>Tarasconweg 2<br>5627 GB Eindhoven</p>
-                    <p><strong>Email</strong><br>info@beleving.nl</p>
-                    <p><strong>Telefoon</strong><br>+31 (0)6 12345678</p>
-                </div>
-            </div>
-            <div class="footer-col">
-                <h4>Navigatie</h4>
-                <ul>
-                    <li><a href="index.php">Home</a></li>
-                    <li><a href="therapie.php">Therapie</a></li>
-                    <li><a href="contact.php">Contact</a></li>
-                </ul>
-            </div>
-            <div class="footer-col">
-                <h4>Behandelingen</h4>
-                <ul>
-                    <li>Traumatherapie</li>
-                    <li>Angst &amp; Stress</li>
-                    <li>Somberheid</li>
-                    <li>Identiteitsvraagstukken</li>
-                    <li>Relatieproblematiek</li>
-                    <li>Jeugd &amp; Volwassenen</li>
-                </ul>
-            </div>
-            <div class="footer-col">
-                <h4>Praktijkinformatie</h4>
-                <ul>
-                    <li>Geen wachttijden</li>
-                    <li>Meertalige zorg (NL / EN / AR)</li>
-                    <li>Online therapie mogelijk</li>
-                    <li>Vergoeding via zorgverzekering</li>
-                </ul>
-                <div class="footer-opening">
-                    <p><strong>Openingstijden</strong></p>
-                    <p>Ma – Vr: 09:00 – 17:30</p>
-                </div>
-                <div class="footer-social">
-                    <h5>Volg ons</h5>
-                    <div class="social-links">
-                        <a href="#" class="instagram" target="_blank" aria-label="Instagram">
-                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
-                        </a>
-                        <a href="#" class="linkedin" target="_blank" aria-label="LinkedIn">
-                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
-                        </a>
-                        <a href="#" class="facebook" target="_blank" aria-label="Facebook">
-                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="footer-bottom">
-        <div class="footer-bottom-inner">
-            <p>© 2026 praktijk belevingswereld – Alle rechten voorbehouden</p>
-            <div class="footer-legal">
-                <a href="#">Privacyverklaring</a>
-                <a href="#">Algemene voorwaarden</a>
-                <a href="#">Cookiebeleid</a>
-                <a href="#">Klachtenregeling</a>
-            </div>
-        </div>
-    </div>
-</footer>-->
+<div class="wave-sep" style="background:var(--deep)">
+  <svg viewBox="0 0 1440 50" xmlns="http://www.w3.org/2000/svg">
+    <path d="M0,20 C360,45 900,5 1440,30 L1440,50 L0,50 Z" fill="#0e1f33"/>
+  </svg>
+</div>
 
-<footer class="footer">
-    <div class="footer-top">
-        <div class="footer-social">
-            <h5>Volg ons</h5>
-            <img src="img/logoimg.png" alt="praktijk belevingswereld" width="100">
-            <div class="social-links">
-                <a href="#" class="instagram" target="_blank" aria-label="Instagram">
-                    <svg viewBox="0 0 24 24" xmlns="[w3.org](http://www.w3.org/2000/svg)"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
-                </a>
-                <a href="mailto:info@praktijkbelevingswereld.nl" class="email" aria-label="E-mail">
-                    <svg viewBox="0 0 24 24" xmlns="[w3.org](http://www.w3.org/2000/svg)"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
-                </a>
-                <a href="[wa.me](https://wa.me/31612345678)" class="whatsapp" target="_blank" aria-label="WhatsApp">
-                    <svg viewBox="0 0 24 24" xmlns="[w3.org](http://www.w3.org/2000/svg)"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.149-.67.149-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414-.074-.123-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892a11.864 11.864 0 001.791 6.291L.057 24l5.941-1.559a11.847 11.847 0 005.656 1.444h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-                </a>
-            </div>
-        </div>
+<!-- ═══ OVER ONS ═══ -->
+<section id="over">
+  <div class="about-wrap">
+    <div class="about-left sr">
+      <div class="s-overline" data-i18n="about.overline">Over Ons</div>
+      <h2 class="s-title">Passie voor<br><em>Verse Vis</em></h2>
+      <p data-i18n="about.p1">Bij Vis Enzo Food geloven we dat de beste maaltijden beginnen met de versste ingrediënten. Iedere dag selecteren wij zorgvuldig de mooiste producten uit zee.</p>
+      <p data-i18n="about.p2">Wij zijn gevestigd in Winkelcentrum Haagdijk in Eindhoven. Altijd vriendelijk, altijd vers, altijd met een glimlach.</p>
+      <div class="features-grid">
+        <div class="feat-item"><span class="fi">🐡</span><strong data-i18n="feat1.title">Dagverse producten</strong><span data-i18n="feat1.desc">Elke dag verse aanvoer</span></div>
+        <div class="feat-item"><span class="fi">🦞</span><strong data-i18n="feat2.title">Zeevruchten</strong><span data-i18n="feat2.desc">Verse schelpdieren & meer</span></div>
+        <div class="feat-item"><span class="fi">🤝</span><strong data-i18n="feat3.title">Persoonlijk advies</strong><span data-i18n="feat3.desc">Vriendelijke service</span></div>
+        <div class="feat-item"><span class="fi">📍</span><strong data-i18n="feat4.title">Centraal gelegen</strong><span data-i18n="feat4.desc">Winkelcentrum Haagdijk</span></div>
+      </div>
     </div>
-    <div class="footer-bottom">
-        <div class="footer-bottom-inner">
-            <p>© 2026 praktijk belevingswereld – Alle rechten voorbehouden</p>
-            <div class="footer-legal">
-                <a href="#">Privacyverklaring</a>
-                <a href="#">Algemene voorwaarden</a>
-                <a href="#">Cookiebeleid</a>
-                <a href="#">Klachtenregeling</a>
-            </div>
-        </div>
+    <div class="about-right sr sr-delay-2">
+      <div class="about-img-stack">
+        <div class="a-img-main">🐟<div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(12,17,23,.5),transparent);border-radius:16px;"></div></div>
+        <div class="a-img-float">🦐</div>
+        <div class="badge-years"><strong>+</strong><span>Jaren</span></div>
+      </div>
     </div>
+  </div>
+</section>
+
+<!-- ═══ OPENINGSTIJDEN ═══ -->
+<section id="tijden">
+  <div class="tijden-wrap">
+    <div class="tijden-header sr">
+      <div class="s-overline" style="justify-content:center;" data-i18n="hours.overline">Bezoek Ons</div>
+      <h2 class="s-title" data-i18n="hours.title">Openingstijden</h2>
+    </div>
+    <div class="hours-table sr" id="hoursTable"></div>
+  </div>
+</section>
+
+<div class="wave-sep" style="background:var(--deep)">
+  <svg viewBox="0 0 1440 50" xmlns="http://www.w3.org/2000/svg">
+    <path d="M0,15 C500,50 940,0 1440,35 L1440,50 L0,50 Z" fill="#0e1f33"/>
+  </svg>
+</div>
+
+<!-- ═══ CONTACT ═══ -->
+<section id="contact">
+  <div class="contact-wrap">
+    <div class="contact-left sr">
+      <div class="s-overline" data-i18n="contact.overline">Kom Langs</div>
+      <h2 class="s-title">Vind Ons in<br><em>Eindhoven</em></h2>
+      <div class="c-item">
+        <div class="c-icon">📍</div>
+        <div class="c-text">
+          <label data-i18n="contact.addr">Adres</label>
+          <p>Tongelresestraat 270A<br>5613 DV Eindhoven<br>Winkelcentrum Haagdijk</p>
+        </div>
+      </div>
+      <div class="c-item">
+        <div class="c-icon">📞</div>
+        <div class="c-text">
+          <label data-i18n="contact.phone">Telefoon</label>
+          <p><a href="tel:0402024756">040 202 4756</a></p>
+        </div>
+      </div>
+      <div class="c-item">
+        <div class="c-icon">🕐</div>
+        <div class="c-text">
+          <label data-i18n="contact.today">Vandaag</label>
+          <p id="todayLine">–</p>
+        </div>
+      </div>
+    </div>
+    <div class="map-placeholder sr sr-delay-2">
+      <div class="map-pin-lg">📍</div>
+      <h3>Vis Enzo Food</h3>
+      <p>Tongelresestraat 270A<br>5613 DV Eindhoven</p>
+      <a href="https://www.google.com/maps/place/Tongelresestraat+270A,+5613+DV+Eindhoven" target="_blank" class="map-open-btn">Open in Google Maps →</a>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ FOOTER ═══ -->
+<footer>
+  <div class="footer-top">
+    <div class="footer-brand">
+      <a href="#hero" class="nav-logo">Vis Enzo<span class="dot">●</span><em>Food</em></a>
+      <p>Dagverse vis en zeevruchten in het hart van Eindhoven. Kwaliteit die u proeft bij elke hap.</p>
+      <div class="footer-social">
+        <a class="s-link" href="#">FB</a>
+        <a class="s-link" href="#">IG</a>
+        <a class="s-link" href="#">WA</a>
+        <a class="s-link" href="#">TK</a>
+      </div>
+    </div>
+    <div class="footer-col">
+      <h4 data-i18n="footer.nav">Navigatie</h4>
+      <ul>
+        <li><a href="#gallery">Galerij</a></li>
+        <li><a href="#menu">Menu</a></li>
+        <li><a href="#over">Over Ons</a></li>
+        <li><a href="#tijden">Openingstijden</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4 data-i18n="footer.products">Producten</h4>
+      <ul>
+        <li><a href="#menu">Verse Vis</a></li>
+        <li><a href="#menu">Zeevruchten</a></li>
+        <li><a href="#menu">Gerookte Zalm</a></li>
+        <li><a href="#menu">Garnalen</a></li>
+        <li><a href="#menu">Vissnacks</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4 data-i18n="footer.contact">Contact</h4>
+      <div class="f-contact-item">Tongelresestraat 270A<br>5613 DV Eindhoven</div>
+      <div class="f-contact-item"><a href="tel:0402024756">040 202 4756</a></div>
+      <div class="f-contact-item" style="margin-top:.75rem;">
+        <div style="font-size:.7rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.25);margin-bottom:.35rem;" data-i18n="footer.lang">Taal</div>
+        <div style="display:flex;gap:.4rem;">
+          <button class="lang-btn active" data-lang="nl" onclick="setLang('nl',this)">NL</button>
+          <button class="lang-btn" data-lang="en" onclick="setLang('en',this)">EN</button>
+          <button class="lang-btn" data-lang="tr" onclick="setLang('tr',this)">TR</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2025 Vis Enzo Food · Eindhoven · Alle rechten voorbehouden</p>
+    <div class="footer-bottom-links">
+      <a href="#">Privacybeleid</a>
+      <a href="#">Algemene Voorwaarden</a>
+    </div>
+  </div>
 </footer>
 
-<script src="js/script.js"></script>
+<button id="btt" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+
+<script>
+/* ──────────────────────────────────────
+   i18n translations
+────────────────────────────────────── */
+const translations = {
+  nl: {
+    'hero.overline':'Vers uit de Zee · Eindhoven','hero.subtitle':'Food',
+    'hero.desc':'De lekkerste verse vis, zeevruchten en meer — dagvers bij u in Winkelcentrum Haagdijk, Eindhoven.',
+    'hero.cta1':'Bekijk Menu','hero.cta2':'Vind Ons',
+    'stat.products':'Producten','stat.days':'Dagen/week open','stat.fresh':'Dagvers',
+    'gallery.overline':'Ons Aanbod','gallery.link':'Bekijk menu',
+    'menu.overline':'Ons Aanbod','tab.all':'Alles','tab.vis':'Vis','tab.zee':'Zeevruchten','tab.snack':'Snacks',
+    'about.overline':'Over Ons','about.p1':'Bij Vis Enzo Food geloven we dat de beste maaltijden beginnen met de versste ingrediënten. Iedere dag selecteren wij zorgvuldig de mooiste producten uit zee.',
+    'about.p2':'Wij zijn gevestigd in Winkelcentrum Haagdijk in Eindhoven. Altijd vriendelijk, altijd vers, altijd met een glimlach.',
+    'feat1.title':'Dagverse producten','feat1.desc':'Elke dag verse aanvoer','feat2.title':'Zeevruchten','feat2.desc':'Verse schelpdieren & meer',
+    'feat3.title':'Persoonlijk advies','feat3.desc':'Vriendelijke service','feat4.title':'Centraal gelegen','feat4.desc':'Winkelcentrum Haagdijk',
+    'hours.overline':'Bezoek Ons','hours.title':'Openingstijden',
+    'contact.overline':'Kom Langs','contact.addr':'Adres','contact.phone':'Telefoon','contact.today':'Vandaag',
+    'footer.nav':'Navigatie','footer.products':'Producten','footer.contact':'Contact','footer.lang':'Taal'
+  },
+  en: {
+    'hero.overline':'Fresh from the Sea · Eindhoven','hero.subtitle':'Food',
+    'hero.desc':'The finest fresh fish, seafood and more — daily fresh at Winkelcentrum Haagdijk, Eindhoven.',
+    'hero.cta1':'View Menu','hero.cta2':'Find Us',
+    'stat.products':'Products','stat.days':'Days/week open','stat.fresh':'Daily fresh',
+    'gallery.overline':'Our Range','gallery.link':'View menu',
+    'menu.overline':'Our Range','tab.all':'All','tab.vis':'Fish','tab.zee':'Seafood','tab.snack':'Snacks',
+    'about.overline':'About Us','about.p1':'At Vis Enzo Food we believe the best meals start with the freshest ingredients. Every day we carefully select the finest products from the sea.',
+    'about.p2':'Located in Winkelcentrum Haagdijk in Eindhoven. Always friendly, always fresh, always with a smile.',
+    'feat1.title':'Daily fresh','feat1.desc':'Fresh stock every day','feat2.title':'Seafood','feat2.desc':'Fresh shellfish & more',
+    'feat3.title':'Personal advice','feat3.desc':'Friendly service','feat4.title':'Central location','feat4.desc':'Winkelcentrum Haagdijk',
+    'hours.overline':'Visit Us','hours.title':'Opening Hours',
+    'contact.overline':'Come Visit','contact.addr':'Address','contact.phone':'Phone','contact.today':'Today',
+    'footer.nav':'Navigation','footer.products':'Products','footer.contact':'Contact','footer.lang':'Language'
+  },
+  tr: {
+    'hero.overline':'Denizden Taze · Eindhoven','hero.subtitle':'Food',
+    'hero.desc':'En taze balık, deniz ürünleri ve daha fazlası — Winkelcentrum Haagdijk, Eindhoven\'da her gün taze.',
+    'hero.cta1':'Menüyü Gör','hero.cta2':'Bizi Bul',
+    'stat.products':'Ürün','stat.days':'Gün/hafta açık','stat.fresh':'Günlük taze',
+    'gallery.overline':'Ürünlerimiz','gallery.link':'Menüyü gör',
+    'menu.overline':'Ürünlerimiz','tab.all':'Tümü','tab.vis':'Balık','tab.zee':'Deniz Ürünleri','tab.snack':'Atıştırmalık',
+    'about.overline':'Hakkımızda','about.p1':'Vis Enzo Food olarak en iyi yemeklerin en taze malzemelerle başladığına inanıyoruz. Her gün denizden en güzel ürünleri özenle seçiyoruz.',
+    'about.p2':'Eindhoven\'daki Winkelcentrum Haagdijk\'te bulunuyoruz. Her zaman güler yüzlü, her zaman taze.',
+    'feat1.title':'Günlük taze ürünler','feat1.desc':'Her gün taze gelir','feat2.title':'Deniz ürünleri','feat2.desc':'Taze kabuklu & daha fazlası',
+    'feat3.title':'Kişisel tavsiye','feat3.desc':'Samimi hizmet','feat4.title':'Merkezi konum','feat4.desc':'Winkelcentrum Haagdijk',
+    'hours.overline':'Ziyaret Edin','hours.title':'Çalışma Saatleri',
+    'contact.overline':'Gelin','contact.addr':'Adres','contact.phone':'Telefon','contact.today':'Bugün',
+    'footer.nav':'Navigasyon','footer.products':'Ürünler','footer.contact':'İletişim','footer.lang':'Dil'
+  }
+};
+
+let currentLang = 'nl';
+function setLang(lang, btn) {
+  currentLang = lang;
+  // update all lang buttons
+  document.querySelectorAll('.lang-btn, .o-lang').forEach(b => {
+    if(b.dataset.lang === lang) b.classList.add('active');
+    else b.classList.remove('active');
+  });
+  // translate
+  const t = translations[lang] || translations.nl;
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.dataset.i18n;
+    if(t[key]) el.textContent = t[key];
+  });
+  renderMenu(currentFilter);
+  buildHours();
+}
+
+/* ──────────────────────────────────────
+   Menu data
+────────────────────────────────────── */
+const menuItems = [
+  { emoji:'🐟', name:'Gekruide Zeebaars', desc:'Vers gemarineerd met kruiden en citroen', price:'€8,50', cat:'vis', badge:'pop', badgeLabel:'Aanbevolen' },
+  { emoji:'🍤', name:'Gebakken Scampi', desc:'Knapperig gebakken scampi met knoflook', price:'€9,50', cat:'zeevruchten', badge:'pop', badgeLabel:'Populair' },
+  { emoji:'🐠', name:'Hele Dorade', desc:'Vers gevangen, gegrild of gebakken', price:'€10,00', cat:'vis', badge:'', badgeLabel:'' },
+  { emoji:'🦐', name:'Gepelde Garnalen', desc:'Verse Hollandse garnalen, dagvers', price:'€6,50', cat:'zeevruchten', badge:'vers', badgeLabel:'Dagvers' },
+  { emoji:'🐡', name:'Vis Snack Mix', desc:'Diverse krokante vissnacks', price:'€5,00', cat:'snack', badge:'', badgeLabel:'' },
+  { emoji:'🦞', name:'Kreeft Segment', desc:'Verse kreeft, op bestelling', price:'€18,00', cat:'zeevruchten', badge:'prem', badgeLabel:'Premium' },
+  { emoji:'🍣', name:'Gerookte Zalm', desc:'Ambachtelijk gerookte Noorse zalm', price:'€7,50', cat:'vis', badge:'', badgeLabel:'' },
+  { emoji:'🦑', name:'Calamares', desc:'Verse inktvisringen, licht gekruid', price:'€7,00', cat:'zeevruchten', badge:'', badgeLabel:'' },
+  { emoji:'🥪', name:'Visbroodje', desc:'Vers broodje met vis & saus', price:'€4,50', cat:'snack', badge:'pop', badgeLabel:'Favoriet' },
+];
+
+let currentFilter = 'all';
+function filterMenu(cat, btn) {
+  currentFilter = cat;
+  document.querySelectorAll('.m-tab').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  renderMenu(cat);
+}
+
+function renderMenu(filter) {
+  const filtered = filter === 'all' ? menuItems : menuItems.filter(i => i.cat === filter);
+  const grid = document.getElementById('menuGrid');
+  grid.innerHTML = filtered.map(item => `
+    <div class="menu-row">
+      <div class="menu-row-left">
+        <span class="menu-icon">${item.emoji}</span>
+        <div class="menu-row-info">
+          <div class="menu-row-name">${item.name}</div>
+          <div class="menu-row-desc">${item.desc}</div>
+        </div>
+      </div>
+      <div class="menu-row-right">
+        ${item.badge ? `<span class="m-badge ${item.badge}">${item.badgeLabel}</span>` : ''}
+        <span class="menu-price">${item.price}</span>
+      </div>
+    </div>
+  `).join('');
+}
+renderMenu('all');
+
+/* ──────────────────────────────────────
+   Hours
+────────────────────────────────────── */
+const days = [
+  { nl:'Maandag', en:'Monday', tr:'Pazartesi', time:'09:00 – 20:00' },
+  { nl:'Dinsdag', en:'Tuesday', tr:'Salı', time:'09:00 – 20:00' },
+  { nl:'Woensdag', en:'Wednesday', tr:'Çarşamba', time:'09:00 – 20:00' },
+  { nl:'Donderdag', en:'Thursday', tr:'Perşembe', time:'09:00 – 20:00' },
+  { nl:'Vrijdag', en:'Friday', tr:'Cuma', time:'09:00 – 20:00' },
+  { nl:'Zaterdag', en:'Saturday', tr:'Cumartesi', time:'09:00 – 20:00' },
+  { nl:'Zondag', en:'Sunday', tr:'Pazar', time:null },
+];
+
+const todayIdx = (new Date().getDay() + 6) % 7;
+
+function buildHours() {
+  const todayLabels = { nl: 'Vandaag', en: 'Today', tr: 'Bugün' };
+  const closedLabels = { nl: 'Gesloten', en: 'Closed', tr: 'Kapalı' };
+  const table = document.getElementById('hoursTable');
+  table.innerHTML = days.map((d, i) => `
+    <div class="hours-row ${i === todayIdx ? 'today-row' : ''}">
+      <span class="h-day">${d[currentLang] || d.nl}</span>
+      <span class="h-time ${!d.time ? 'closed' : ''}">${d.time || closedLabels[currentLang] || 'Gesloten'}</span>
+      ${i === todayIdx ? `<span class="h-tag">${todayLabels[currentLang] || 'Vandaag'}</span>` : '<span></span>'}
+    </div>
+  `).join('');
+
+  const todayLine = document.getElementById('todayLine');
+  const td = days[todayIdx];
+  if(td.time) {
+    const openMsgs = {nl:`Geopend · ${td.time}`, en:`Open · ${td.time}`, tr:`Açık · ${td.time}`};
+    todayLine.textContent = openMsgs[currentLang] || openMsgs.nl;
+  } else {
+    const closedMsgs = {nl:'Vandaag gesloten', en:'Closed today', tr:'Bugün kapalı'};
+    todayLine.textContent = closedMsgs[currentLang] || closedMsgs.nl;
+  }
+}
+buildHours();
+
+/* ──────────────────────────────────────
+   Overlay
+────────────────────────────────────── */
+function toggleOverlay() {
+  const o = document.getElementById('overlay');
+  const t = document.getElementById('mToggle');
+  const isOpen = o.classList.toggle('open');
+  t.classList.toggle('open', isOpen);
+  document.body.style.overflow = isOpen ? 'hidden' : '';
+}
+function closeOverlay() {
+  document.getElementById('overlay').classList.remove('open');
+  document.getElementById('mToggle').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+/* ──────────────────────────────────────
+   Scroll effects
+────────────────────────────────────── */
+const nav = document.getElementById('nav');
+const btt = document.getElementById('btt');
+window.addEventListener('scroll', () => {
+  nav.classList.toggle('solid', scrollY > 40);
+  btt.classList.toggle('show', scrollY > 500);
+});
+
+const srEls = document.querySelectorAll('.sr');
+const srObs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.1 });
+srEls.forEach(el => srObs.observe(el));
+</script>
 </body>
 </html>
