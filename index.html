@@ -3,1439 +3,1236 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Vis Enzo Food — Vers uit Zee · Eindhoven</title>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+<title>Huda & Roses Dress – Luxury Boutique Eindhoven</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Jost:wght@200;300;400;500&display=swap" rel="stylesheet">
 <style>
 :root {
-  --ink: #0c1117;
-  --deep: #0e1f33;
-  --ocean: #0f3460;
-  --tide: #1a5c9a;
-  --wave: #2e86c1;
-  --foam: #7ec8e3;
-  --mist: #d4eaf7;
-  --parchment: #f9f6f0;
-  --gold: #c8a84b;
-  --gold-light: #e8c97a;
-  --white: #ffffff;
-  --nav-h: 76px;
+  --cream: #f7f3ee;
+  --gold: #c9a96e;
+  --gold-light: #e8d5b0;
+  --gold-glow: rgba(201,169,110,0.4);
+  --black: #0d0b09;
+  --dark: #1a1612;
+  --warm-gray: #8a7f74;
+  --rose: #c4879a;
+  --rose-light: #f0d8df;
+  --white: #fdfbf8;
+  --glass: rgba(253,251,248,0.08);
+  --glass-border: rgba(201,169,110,0.2);
 }
 
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-html { scroll-behavior: smooth; font-size: 16px; }
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+html { scroll-behavior: smooth; overflow-x: hidden; }
 
 body {
-  font-family: 'Outfit', sans-serif;
-  background: var(--ink);
-  color: var(--white);
+  font-family: 'Jost', sans-serif;
+  background: var(--cream);
+  color: var(--black);
+  cursor: none;
   overflow-x: hidden;
 }
 
-/* ══════════════════════════════════════════
-   NAVIGATION
-══════════════════════════════════════════ */
-#nav {
-  position: fixed; top: 0; left: 0; right: 0;
-  height: var(--nav-h);
-  z-index: 1000;
-  display: flex; align-items: center; justify-content: space-between;
-  padding: 0 5%;
-  transition: background .4s, border-color .4s;
+/* ─── CUSTOM CURSOR ─── */
+#cursor {
+  width: 12px; height: 12px;
+  background: var(--gold);
+  border-radius: 50%;
+  position: fixed; top: 0; left: 0;
+  pointer-events: none; z-index: 9999;
+  transform: translate(-50%,-50%);
+  transition: transform 0.1s, width 0.3s, height 0.3s, background 0.3s;
+  mix-blend-mode: multiply;
 }
-#nav.solid {
-  background: rgba(12,17,23,.96);
-  backdrop-filter: blur(20px);
-  border-bottom: 1px solid rgba(46,134,193,.15);
+#cursor-ring {
+  width: 36px; height: 36px;
+  border: 1px solid var(--gold);
+  border-radius: 50%;
+  position: fixed; top: 0; left: 0;
+  pointer-events: none; z-index: 9998;
+  transform: translate(-50%,-50%);
+  transition: transform 0.15s ease, width 0.3s, height 0.3s, opacity 0.3s;
+  opacity: 0.6;
 }
+body:hover #cursor { opacity: 1; }
+a:hover ~ #cursor, button:hover ~ #cursor { transform: translate(-50%,-50%) scale(2.5); }
 
+/* ─── PRELOADER ─── */
+#preloader {
+  position: fixed; inset: 0;
+  background: var(--black);
+  z-index: 10000;
+  display: flex; align-items: center; justify-content: center;
+  overflow: hidden;
+}
+.curtain-left, .curtain-right {
+  position: absolute; top: 0; width: 50%; height: 100%;
+  background: var(--dark);
+  transition: transform 1.4s cubic-bezier(0.76, 0, 0.24, 1);
+  z-index: 2;
+}
+.curtain-left { left: 0; transform-origin: left; }
+.curtain-right { right: 0; transform-origin: right; }
+.preloader-brand {
+  text-align: center; z-index: 3; position: relative;
+  opacity: 0; transform: translateY(20px);
+  transition: opacity 0.8s ease 0.3s, transform 0.8s ease 0.3s;
+}
+.preloader-brand .pre-name {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(2.5rem, 6vw, 5rem);
+  font-weight: 300;
+  color: var(--cream);
+  letter-spacing: 0.15em;
+  line-height: 1.1;
+}
+.preloader-brand .pre-sub {
+  font-family: 'Jost', sans-serif;
+  font-weight: 200;
+  font-size: 0.7rem;
+  letter-spacing: 0.4em;
+  color: var(--gold);
+  text-transform: uppercase;
+  margin-top: 0.8rem;
+}
+.pre-line {
+  width: 0; height: 1px; background: var(--gold);
+  margin: 1rem auto;
+  transition: width 1s ease 0.8s;
+}
+#preloader.active .preloader-brand { opacity: 1; transform: translateY(0); }
+#preloader.active .pre-line { width: 120px; }
+#preloader.open .curtain-left { transform: translateX(-100%); }
+#preloader.open .curtain-right { transform: translateX(100%); }
+
+/* ─── NAVBAR ─── */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+  padding: 1.5rem 4rem;
+  display: flex; align-items: center; justify-content: space-between;
+  transition: background 0.4s, padding 0.4s, backdrop-filter 0.4s;
+}
+nav.scrolled {
+  background: rgba(247,243,238,0.92);
+  backdrop-filter: blur(20px);
+  padding: 1rem 4rem;
+  border-bottom: 1px solid var(--glass-border);
+}
 .nav-logo {
   font-family: 'Cormorant Garamond', serif;
-  font-size: 1.55rem; font-weight: 700;
-  letter-spacing: .03em; color: var(--white);
+  font-size: 1.4rem; font-weight: 400;
+  letter-spacing: 0.12em;
+  color: var(--cream);
   text-decoration: none;
-  display: flex; align-items: baseline; gap: .35rem;
+  transition: color 0.4s;
 }
-.nav-logo em {
-  font-style: italic; color: var(--foam);
+nav.scrolled .nav-logo { color: var(--black); }
+.nav-logo span { color: var(--gold); }
+
+.hamburger {
+  width: 36px; height: 20px;
+  display: flex; flex-direction: column;
+  justify-content: space-between;
+  cursor: pointer; z-index: 1001; background: none; border: none;
+}
+.hamburger span {
+  display: block; height: 1px;
+  background: var(--cream);
+  transition: transform 0.4s, opacity 0.4s, background 0.4s, width 0.4s;
+  transform-origin: center;
+}
+.hamburger span:nth-child(2) { width: 60%; margin-left: auto; }
+nav.scrolled .hamburger span { background: var(--black); }
+.hamburger.open span:nth-child(1) { transform: translateY(9.5px) rotate(45deg); background: var(--cream) !important; }
+.hamburger.open span:nth-child(2) { opacity: 0; width: 100%; }
+.hamburger.open span:nth-child(3) { transform: translateY(-9.5px) rotate(-45deg); background: var(--cream) !important; }
+
+/* ─── PORTAL MENU ─── */
+#portal {
+  position: fixed; inset: 0; z-index: 999;
+  background: rgba(13,11,9,0.96);
+  backdrop-filter: blur(30px);
+  display: flex; align-items: center; justify-content: center;
+  clip-path: circle(0% at 95% 5%);
+  transition: clip-path 0.8s cubic-bezier(0.76, 0, 0.24, 1);
+  pointer-events: none;
+}
+#portal.open {
+  clip-path: circle(150% at 95% 5%);
+  pointer-events: all;
+}
+.portal-inner { text-align: center; }
+.portal-nav {
+  list-style: none;
+  display: flex; flex-direction: column; gap: 0.5rem;
+}
+.portal-nav li {
+  opacity: 0; transform: translateY(30px);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+#portal.open .portal-nav li:nth-child(1) { opacity:1; transform:translateY(0); transition-delay:0.2s; }
+#portal.open .portal-nav li:nth-child(2) { opacity:1; transform:translateY(0); transition-delay:0.28s; }
+#portal.open .portal-nav li:nth-child(3) { opacity:1; transform:translateY(0); transition-delay:0.36s; }
+#portal.open .portal-nav li:nth-child(4) { opacity:1; transform:translateY(0); transition-delay:0.44s; }
+#portal.open .portal-nav li:nth-child(5) { opacity:1; transform:translateY(0); transition-delay:0.52s; }
+#portal.open .portal-nav li:nth-child(6) { opacity:1; transform:translateY(0); transition-delay:0.6s; }
+.portal-nav a {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(2.5rem, 6vw, 5rem);
   font-weight: 300;
-}
-.nav-logo .dot { color: var(--gold); font-size: .6rem; margin: 0 .1rem; vertical-align: middle; }
-
-.nav-center {
-  display: flex; gap: 2.5rem; list-style: none;
-  align-items: center;
-}
-.nav-center a {
-  font-size: .82rem; font-weight: 500;
-  letter-spacing: .1em; text-transform: uppercase;
-  color: rgba(255,255,255,.6);
+  color: var(--cream);
   text-decoration: none;
-  transition: color .25s;
+  letter-spacing: 0.05em;
+  line-height: 1.2;
+  display: inline-block;
   position: relative;
+  transition: color 0.3s;
 }
-.nav-center a::after {
-  content: ''; position: absolute; bottom: -3px; left: 0; right: 0;
-  height: 1px; background: var(--foam);
-  transform: scaleX(0); transition: transform .3s;
-  transform-origin: left;
-}
-.nav-center a:hover { color: var(--white); }
-.nav-center a:hover::after { transform: scaleX(1); }
-
-.nav-right {
-  display: flex; align-items: center; gap: 1rem;
-}
-
-.lang-switcher {
-  display: flex; align-items: center; gap: .2rem;
-  font-size: .75rem; font-weight: 600; letter-spacing: .08em;
-}
-.lang-btn {
-  padding: .3rem .55rem; border-radius: 4px;
-  background: transparent; border: none; cursor: pointer;
-  color: rgba(255,255,255,.45); font-family: 'Outfit', sans-serif;
-  font-size: .75rem; font-weight: 600; letter-spacing: .08em;
-  text-transform: uppercase; transition: all .2s;
-}
-.lang-btn.active, .lang-btn:hover {
-  color: var(--white); background: rgba(46,134,193,.2);
-}
-.lang-sep { color: rgba(255,255,255,.2); font-size: .65rem; }
-
-.nav-cta {
-  padding: .55rem 1.4rem;
-  background: linear-gradient(135deg, var(--tide), var(--wave));
-  color: #fff; border: none; border-radius: 6px;
-  font-family: 'Outfit', sans-serif;
-  font-size: .8rem; font-weight: 600; letter-spacing: .06em; text-transform: uppercase;
-  cursor: pointer; text-decoration: none;
-  transition: all .3s;
-  box-shadow: 0 4px 20px rgba(46,134,193,.3);
-}
-.nav-cta:hover { transform: translateY(-1px); box-shadow: 0 8px 30px rgba(46,134,193,.5); }
-
-.menu-toggle {
-  display: none;
-  flex-direction: column; gap: 5px; cursor: pointer;
-  background: none; border: none; padding: .3rem;
-}
-.menu-toggle span {
-  display: block; width: 24px; height: 1.5px;
-  background: var(--white); transition: all .35s;
-}
-.menu-toggle.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
-.menu-toggle.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
-.menu-toggle.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
-
-/* ══════════════════════════════════════════
-   FULLSCREEN MENU OVERLAY
-══════════════════════════════════════════ */
-#overlay {
-  position: fixed; inset: 0; z-index: 990;
-  display: grid; grid-template-columns: 1fr 1fr;
-  opacity: 0; pointer-events: none;
-  transition: opacity .5s;
-}
-#overlay.open { opacity: 1; pointer-events: all; }
-
-.overlay-left {
-  background: var(--ink);
-  display: flex; flex-direction: column; justify-content: center;
-  padding: calc(var(--nav-h) + 3rem) 8% 4rem;
-  position: relative; overflow: hidden;
-}
-.overlay-left::after {
+.portal-nav a::after {
   content: '';
-  position: absolute; right: 0; top: 10%; bottom: 10%;
-  width: 1px; background: linear-gradient(to bottom, transparent, rgba(46,134,193,.2), transparent);
+  position: absolute; bottom: 2px; left: 0;
+  width: 0; height: 1px;
+  background: var(--gold);
+  transition: width 0.4s ease;
 }
-
-.overlay-bg-text {
-  position: absolute; bottom: -3rem; left: -1rem;
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 18rem; font-weight: 700;
-  color: rgba(255,255,255,.02); line-height: 1;
-  pointer-events: none; user-select: none; white-space: nowrap;
+.portal-nav a:hover { color: var(--gold); }
+.portal-nav a:hover::after { width: 100%; }
+.portal-bottom {
+  margin-top: 3rem;
+  display: flex; gap: 2rem; justify-content: center;
+  opacity: 0; transform: translateY(20px);
+  transition: opacity 0.5s ease 0.65s, transform 0.5s ease 0.65s;
 }
-
-.overlay-nav-list { list-style: none; }
-.overlay-nav-list li {
-  overflow: hidden;
-  margin-bottom: .25rem;
-}
-.overlay-nav-list a {
-  display: flex; align-items: center; gap: 1.5rem;
-  font-family: 'Cormorant Garamond', serif;
-  font-size: clamp(2.8rem, 5vw, 4.5rem);
-  font-weight: 600; line-height: 1.2;
-  color: rgba(255,255,255,.2);
+#portal.open .portal-bottom { opacity: 1; transform: translateY(0); }
+.portal-social {
+  font-size: 0.65rem; letter-spacing: 0.3em;
+  text-transform: uppercase; color: var(--gold);
   text-decoration: none;
-  padding: .4rem 0;
-  transition: color .4s, transform .4s;
-  transform: translateY(100%);
+  transition: opacity 0.3s;
 }
-#overlay.open .overlay-nav-list a {
-  transform: translateY(0);
-  transition: color .4s, transform .6s cubic-bezier(0.16, 1, 0.3, 1);
-}
-#overlay.open .overlay-nav-list li:nth-child(1) a { transition-delay: .1s; }
-#overlay.open .overlay-nav-list li:nth-child(2) a { transition-delay: .15s; }
-#overlay.open .overlay-nav-list li:nth-child(3) a { transition-delay: .2s; }
-#overlay.open .overlay-nav-list li:nth-child(4) a { transition-delay: .25s; }
-#overlay.open .overlay-nav-list li:nth-child(5) a { transition-delay: .3s; }
+.portal-social:hover { opacity: 0.6; }
 
-.overlay-nav-list a .nav-num {
-  font-size: .8rem; font-weight: 400; font-family: 'Outfit', sans-serif;
-  color: rgba(255,255,255,.2); letter-spacing: .1em; margin-top: .4rem;
-  transition: color .4s;
-}
-.overlay-nav-list a:hover { color: var(--white); }
-.overlay-nav-list a:hover .nav-num { color: var(--foam); }
-
-.overlay-right {
-  background: var(--deep);
-  display: flex; flex-direction: column; justify-content: space-between;
-  padding: calc(var(--nav-h) + 3rem) 7% 4rem;
-}
-
-.overlay-tagline {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 1.1rem; font-style: italic;
-  color: rgba(255,255,255,.4); line-height: 1.7;
-  max-width: 320px;
-  opacity: 0; transform: translateY(20px);
-  transition: opacity .5s .35s, transform .5s .35s;
-}
-#overlay.open .overlay-tagline { opacity: 1; transform: translateY(0); }
-
-.overlay-info {
-  opacity: 0; transform: translateY(20px);
-  transition: opacity .5s .4s, transform .5s .4s;
-}
-#overlay.open .overlay-info { opacity: 1; transform: translateY(0); }
-
-.overlay-info-block { margin-bottom: 2.5rem; }
-.overlay-info-block label {
-  display: block; font-size: .7rem; font-weight: 600;
-  letter-spacing: .14em; text-transform: uppercase;
-  color: var(--foam); margin-bottom: .6rem;
-}
-.overlay-info-block p {
-  font-size: .92rem; color: rgba(255,255,255,.55); line-height: 1.7;
-}
-.overlay-info-block a {
-  color: rgba(255,255,255,.55); text-decoration: none;
-  transition: color .25s;
-}
-.overlay-info-block a:hover { color: var(--white); }
-
-.overlay-langs {
-  display: flex; gap: .75rem; flex-wrap: wrap;
-}
-.o-lang {
-  padding: .45rem 1rem;
-  border: 1px solid rgba(255,255,255,.12);
-  border-radius: 4px; cursor: pointer; background: transparent;
-  font-family: 'Outfit', sans-serif; font-size: .8rem; font-weight: 500;
-  color: rgba(255,255,255,.45); transition: all .25s;
-}
-.o-lang.active, .o-lang:hover {
-  border-color: var(--foam); color: var(--white);
-  background: rgba(126,200,227,.08);
-}
-
-.overlay-social {
-  display: flex; gap: 1rem;
-}
-.s-link {
-  width: 38px; height: 38px; border: 1px solid rgba(255,255,255,.1);
-  border-radius: 6px; display: flex; align-items: center; justify-content: center;
-  text-decoration: none; color: rgba(255,255,255,.4);
-  font-size: .78rem; font-weight: 600; letter-spacing: .06em;
-  transition: all .25s;
-}
-.s-link:hover { border-color: var(--foam); color: var(--white); background: rgba(126,200,227,.08); }
-
-/* ══════════════════════════════════════════
-   HERO
-══════════════════════════════════════════ */
+/* ─── HERO ─── */
 #hero {
-  min-height: 100vh;
-  display: flex; align-items: center;
+  height: 100vh; min-height: 700px;
   position: relative; overflow: hidden;
-  padding: var(--nav-h) 5% 0;
-  background: linear-gradient(170deg, var(--ink) 0%, var(--deep) 55%, #112949 100%);
+  display: flex; align-items: flex-end;
+  padding: 0 4rem 5rem;
 }
-
-.hero-grid {
-  display: grid; grid-template-columns: 1fr 1fr;
-  gap: 4rem; align-items: center;
-  max-width: 1240px; margin: 0 auto; width: 100%;
-  padding: 5rem 0;
+.hero-slides { position: absolute; inset: 0; }
+.hero-slide {
+  position: absolute; inset: 0;
+  background-size: cover; background-position: center;
+  opacity: 0;
+  transition: opacity 1.5s ease;
 }
-
-.hero-left { position: relative; z-index: 2; }
-
-.hero-overline {
-  display: inline-flex; align-items: center; gap: .6rem;
-  font-size: .72rem; font-weight: 600; letter-spacing: .18em; text-transform: uppercase;
-  color: var(--foam);
+.hero-slide.active { opacity: 1; }
+/* Gradient overlays as hero bg visuals */
+.hero-slide:nth-child(1) { background: linear-gradient(135deg, #1a0e0a 0%, #3d2219 40%, #6b3d2e 70%, #c4879a 100%); }
+.hero-slide:nth-child(2) { background: linear-gradient(135deg, #0d0b09 0%, #2a2018 40%, #5c4a2e 70%, #c9a96e 100%); }
+.hero-slide:nth-child(3) { background: linear-gradient(135deg, #12100e 0%, #1e1a15 40%, #3d3028 70%, #8a7f74 100%); }
+/* Decorative fabric texture */
+.hero-slide::before {
+  content: '';
+  position: absolute; inset: 0;
+  background-image: repeating-linear-gradient(
+    45deg, transparent, transparent 2px,
+    rgba(255,255,255,0.015) 2px, rgba(255,255,255,0.015) 4px
+  );
+}
+.hero-overlay {
+  position: absolute; inset: 0;
+  background: linear-gradient(to top, rgba(13,11,9,0.7) 0%, rgba(13,11,9,0.1) 60%, transparent 100%);
+}
+.hero-content { position: relative; z-index: 2; max-width: 700px; }
+.hero-tag {
+  font-size: 0.65rem; letter-spacing: 0.4em;
+  text-transform: uppercase; color: var(--gold);
   margin-bottom: 1.5rem;
+  opacity: 0; transform: translateY(20px);
+  animation: fadeUp 0.8s ease 0.5s forwards;
 }
-.hero-overline::before {
-  content: ''; width: 28px; height: 1px; background: var(--foam);
-}
-
 .hero-title {
   font-family: 'Cormorant Garamond', serif;
-  font-size: clamp(3.5rem, 7vw, 6.5rem);
-  font-weight: 700; line-height: 1.0;
-  margin-bottom: 1.5rem;
-}
-.hero-title em {
-  font-style: italic; color: var(--foam);
-  display: block; font-weight: 300;
-}
-.hero-title strong { color: var(--gold); }
-
-.hero-desc {
-  font-size: .98rem; color: rgba(255,255,255,.55);
-  line-height: 1.85; margin-bottom: 2.5rem;
-  max-width: 420px;
-}
-
-.hero-actions {
-  display: flex; gap: 1rem; align-items: center; flex-wrap: wrap;
-}
-.btn-gold {
-  padding: .85rem 2.2rem;
-  background: linear-gradient(135deg, #b8932a, var(--gold));
-  color: var(--ink); border: none; border-radius: 6px;
-  font-family: 'Outfit', sans-serif; font-size: .85rem;
-  font-weight: 600; letter-spacing: .06em; text-transform: uppercase;
-  cursor: pointer; text-decoration: none;
-  transition: all .3s; box-shadow: 0 4px 24px rgba(200,168,75,.3);
-}
-.btn-gold:hover { transform: translateY(-2px); box-shadow: 0 8px 36px rgba(200,168,75,.5); }
-
-.btn-ghost {
-  padding: .85rem 2.2rem;
-  background: transparent;
-  color: rgba(255,255,255,.65);
-  border: 1px solid rgba(255,255,255,.15);
-  border-radius: 6px;
-  font-family: 'Outfit', sans-serif; font-size: .85rem;
-  font-weight: 500; letter-spacing: .04em;
-  cursor: pointer; text-decoration: none;
-  transition: all .3s;
-}
-.btn-ghost:hover { border-color: rgba(255,255,255,.4); color: var(--white); }
-
-.hero-awards {
-  display: flex; gap: 2.5rem; margin-top: 3.5rem; flex-wrap: wrap;
-}
-.award { text-align: left; }
-.award-num {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 2.2rem; font-weight: 700; color: var(--white);
-  line-height: 1;
-}
-.award-num sub { font-size: 1rem; vertical-align: baseline; }
-.award-label {
-  font-size: .72rem; color: rgba(255,255,255,.4);
-  letter-spacing: .1em; text-transform: uppercase; margin-top: .2rem;
-}
-.award-divider { width: 1px; background: rgba(255,255,255,.08); align-self: stretch; }
-
-.hero-right { position: relative; z-index: 2; }
-
-.hero-visual-wrap {
-  position: relative;
-  display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: auto auto;
-  gap: 1rem;
-}
-
-.h-card {
-  border-radius: 16px; overflow: hidden;
-  position: relative;
-}
-.h-card:nth-child(1) { grid-column: 1 / 3; }
-
-.h-img {
-  width: 100%; aspect-ratio: 16/10;
-  object-fit: cover; display: block;
-  background: linear-gradient(135deg, #0f3460, #1a5c9a);
-  position: relative;
-}
-.h-card:nth-child(1) .h-img { aspect-ratio: 21/10; }
-
-.h-img-inner {
-  width: 100%; height: 100%;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 5rem;
-  position: absolute; inset: 0;
-}
-.h-card:nth-child(2) .h-img-inner,
-.h-card:nth-child(3) .h-img-inner { font-size: 3.5rem; }
-
-.h-card-label {
-  position: absolute; bottom: 0; left: 0; right: 0;
-  padding: 1.2rem 1.2rem .9rem;
-  background: linear-gradient(to top, rgba(12,17,23,.9) 60%, transparent);
-}
-.h-card-label strong {
-  display: block; font-size: .9rem; font-weight: 600; color: var(--white);
-}
-.h-card-label span {
-  font-size: .75rem; color: rgba(255,255,255,.45); margin-top: .1rem; display: block;
-}
-
-.price-badge {
-  position: absolute; top: 1rem; right: 1rem;
-  background: rgba(12,17,23,.75);
-  backdrop-filter: blur(8px);
-  border: 1px solid rgba(200,168,75,.3);
-  color: var(--gold-light); font-size: .82rem; font-weight: 600;
-  padding: .3rem .8rem; border-radius: 50px;
-}
-
-.hero-deco {
-  position: absolute; right: -6%; top: 20%;
-  width: 380px; height: 380px; border-radius: 50%;
-  background: radial-gradient(circle, rgba(26,92,154,.25) 0%, transparent 70%);
-  pointer-events: none;
-}
-.hero-deco2 {
-  position: absolute; left: -4%; bottom: 15%;
-  width: 260px; height: 260px; border-radius: 50%;
-  background: radial-gradient(circle, rgba(46,134,193,.1) 0%, transparent 70%);
-  pointer-events: none;
-}
-
-/* ══════════════════════════════════════════
-   WAVE
-══════════════════════════════════════════ */
-.wave-sep { line-height: 0; }
-.wave-sep svg { display: block; width: 100%; }
-
-/* ══════════════════════════════════════════
-   GALLERY
-══════════════════════════════════════════ */
-#gallery {
-  background: var(--deep);
-  padding: 7rem 5%;
-}
-
-.section-header {
-  display: flex; justify-content: space-between; align-items: flex-end;
-  margin-bottom: 3.5rem; max-width: 1240px; margin-left: auto; margin-right: auto;
-}
-.section-header.center { text-align: center; flex-direction: column; align-items: center; gap: 1rem; margin-bottom: 3.5rem; }
-
-.s-overline {
-  font-size: .7rem; font-weight: 600; letter-spacing: .18em; text-transform: uppercase;
-  color: var(--foam); display: flex; align-items: center; gap: .6rem; margin-bottom: .75rem;
-}
-.s-overline::before { content: ''; width: 24px; height: 1px; background: var(--foam); }
-
-.s-title {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: clamp(2.2rem, 4.5vw, 3.8rem);
-  font-weight: 600; line-height: 1.1; color: var(--white);
-}
-.s-title em { font-style: italic; color: var(--foam); }
-
-.s-link {
-  font-size: .78rem; font-weight: 600; letter-spacing: .1em; text-transform: uppercase;
-  color: rgba(255,255,255,.45); text-decoration: none;
-  display: flex; align-items: center; gap: .5rem; transition: color .3s;
-  white-space: nowrap;
-}
-.s-link:hover { color: var(--foam); }
-.s-link::after { content: '→'; transition: transform .3s; }
-.s-link:hover::after { transform: translateX(4px); }
-
-/* Gallery masonry grid */
-.gallery-grid {
-  max-width: 1240px; margin: 0 auto;
-  display: grid;
-  grid-template-columns: repeat(12, 1fr);
-  grid-template-rows: repeat(3, 220px);
-  gap: 12px;
-}
-
-.g-item {
-  border-radius: 12px; overflow: hidden;
-  position: relative; cursor: pointer;
-  background: linear-gradient(135deg, var(--ocean), var(--deep));
-}
-.g-item:hover .g-overlay { opacity: 1; }
-.g-item:hover .g-img-bg { transform: scale(1.05); }
-
-.g-item:nth-child(1) { grid-column: 1/6; grid-row: 1/3; }
-.g-item:nth-child(2) { grid-column: 6/9; grid-row: 1/2; }
-.g-item:nth-child(3) { grid-column: 9/13; grid-row: 1/2; }
-.g-item:nth-child(4) { grid-column: 6/10; grid-row: 2/3; }
-.g-item:nth-child(5) { grid-column: 10/13; grid-row: 2/3; }
-.g-item:nth-child(6) { grid-column: 1/5; grid-row: 3/4; }
-.g-item:nth-child(7) { grid-column: 5/9; grid-row: 3/4; }
-.g-item:nth-child(8) { grid-column: 9/13; grid-row: 3/4; }
-
-.g-img-bg {
-  position: absolute; inset: 0;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 4.5rem; transition: transform .5s ease;
-}
-.g-item:nth-child(1) .g-img-bg { font-size: 6rem; }
-
-.g-overlay {
-  position: absolute; inset: 0;
-  background: linear-gradient(to top, rgba(12,17,23,.85) 0%, rgba(12,17,23,.2) 60%, transparent 100%);
-  opacity: 0; transition: opacity .4s;
-  display: flex; align-items: flex-end;
-  padding: 1.2rem;
-}
-.g-item:nth-child(1) .g-overlay { opacity: .7; }
-.g-item:nth-child(1) .g-overlay { align-items: flex-end; }
-
-.g-caption strong {
-  display: block; font-size: .95rem; font-weight: 600; color: var(--white);
-}
-.g-caption span {
-  font-size: .75rem; color: rgba(255,255,255,.5);
-}
-.g-tag {
-  position: absolute; top: .9rem; left: .9rem;
-  font-size: .65rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase;
-  background: rgba(200,168,75,.2); color: var(--gold-light);
-  border: 1px solid rgba(200,168,75,.3);
-  padding: .25rem .65rem; border-radius: 4px;
-}
-
-/* color variants for gallery backgrounds */
-.g-v1 { background: linear-gradient(135deg, #0f3460, #1a5c9a); }
-.g-v2 { background: linear-gradient(135deg, #0c2a4a, #0e4d8a); }
-.g-v3 { background: linear-gradient(135deg, #1a3a5c, #2e6a9e); }
-.g-v4 { background: linear-gradient(135deg, #082540, #0f3460); }
-.g-v5 { background: linear-gradient(135deg, #0d2845, #1a4d7a); }
-.g-v6 { background: linear-gradient(135deg, #091e38, #1254a3); }
-.g-v7 { background: linear-gradient(135deg, #0a2a50, #205ea0); }
-.g-v8 { background: linear-gradient(135deg, #0e1f33, #1e4070); }
-
-/* ══════════════════════════════════════════
-   MENU SECTION
-══════════════════════════════════════════ */
-#menu {
-  background: var(--ink);
-  padding: 7rem 5%;
-}
-
-.menu-wrap { max-width: 1240px; margin: 0 auto; }
-
-.menu-tabs-bar {
-  display: flex; gap: .5rem; flex-wrap: wrap;
-  margin-bottom: 3rem;
-}
-.m-tab {
-  padding: .5rem 1.4rem; border-radius: 4px;
-  background: transparent;
-  border: 1px solid rgba(255,255,255,.08);
-  color: rgba(255,255,255,.45);
-  font-family: 'Outfit', sans-serif; font-size: .8rem;
-  font-weight: 600; letter-spacing: .08em; text-transform: uppercase;
-  cursor: pointer; transition: all .3s;
-}
-.m-tab.active, .m-tab:hover {
-  background: rgba(46,134,193,.15);
-  border-color: rgba(46,134,193,.4);
-  color: var(--foam);
-}
-
-.menu-list {
-  display: grid; grid-template-columns: 1fr 1fr; gap: 0;
-}
-.menu-row {
-  display: flex; justify-content: space-between; align-items: center;
-  padding: 1.4rem 0;
-  border-bottom: 1px solid rgba(255,255,255,.05);
-  gap: 1.5rem;
-  transition: background .25s;
-  cursor: default;
-}
-.menu-row:hover { background: rgba(46,134,193,.04); }
-
-.menu-row-left { display: flex; align-items: center; gap: 1rem; }
-.menu-icon { font-size: 1.8rem; width: 52px; text-align: center; flex-shrink: 0; }
-.menu-row-info {}
-.menu-row-name {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 1.1rem; font-weight: 600; color: var(--white);
-}
-.menu-row-desc { font-size: .78rem; color: rgba(255,255,255,.4); margin-top: .15rem; }
-
-.menu-row-right { display: flex; align-items: center; gap: .75rem; flex-shrink: 0; }
-.menu-price {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 1.15rem; font-weight: 700; color: var(--foam);
-}
-.m-badge {
-  font-size: .65rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase;
-  padding: .2rem .6rem; border-radius: 3px;
-}
-.m-badge.pop { background: rgba(200,168,75,.15); color: var(--gold-light); border: 1px solid rgba(200,168,75,.2); }
-.m-badge.vers { background: rgba(46,134,193,.15); color: var(--foam); border: 1px solid rgba(46,134,193,.2); }
-.m-badge.prem { background: rgba(255,255,255,.05); color: rgba(255,255,255,.5); border: 1px solid rgba(255,255,255,.08); }
-
-.menu-col-divider { grid-column: 1; border-right: 1px solid rgba(255,255,255,.04); }
-
-/* ══════════════════════════════════════════
-   ABOUT
-══════════════════════════════════════════ */
-#over {
-  background: var(--deep);
-  padding: 7rem 5%;
-}
-
-.about-wrap {
-  display: grid; grid-template-columns: 1fr 1fr;
-  gap: 6rem; align-items: center;
-  max-width: 1240px; margin: 0 auto;
-}
-
-.about-left {}
-.about-left .s-overline { margin-bottom: .75rem; }
-.about-left .s-title { margin-bottom: 1.5rem; }
-.about-left p {
-  font-size: .95rem; color: rgba(255,255,255,.55);
-  line-height: 1.9; margin-bottom: 1rem;
-}
-
-.features-grid {
-  display: grid; grid-template-columns: 1fr 1fr;
-  gap: 1.25rem; margin-top: 2.5rem;
-}
-.feat-item {
-  padding: 1.2rem;
-  background: rgba(255,255,255,.03);
-  border: 1px solid rgba(255,255,255,.06);
-  border-radius: 10px;
-  transition: border-color .3s;
-}
-.feat-item:hover { border-color: rgba(46,134,193,.25); }
-.feat-item .fi {
-  font-size: 1.5rem; margin-bottom: .6rem; display: block;
-}
-.feat-item strong {
-  display: block; font-size: .88rem; font-weight: 600; color: var(--white); margin-bottom: .2rem;
-}
-.feat-item span { font-size: .78rem; color: rgba(255,255,255,.4); line-height: 1.5; }
-
-.about-right {
-  position: relative;
-}
-
-.about-img-stack {
-  position: relative; padding-bottom: 5rem;
-}
-
-.a-img-main {
-  border-radius: 16px; overflow: hidden;
-  background: linear-gradient(135deg, var(--ocean), var(--tide));
-  aspect-ratio: 4/5;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 7rem; position: relative;
-  box-shadow: 0 30px 80px rgba(12,17,23,.6);
-}
-.a-img-float {
-  position: absolute; bottom: 0; left: -2rem;
-  width: 60%; border-radius: 12px; overflow: hidden;
-  background: linear-gradient(135deg, var(--tide), var(--wave));
-  aspect-ratio: 4/3;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 3.5rem;
-  border: 4px solid var(--deep);
-  box-shadow: 0 20px 50px rgba(12,17,23,.5);
-}
-
-.badge-years {
-  position: absolute; top: 2rem; right: -1.5rem;
-  width: 80px; height: 80px; border-radius: 50%;
-  background: linear-gradient(135deg, #b8932a, var(--gold));
-  display: flex; align-items: center; justify-content: center;
-  flex-direction: column;
-  box-shadow: 0 8px 30px rgba(200,168,75,.4);
-}
-.badge-years strong { font-family: 'Cormorant Garamond', serif; font-size: 1.6rem; font-weight: 700; color: var(--ink); line-height: 1; }
-.badge-years span { font-size: .55rem; font-weight: 700; text-transform: uppercase; letter-spacing: .1em; color: var(--ink); opacity: .7; }
-
-/* ══════════════════════════════════════════
-   OPENING HOURS
-══════════════════════════════════════════ */
-#tijden {
-  background: var(--ink);
-  padding: 7rem 5%;
-}
-
-.tijden-wrap {
-  max-width: 900px; margin: 0 auto;
-}
-.tijden-header { text-align: center; margin-bottom: 3.5rem; }
-
-.hours-table {
-  border: 1px solid rgba(255,255,255,.06);
-  border-radius: 14px; overflow: hidden;
-}
-.hours-row {
-  display: grid; grid-template-columns: 1fr auto auto;
-  align-items: center;
-  padding: 1rem 1.75rem;
-  border-bottom: 1px solid rgba(255,255,255,.04);
-  transition: background .25s;
-  gap: 1rem;
-}
-.hours-row:last-child { border-bottom: none; }
-.hours-row:hover { background: rgba(46,134,193,.04); }
-.hours-row.today-row {
-  background: rgba(26,92,154,.12);
-  border-left: 2px solid var(--wave);
-}
-.h-day { font-size: .9rem; font-weight: 500; color: var(--white); }
-.h-time { font-family: 'Cormorant Garamond', serif; font-size: 1.05rem; color: var(--foam); font-weight: 600; }
-.h-time.closed { color: rgba(255,255,255,.2); font-family: 'Outfit', sans-serif; font-size: .85rem; }
-.h-tag {
-  font-size: .65rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase;
-  background: rgba(46,134,193,.2); color: var(--foam);
-  border: 1px solid rgba(46,134,193,.3);
-  padding: .2rem .65rem; border-radius: 3px;
-}
-
-/* ══════════════════════════════════════════
-   CONTACT
-══════════════════════════════════════════ */
-#contact {
-  background: var(--deep);
-  padding: 7rem 5%;
-}
-
-.contact-wrap {
-  display: grid; grid-template-columns: 1fr 1fr;
-  gap: 5rem; max-width: 1240px; margin: 0 auto;
-  align-items: start;
-}
-
-.contact-left .s-overline { margin-bottom: .75rem; }
-.contact-left .s-title { margin-bottom: 2.5rem; }
-
-.c-item {
-  display: flex; gap: 1.25rem; align-items: flex-start;
-  margin-bottom: 2rem;
-}
-.c-icon {
-  width: 48px; height: 48px; flex-shrink: 0;
-  background: rgba(46,134,193,.12);
-  border: 1px solid rgba(46,134,193,.2);
-  border-radius: 10px; display: flex; align-items: center; justify-content: center;
-  font-size: 1.2rem;
-}
-.c-text label {
-  display: block; font-size: .7rem; font-weight: 600;
-  letter-spacing: .12em; text-transform: uppercase;
-  color: var(--foam); margin-bottom: .35rem;
-}
-.c-text p, .c-text a {
-  font-size: .95rem; color: rgba(255,255,255,.6);
-  line-height: 1.7; text-decoration: none;
-}
-.c-text a:hover { color: var(--white); }
-
-.map-placeholder {
-  background: linear-gradient(135deg, var(--ocean), #0a2040);
-  border: 1px solid rgba(46,134,193,.15);
-  border-radius: 16px; overflow: hidden;
-  position: relative; height: 380px;
-  display: flex; align-items: center; justify-content: center;
-  flex-direction: column; gap: 1.25rem; text-align: center; padding: 2.5rem;
-}
-
-.map-placeholder::before {
+  font-size: clamp(3.5rem, 8vw, 7rem);
+  font-weight: 300;
+  color: var(--cream);
+  line-height: 0.95;
+  letter-spacing: -0.01em;
+  opacity: 0; transform: translateY(30px);
+  animation: fadeUp 0.9s ease 0.7s forwards;
+}
+.hero-title em { font-style: italic; color: var(--gold-light); }
+.hero-subtitle {
+  font-size: 0.8rem; letter-spacing: 0.2em;
+  text-transform: uppercase; color: var(--warm-gray);
+  margin: 1.5rem 0 2.5rem;
+  opacity: 0; transform: translateY(20px);
+  animation: fadeUp 0.8s ease 0.9s forwards;
+}
+.hero-ctas {
+  display: flex; gap: 1.2rem; flex-wrap: wrap;
+  opacity: 0; transform: translateY(20px);
+  animation: fadeUp 0.8s ease 1.1s forwards;
+}
+.btn-primary {
+  display: inline-flex; align-items: center; gap: 0.6rem;
+  padding: 1rem 2.2rem;
+  background: var(--gold);
+  color: var(--black);
+  font-family: 'Jost', sans-serif;
+  font-size: 0.72rem; font-weight: 500;
+  letter-spacing: 0.2em; text-transform: uppercase;
+  text-decoration: none; border: none; cursor: pointer;
+  position: relative; overflow: hidden;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+.btn-primary::before {
   content: '';
   position: absolute; inset: 0;
-  background: radial-gradient(ellipse at center, rgba(26,92,154,.3) 0%, transparent 70%);
+  background: rgba(255,255,255,0.15);
+  transform: translateX(-100%);
+  transition: transform 0.4s ease;
+}
+.btn-primary:hover::before { transform: translateX(0); }
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 30px var(--gold-glow);
+}
+.btn-ghost {
+  display: inline-flex; align-items: center; gap: 0.6rem;
+  padding: 1rem 2.2rem;
+  background: transparent;
+  color: var(--cream);
+  font-family: 'Jost', sans-serif;
+  font-size: 0.72rem; font-weight: 400;
+  letter-spacing: 0.2em; text-transform: uppercase;
+  text-decoration: none; border: 1px solid rgba(247,243,238,0.3);
+  cursor: pointer;
+  transition: border-color 0.3s, color 0.3s, transform 0.3s;
+}
+.btn-ghost:hover {
+  border-color: var(--gold);
+  color: var(--gold);
+  transform: translateY(-2px);
 }
 
-.map-placeholder > * { position: relative; z-index: 1; }
-
-.map-pin-lg { font-size: 3.5rem; animation: pinBounce 2.5s ease-in-out infinite; }
-@keyframes pinBounce {
-  0%,100% { transform: translateY(0); }
-  50% { transform: translateY(-10px); }
+/* Slide indicators */
+.hero-dots {
+  position: absolute; right: 4rem; bottom: 5rem;
+  display: flex; flex-direction: column; gap: 0.6rem; z-index: 2;
 }
-.map-placeholder h3 {
+.dot {
+  width: 4px; height: 20px; background: rgba(247,243,238,0.3);
+  cursor: pointer; transition: background 0.3s, height 0.3s;
+}
+.dot.active { background: var(--gold); height: 40px; }
+
+/* ─── SECTIONS COMMON ─── */
+section { padding: 7rem 4rem; }
+.section-tag {
+  font-size: 0.6rem; letter-spacing: 0.5em;
+  text-transform: uppercase; color: var(--gold);
+  margin-bottom: 1rem;
+}
+.section-title {
   font-family: 'Cormorant Garamond', serif;
-  font-size: 1.4rem; font-weight: 600;
+  font-size: clamp(2.5rem, 5vw, 4.5rem);
+  font-weight: 300;
+  line-height: 1.05;
+  color: var(--black);
 }
-.map-placeholder p { font-size: .85rem; color: rgba(255,255,255,.45); line-height: 1.6; }
-.map-open-btn {
-  display: inline-flex; align-items: center; gap: .5rem;
-  padding: .7rem 1.8rem; border-radius: 6px;
-  background: linear-gradient(135deg, var(--tide), var(--wave));
-  color: #fff; text-decoration: none; font-size: .82rem;
-  font-weight: 600; letter-spacing: .06em; text-transform: uppercase;
-  transition: all .3s; box-shadow: 0 4px 20px rgba(26,92,154,.4);
-  margin-top: .5rem;
-}
-.map-open-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(26,92,154,.6); }
-
-/* ══════════════════════════════════════════
-   FOOTER
-══════════════════════════════════════════ */
-footer {
-  background: #070d16;
-  border-top: 1px solid rgba(255,255,255,.05);
-  padding: 5rem 5% 2.5rem;
+.section-title em { font-style: italic; color: var(--rose); }
+.divider {
+  width: 60px; height: 1px;
+  background: var(--gold);
+  margin: 2rem 0;
 }
 
-.footer-top {
-  display: grid; grid-template-columns: 2fr 1fr 1fr 1fr;
-  gap: 4rem; max-width: 1240px; margin: 0 auto;
-  padding-bottom: 4rem;
-  border-bottom: 1px solid rgba(255,255,255,.05);
+/* ─── ABOUT ─── */
+#about { background: var(--white); }
+.about-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6rem;
+  align-items: center;
+  max-width: 1300px; margin: 0 auto;
+}
+.about-visual {
+  position: relative; height: 600px;
+}
+.about-card {
+  position: absolute;
+  border: 1px solid var(--glass-border);
+  overflow: hidden;
+}
+.about-card-main {
+  inset: 0; bottom: 80px;
+  background: linear-gradient(135deg, #3d2219, #c4879a 60%, #e8d5b0);
+}
+.about-card-accent {
+  bottom: 0; right: 0; width: 55%; height: 200px;
+  background: var(--black);
+  display: flex; align-items: center; justify-content: center;
+}
+.about-card-accent-inner {
+  text-align: center;
+  font-family: 'Cormorant Garamond', serif;
+  color: var(--gold);
+}
+.about-card-accent-inner .num {
+  font-size: 3.5rem; font-weight: 300; line-height: 1;
+}
+.about-card-accent-inner .label {
+  font-size: 0.55rem; letter-spacing: 0.35em;
+  text-transform: uppercase; color: var(--warm-gray);
+  margin-top: 0.4rem;
+}
+/* Fabric pattern on card */
+.about-card-main::before {
+  content: '';
+  position: absolute; inset: 0;
+  background-image: radial-gradient(circle at 30% 50%, rgba(247,243,238,0.12) 0%, transparent 60%),
+    radial-gradient(circle at 80% 80%, rgba(201,169,110,0.15) 0%, transparent 50%);
+}
+.about-text p {
+  font-size: 1.05rem; line-height: 1.9;
+  color: var(--warm-gray); font-weight: 300;
+  margin-bottom: 1.5rem;
+}
+.about-features {
+  display: flex; gap: 2.5rem; margin-top: 2.5rem; flex-wrap: wrap;
+}
+.feat { text-align: center; }
+.feat-num {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 2.5rem; font-weight: 300; color: var(--gold);
+  line-height: 1;
+}
+.feat-label {
+  font-size: 0.6rem; letter-spacing: 0.3em;
+  text-transform: uppercase; color: var(--warm-gray);
+  margin-top: 0.3rem;
 }
 
-.footer-brand .nav-logo { font-size: 1.7rem; margin-bottom: 1rem; display: inline-flex; }
-.footer-brand p {
-  font-size: .85rem; color: rgba(255,255,255,.3);
-  line-height: 1.8; max-width: 260px; margin-bottom: 1.5rem;
-}
-
-.footer-social { display: flex; gap: .6rem; }
-.footer-social .s-link { font-size: .7rem; }
-
-.footer-col {}
-.footer-col h4 {
-  font-size: .7rem; font-weight: 700; letter-spacing: .15em; text-transform: uppercase;
-  color: rgba(255,255,255,.3); margin-bottom: 1.25rem;
-}
-.footer-col ul { list-style: none; }
-.footer-col li { margin-bottom: .65rem; }
-.footer-col a {
-  font-size: .85rem; color: rgba(255,255,255,.45);
-  text-decoration: none; transition: color .25s;
-}
-.footer-col a:hover { color: var(--white); }
-.footer-col .f-contact-item {
-  font-size: .82rem; color: rgba(255,255,255,.4); line-height: 1.7;
-  margin-bottom: .5rem;
-}
-.footer-col .f-contact-item a {
-  color: rgba(255,255,255,.4); text-decoration: none; transition: color .25s;
-}
-.footer-col .f-contact-item a:hover { color: var(--white); }
-
-.footer-bottom {
-  display: flex; justify-content: space-between; align-items: center;
-  max-width: 1240px; margin: 2rem auto 0;
+/* ─── COLLECTION ─── */
+#collection { background: var(--black); padding-bottom: 5rem; }
+#collection .section-title { color: var(--cream); }
+#collection .divider { background: var(--rose); }
+.collection-header {
+  display: flex; justify-content: space-between; align-items: flex-end;
+  max-width: 1300px; margin: 0 auto 3rem;
   flex-wrap: wrap; gap: 1rem;
 }
-.footer-bottom p {
-  font-size: .75rem; color: rgba(255,255,255,.2);
+.collection-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  max-width: 1300px; margin: 0 auto;
 }
-.footer-bottom-links {
+.collection-item {
+  position: relative; overflow: hidden;
+  aspect-ratio: 3/4;
+  cursor: pointer;
+}
+.collection-item:first-child {
+  grid-row: span 2;
+  aspect-ratio: auto;
+}
+.item-bg {
+  width: 100%; height: 100%;
+  transition: transform 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+.collection-item:hover .item-bg { transform: scale(1.06); }
+.item-bg-1 { background: linear-gradient(160deg, #2a1515, #8b3a52, #c4879a); }
+.item-bg-2 { background: linear-gradient(160deg, #1a1410, #4a3520, #c9a96e); }
+.item-bg-3 { background: linear-gradient(160deg, #0d0f14, #1e2840, #4a6fa5); }
+.item-bg-4 { background: linear-gradient(160deg, #14100d, #3d2a1a, #8a6040); }
+.item-bg-5 { background: linear-gradient(160deg, #0d1210, #1a3028, #4a8060); }
+/* Fabric shimmer overlay */
+.item-bg::after {
+  content: '';
+  position: absolute; inset: 0;
+  background: linear-gradient(45deg,
+    transparent 0%, rgba(255,255,255,0.05) 30%,
+    transparent 50%, rgba(255,255,255,0.03) 70%, transparent 100%
+  );
+}
+.item-overlay {
+  position: absolute; inset: 0;
+  background: linear-gradient(to top, rgba(13,11,9,0.85) 0%, transparent 60%);
+  opacity: 0; transition: opacity 0.4s;
+  display: flex; flex-direction: column;
+  justify-content: flex-end; padding: 2rem;
+}
+.collection-item:hover .item-overlay { opacity: 1; }
+.item-name {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.6rem; font-weight: 300; color: var(--cream);
+  transform: translateY(10px); transition: transform 0.4s;
+}
+.item-cat {
+  font-size: 0.6rem; letter-spacing: 0.35em;
+  text-transform: uppercase; color: var(--gold);
+  margin-top: 0.3rem;
+  transform: translateY(10px); transition: transform 0.4s 0.05s;
+}
+.collection-item:hover .item-name,
+.collection-item:hover .item-cat { transform: translateY(0); }
+/* Large item decorative elements */
+.item-deco {
+  position: absolute;
+  border: 1px solid rgba(201,169,110,0.2);
+  pointer-events: none;
+}
+.item-deco-1 { inset: 20px; }
+
+/* ─── APPOINTMENT CTA ─── */
+#appointment {
+  background: var(--cream);
+  text-align: center;
+  padding: 6rem 4rem;
+}
+.appt-inner {
+  max-width: 700px; margin: 0 auto;
+}
+.appt-inner .section-tag { display: block; margin-bottom: 1.2rem; }
+.appt-inner .section-title { margin-bottom: 1rem; }
+.appt-inner p {
+  color: var(--warm-gray); font-weight: 300;
+  font-size: 1rem; line-height: 1.8; margin-bottom: 2.5rem;
+}
+.btn-glow {
+  display: inline-flex; align-items: center; gap: 0.8rem;
+  padding: 1.2rem 3rem;
+  background: var(--black);
+  color: var(--gold);
+  font-family: 'Jost', sans-serif;
+  font-size: 0.75rem; font-weight: 500;
+  letter-spacing: 0.25em; text-transform: uppercase;
+  text-decoration: none; border: 1px solid var(--gold);
+  position: relative; overflow: hidden;
+  transition: transform 0.3s, box-shadow 0.3s;
+  animation: pulse-glow 3s ease-in-out infinite;
+}
+@keyframes pulse-glow {
+  0%, 100% { box-shadow: 0 0 0 rgba(201,169,110,0); }
+  50% { box-shadow: 0 0 35px rgba(201,169,110,0.4); }
+}
+.btn-glow:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 40px var(--gold-glow) !important;
+  animation: none;
+}
+.btn-glow::before {
+  content: '';
+  position: absolute; top: 0; left: -100%;
+  width: 100%; height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(201,169,110,0.15), transparent);
+  transition: left 0.5s ease;
+}
+.btn-glow:hover::before { left: 100%; }
+
+/* ─── REVIEWS ─── */
+#reviews { background: var(--dark); overflow: hidden; }
+#reviews .section-title { color: var(--cream); }
+.reviews-header {
+  max-width: 1300px; margin: 0 auto 3rem;
+  display: flex; justify-content: space-between; align-items: flex-end;
+  flex-wrap: wrap; gap: 1rem;
+}
+.reviews-track-wrap { overflow: hidden; position: relative; max-width: 100%; }
+.reviews-track {
   display: flex; gap: 1.5rem;
+  transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  will-change: transform;
 }
-.footer-bottom-links a {
-  font-size: .75rem; color: rgba(255,255,255,.2);
-  text-decoration: none; transition: color .25s;
+.review-card {
+  min-width: 380px;
+  background: rgba(247,243,238,0.05);
+  border: 1px solid rgba(201,169,110,0.12);
+  padding: 2.5rem;
+  flex-shrink: 0;
+  transition: background 0.3s, border-color 0.3s;
 }
-.footer-bottom-links a:hover { color: rgba(255,255,255,.5); }
-
-/* ══════════════════════════════════════════
-   SCROLL REVEAL
-══════════════════════════════════════════ */
-.sr { opacity: 0; transform: translateY(32px); transition: opacity .8s ease, transform .8s ease; }
-.sr.visible { opacity: 1; transform: translateY(0); }
-.sr-delay-1 { transition-delay: .1s !important; }
-.sr-delay-2 { transition-delay: .2s !important; }
-.sr-delay-3 { transition-delay: .3s !important; }
-
-/* ══════════════════════════════════════════
-   BACK TO TOP
-══════════════════════════════════════════ */
-#btt {
-  position: fixed; bottom: 2rem; right: 2rem; z-index: 500;
-  width: 44px; height: 44px; border-radius: 8px;
-  background: rgba(26,92,154,.9);
-  border: 1px solid rgba(46,134,193,.3);
-  color: var(--white); cursor: pointer; font-size: 1rem;
+.review-card:hover {
+  background: rgba(247,243,238,0.08);
+  border-color: rgba(201,169,110,0.3);
+}
+.stars { color: var(--gold); font-size: 0.85rem; letter-spacing: 0.1em; margin-bottom: 1.2rem; }
+.review-text {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.2rem; font-weight: 300; font-style: italic;
+  color: var(--cream); line-height: 1.6;
+  margin-bottom: 1.5rem;
+}
+.review-author {
+  font-size: 0.65rem; letter-spacing: 0.3em;
+  text-transform: uppercase; color: var(--warm-gray);
+}
+.review-author span { color: var(--gold); }
+.reviews-nav {
+  display: flex; gap: 1rem; align-items: center;
+}
+.rev-btn {
+  width: 44px; height: 44px;
+  border: 1px solid rgba(201,169,110,0.3);
+  background: none; color: var(--gold);
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: background 0.3s, border-color 0.3s;
   display: flex; align-items: center; justify-content: center;
-  opacity: 0; transform: translateY(10px);
-  transition: all .3s;
-  backdrop-filter: blur(8px);
 }
-#btt.show { opacity: 1; transform: translateY(0); }
-#btt:hover { background: var(--wave); }
-
-/* ══════════════════════════════════════════
-   RESPONSIVE
-══════════════════════════════════════════ */
-@media (max-width: 1080px) {
-  .gallery-grid {
-    grid-template-columns: repeat(2, 1fr);
-    grid-template-rows: auto;
-  }
-  .g-item:nth-child(1) { grid-column: 1/3; grid-row: auto; }
-  .g-item:nth-child(n) { grid-column: auto; grid-row: auto; }
-  .footer-top { grid-template-columns: 1fr 1fr; }
+.rev-btn:hover { background: rgba(201,169,110,0.1); border-color: var(--gold); }
+.review-leave-btn {
+  display: inline-flex; align-items: center; gap: 0.5rem;
+  padding: 0.8rem 1.8rem;
+  background: transparent; color: var(--gold);
+  font-family: 'Jost', sans-serif;
+  font-size: 0.65rem; font-weight: 400;
+  letter-spacing: 0.25em; text-transform: uppercase;
+  text-decoration: none; border: 1px solid rgba(201,169,110,0.4);
+  transition: all 0.3s;
+}
+.review-leave-btn:hover {
+  background: var(--gold); color: var(--black);
+  box-shadow: 0 0 25px var(--gold-glow);
 }
 
-@media (max-width: 860px) {
-  .hero-grid, .about-wrap, .contact-wrap { grid-template-columns: 1fr; }
-  .hero-right { display: none; }
-  .menu-list { grid-template-columns: 1fr; }
-  .overlay-right { display: none; }
-  #overlay { grid-template-columns: 1fr; }
-  .nav-center { display: none; }
-  .menu-toggle { display: flex; }
-  .nav-cta { display: none; }
-  .lang-switcher { display: none; }
-  .gallery-grid {
-    display: flex; flex-direction: column;
-  }
-  .g-item { height: 200px; }
-  .footer-top { grid-template-columns: 1fr; gap: 2.5rem; }
+/* ─── SOCIALS ─── */
+#socials { background: var(--white); text-align: center; }
+.socials-inner { max-width: 800px; margin: 0 auto; }
+.socials-inner .section-title { margin-bottom: 1rem; }
+.socials-inner > p {
+  color: var(--warm-gray); font-weight: 300; margin-bottom: 3rem;
+}
+.social-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;
+}
+.social-card {
+  padding: 3rem 2rem;
+  border: 1px solid var(--glass-border);
+  text-decoration: none; color: inherit;
+  position: relative; overflow: hidden;
+  transition: transform 0.3s, box-shadow 0.3s;
+  display: flex; flex-direction: column; align-items: center;
+}
+.social-card::before {
+  content: '';
+  position: absolute; inset: 0;
+  opacity: 0; transition: opacity 0.4s;
+}
+.social-card.insta::before { background: linear-gradient(135deg, rgba(240,216,223,0.3), rgba(201,169,110,0.2)); }
+.social-card.tiktok::before { background: linear-gradient(135deg, rgba(13,11,9,0.1), rgba(201,169,110,0.15)); }
+.social-card:hover::before { opacity: 1; }
+.social-card:hover { transform: translateY(-4px); box-shadow: 0 12px 40px rgba(0,0,0,0.1); }
+.social-icon {
+  font-size: 2.5rem; margin-bottom: 1rem;
+  transition: transform 0.3s;
+}
+.social-card:hover .social-icon { transform: scale(1.1); }
+.social-name {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.8rem; font-weight: 300; color: var(--black);
+  margin-bottom: 0.5rem;
+}
+.social-handle {
+  font-size: 0.65rem; letter-spacing: 0.25em;
+  text-transform: uppercase; color: var(--gold);
+}
+
+/* ─── CONTACT ─── */
+#contact { background: var(--black); }
+#contact .section-title { color: var(--cream); }
+.contact-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 5rem;
+  max-width: 1300px; margin: 0 auto;
+  align-items: start;
+}
+.contact-info { margin-top: 1rem; }
+.contact-block { margin-bottom: 2.5rem; }
+.contact-label {
+  font-size: 0.6rem; letter-spacing: 0.35em;
+  text-transform: uppercase; color: var(--gold);
+  margin-bottom: 0.6rem;
+}
+.contact-value {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.3rem; font-weight: 300; color: var(--cream);
+  line-height: 1.5;
+}
+.contact-value a { color: inherit; text-decoration: none; transition: color 0.3s; }
+.contact-value a:hover { color: var(--gold); }
+.hours-grid {
+  display: grid; grid-template-columns: auto 1fr;
+  gap: 0.4rem 1.5rem;
+}
+.hours-day { font-size: 0.7rem; letter-spacing: 0.1em; color: var(--warm-gray); }
+.hours-time { font-size: 0.7rem; color: var(--cream); }
+.call-btn {
+  display: inline-flex; align-items: center; gap: 0.7rem;
+  padding: 1rem 2rem;
+  border: 1px solid rgba(201,169,110,0.3);
+  color: var(--gold);
+  font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase;
+  text-decoration: none;
+  transition: all 0.3s; margin-top: 1rem;
+}
+.call-btn:hover {
+  background: var(--gold); color: var(--black);
+  box-shadow: 0 0 25px var(--gold-glow);
+}
+.contact-map {
+  aspect-ratio: 1;
+  background: linear-gradient(135deg, #1a1612, #2e2318);
+  border: 1px solid rgba(201,169,110,0.1);
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  text-align: center; padding: 3rem;
+}
+.map-pin {
+  font-size: 3rem; margin-bottom: 1rem;
+  animation: float 3s ease-in-out infinite;
+}
+@keyframes float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-8px)} }
+.map-address {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.4rem; font-weight: 300; color: var(--cream);
+  line-height: 1.4; margin-bottom: 0.8rem;
+}
+.map-sub { font-size: 0.65rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--warm-gray); }
+.map-link {
+  display: inline-block; margin-top: 1.5rem;
+  padding: 0.8rem 1.8rem;
+  border: 1px solid rgba(201,169,110,0.3);
+  color: var(--gold); font-size: 0.65rem;
+  letter-spacing: 0.25em; text-transform: uppercase;
+  text-decoration: none; transition: all 0.3s;
+}
+.map-link:hover { background: rgba(201,169,110,0.1); }
+
+/* ─── FOOTER ─── */
+footer {
+  background: var(--black);
+  border-top: 1px solid rgba(201,169,110,0.1);
+  padding: 3rem 4rem;
+  display: flex; justify-content: space-between; align-items: center;
+  flex-wrap: wrap; gap: 2rem;
+}
+.footer-logo {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.3rem; font-weight: 300;
+  color: var(--cream); letter-spacing: 0.1em;
+}
+.footer-logo span { color: var(--gold); }
+.footer-copy {
+  font-size: 0.6rem; letter-spacing: 0.2em;
+  color: var(--warm-gray); text-transform: uppercase;
+}
+.footer-socials { display: flex; gap: 1.5rem; }
+.footer-social {
+  font-size: 0.6rem; letter-spacing: 0.25em;
+  text-transform: uppercase; color: var(--warm-gray);
+  text-decoration: none; transition: color 0.3s;
+}
+.footer-social:hover { color: var(--gold); }
+
+/* ─── STICKY CTA ─── */
+#sticky-cta {
+  position: fixed; bottom: 2rem; right: 2rem;
+  z-index: 500; display: flex; flex-direction: column; gap: 0.8rem;
+  opacity: 0; transform: translateX(20px);
+  transition: opacity 0.5s, transform 0.5s;
+  pointer-events: none;
+}
+#sticky-cta.visible { opacity: 1; transform: translateX(0); pointer-events: all; }
+.sticky-btn {
+  display: flex; align-items: center; gap: 0.6rem;
+  padding: 0.8rem 1.4rem;
+  font-size: 0.62rem; letter-spacing: 0.2em; text-transform: uppercase;
+  text-decoration: none; font-weight: 500;
+  transition: transform 0.3s, box-shadow 0.3s;
+  white-space: nowrap;
+}
+.sticky-appt {
+  background: var(--gold); color: var(--black);
+  box-shadow: 0 4px 20px var(--gold-glow);
+  animation: pulse-glow 3s ease-in-out infinite;
+}
+.sticky-appt:hover { transform: translateX(-4px); box-shadow: 0 8px 30px var(--gold-glow); }
+.sticky-insta {
+  background: var(--black); color: var(--cream);
+  border: 1px solid rgba(201,169,110,0.3);
+}
+.sticky-insta:hover { transform: translateX(-4px); border-color: var(--rose); }
+
+/* ─── ANIMATIONS ─── */
+@keyframes fadeUp {
+  to { opacity: 1; transform: translateY(0); }
+}
+.reveal {
+  opacity: 0; transform: translateY(40px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+.reveal.visible { opacity: 1; transform: translateY(0); }
+.reveal-left { opacity: 0; transform: translateX(-40px); transition: opacity 0.8s, transform 0.8s; }
+.reveal-left.visible { opacity: 1; transform: translateX(0); }
+.reveal-right { opacity: 0; transform: translateX(40px); transition: opacity 0.8s, transform 0.8s; }
+.reveal-right.visible { opacity: 1; transform: translateX(0); }
+
+/* ─── RESPONSIVE ─── */
+@media (max-width: 1024px) {
+  nav { padding: 1.5rem 2.5rem; }
+  nav.scrolled { padding: 1rem 2.5rem; }
+  section { padding: 5rem 2.5rem; }
+  #hero { padding: 0 2.5rem 4rem; }
+  .about-grid { grid-template-columns: 1fr; gap: 3rem; }
+  .about-visual { height: 400px; }
+  .contact-grid { grid-template-columns: 1fr; gap: 3rem; }
+  .collection-grid { grid-template-columns: repeat(2, 1fr); }
+  .collection-item:first-child { grid-row: span 1; aspect-ratio: 3/4; }
+  footer { flex-direction: column; text-align: center; }
+}
+@media (max-width: 768px) {
+  nav { padding: 1.2rem 1.5rem; }
+  nav.scrolled { padding: 0.9rem 1.5rem; }
+  section { padding: 4rem 1.5rem; }
+  #hero { padding: 0 1.5rem 3rem; }
+  .hero-dots { display: none; }
+  .collection-grid { grid-template-columns: 1fr; }
+  .social-grid { grid-template-columns: 1fr; }
+  .hero-ctas { flex-direction: column; }
+  .hero-ctas .btn-primary, .hero-ctas .btn-ghost { text-align: center; justify-content: center; }
+  .review-card { min-width: 280px; }
+  #sticky-cta { bottom: 1rem; right: 1rem; }
+  .sticky-btn { padding: 0.7rem 1rem; font-size: 0.58rem; }
+  footer { padding: 2rem 1.5rem; }
+}
+@media (max-width: 480px) {
+  .portal-nav a { font-size: 2.2rem; }
+  .about-features { gap: 1.5rem; }
+}
+
+/* ─── GOLD SHIMMER DECORATIONS ─── */
+.shimmer-line {
+  position: absolute;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  height: 1px; width: 100%;
+  opacity: 0.2; pointer-events: none;
 }
 </style>
 </head>
 <body>
 
-<!-- ═══ NAVIGATION ═══ -->
-<nav id="nav">
-  <a href="#hero" class="nav-logo">Vis Enzo<span class="dot">●</span><em>Food</em></a>
-  <ul class="nav-center">
-    <li><a href="#gallery">Galerij</a></li>
-    <li><a href="#menu">Menu</a></li>
-    <li><a href="#over">Over Ons</a></li>
-    <li><a href="#tijden">Tijden</a></li>
-    <li><a href="#contact">Contact</a></li>
-  </ul>
-  <div class="nav-right">
-    <div class="lang-switcher" id="langNav">
-      <button class="lang-btn active" data-lang="nl" onclick="setLang('nl',this)">NL</button>
-      <span class="lang-sep">|</span>
-      <button class="lang-btn" data-lang="en" onclick="setLang('en',this)">EN</button>
-      <span class="lang-sep">|</span>
-      <button class="lang-btn" data-lang="tr" onclick="setLang('tr',this)">TR</button>
-    </div>
-    <a href="#contact" class="nav-cta">Kom Langs</a>
-    <button class="menu-toggle" id="mToggle" onclick="toggleOverlay()">
-      <span></span><span></span><span></span>
-    </button>
+<!-- CURSOR -->
+<div id="cursor"></div>
+<div id="cursor-ring"></div>
+
+<!-- PRELOADER -->
+<div id="preloader">
+  <div class="curtain-left"></div>
+  <div class="curtain-right"></div>
+  <div class="preloader-brand">
+    <div class="pre-name">Huda &amp;<br><em style="font-style:italic;color:var(--gold)">Roses</em></div>
+    <div class="pre-line"></div>
+    <div class="pre-sub">Luxury Boutique · Eindhoven</div>
   </div>
+</div>
+
+<!-- NAV -->
+<nav id="navbar">
+  <a href="#hero" class="nav-logo">Huda &amp; <span>Roses</span></a>
+  <button class="hamburger" id="hamburger" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
 </nav>
 
-<!-- ═══ FULLSCREEN OVERLAY ═══ -->
-<div id="overlay">
-  <div class="overlay-left">
-    <div class="overlay-bg-text">VERS</div>
-    <nav>
-      <ul class="overlay-nav-list">
-        <li><a href="#gallery" onclick="closeOverlay()"><span class="nav-num">01</span> Galerij</a></li>
-        <li><a href="#menu" onclick="closeOverlay()"><span class="nav-num">02</span> Menu</a></li>
-        <li><a href="#over" onclick="closeOverlay()"><span class="nav-num">03</span> Over Ons</a></li>
-        <li><a href="#tijden" onclick="closeOverlay()"><span class="nav-num">04</span> Tijden</a></li>
-        <li><a href="#contact" onclick="closeOverlay()"><span class="nav-num">05</span> Contact</a></li>
-      </ul>
-    </nav>
-  </div>
-  <div class="overlay-right">
-    <p class="overlay-tagline">"Iedere dag brengen wij het beste uit zee naar uw bord — vers, eerlijk en met passie bereid."</p>
-    <div class="overlay-info">
-      <div class="overlay-info-block">
-        <label>Adres</label>
-        <p>Tongelresestraat 270A<br>5613 DV Eindhoven<br>Winkelcentrum Haagdijk</p>
-      </div>
-      <div class="overlay-info-block">
-        <label>Contact</label>
-        <p><a href="tel:0402024756">040 202 4756</a></p>
-      </div>
-      <div class="overlay-info-block">
-        <label>Taal / Language</label>
-        <div class="overlay-langs" id="langOverlay">
-          <button class="o-lang active" data-lang="nl" onclick="setLang('nl',this)">Nederlands</button>
-          <button class="o-lang" data-lang="en" onclick="setLang('en',this)">English</button>
-          <button class="o-lang" data-lang="tr" onclick="setLang('tr',this)">Türkçe</button>
-        </div>
-      </div>
-      <div class="overlay-social">
-        <a class="s-link" href="#">FB</a>
-        <a class="s-link" href="#">IG</a>
-        <a class="s-link" href="#">WA</a>
-      </div>
+<!-- PORTAL MENU -->
+<div id="portal">
+  <div class="portal-inner">
+    <ul class="portal-nav">
+      <li><a href="#hero" class="portal-link">Home</a></li>
+      <li><a href="#collection" class="portal-link">Collectie</a></li>
+      <li><a href="#appointment" class="portal-link">Boek Afspraak</a></li>
+      <li><a href="#reviews" class="portal-link">Reviews</a></li>
+      <li><a href="#socials" class="portal-link">Socials</a></li>
+      <li><a href="#contact" class="portal-link">Contact</a></li>
+    </ul>
+    <div class="portal-bottom">
+      <a href="https://www.instagram.com/huda.roses_dress" target="_blank" class="portal-social">Instagram</a>
+      <a href="https://www.tiktok.com/@huda.roses_dress" target="_blank" class="portal-social">TikTok</a>
+      <a href="https://huda-roses-dress.reservio.com/booking" target="_blank" class="portal-social">Reserveer</a>
     </div>
   </div>
 </div>
 
-<!-- ═══ HERO ═══ -->
+<!-- HERO -->
 <section id="hero">
-  <div class="hero-deco"></div>
-  <div class="hero-deco2"></div>
-  <div class="hero-grid">
-    <div class="hero-left">
-      <div class="hero-overline" data-i18n="hero.overline">Vers uit de Zee · Eindhoven</div>
-      <h1 class="hero-title">
-        Vis Enzo<br>
-        <em data-i18n="hero.subtitle">Food</em>
-      </h1>
-      <p class="hero-desc" data-i18n="hero.desc">De lekkerste verse vis, zeevruchten en meer — dagvers bij u in Winkelcentrum Haagdijk, Eindhoven.</p>
-      <div class="hero-actions">
-        <a href="#menu" class="btn-gold" data-i18n="hero.cta1">Bekijk Menu</a>
-        <a href="#contact" class="btn-ghost" data-i18n="hero.cta2">Vind Ons</a>
+  <div class="hero-slides">
+    <div class="hero-slide active"></div>
+    <div class="hero-slide"></div>
+    <div class="hero-slide"></div>
+  </div>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <div class="hero-tag">Luxury Boutique · Eindhoven · Haagdijk</div>
+    <h1 class="hero-title">Huda &amp;<br><em>Roses</em><br>Dress</h1>
+    <p class="hero-subtitle">Waar stijl ontmoet passie</p>
+    <div class="hero-ctas">
+      <a href="https://huda-roses-dress.reservio.com/booking" target="_blank" class="btn-primary">
+        <span>✦</span> Boek Afspraak
+      </a>
+      <a href="#collection" class="btn-ghost">Bekijk Collectie →</a>
+    </div>
+  </div>
+  <div class="hero-dots">
+    <div class="dot active" data-index="0"></div>
+    <div class="dot" data-index="1"></div>
+    <div class="dot" data-index="2"></div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="about-grid">
+    <div class="about-visual reveal-left">
+      <div class="about-card about-card-main">
+        <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;">
+          <div style="text-align:center;z-index:1;">
+            <div style="font-family:'Cormorant Garamond',serif;font-size:clamp(3rem,5vw,5rem);font-weight:300;color:var(--cream);line-height:1;letter-spacing:0.05em;">H&amp;R</div>
+            <div style="font-size:0.55rem;letter-spacing:0.5em;text-transform:uppercase;color:var(--gold-light);margin-top:0.5rem;">Dress Boutique</div>
+          </div>
+        </div>
       </div>
-      <div class="hero-awards">
-        <div class="award">
-          <div class="award-num">20<sub>+</sub></div>
-          <div class="award-label" data-i18n="stat.products">Producten</div>
-        </div>
-        <div class="award-divider"></div>
-        <div class="award">
-          <div class="award-num">6</div>
-          <div class="award-label" data-i18n="stat.days">Dagen/week open</div>
-        </div>
-        <div class="award-divider"></div>
-        <div class="award">
-          <div class="award-num">100<sub>%</sub></div>
-          <div class="award-label" data-i18n="stat.fresh">Dagvers</div>
+      <div class="about-card about-card-accent">
+        <div class="about-card-accent-inner">
+          <div class="num">100<small style="font-size:1.5rem;">+</small></div>
+          <div class="label">Tevreden klanten</div>
         </div>
       </div>
     </div>
-    <div class="hero-right">
-      <div class="hero-visual-wrap">
-        <div class="h-card g-v1">
-          <div class="h-img g-v1"><div class="h-img-inner">🐟</div></div>
-          <div class="h-card-label"><strong>Verse Zeebaars</strong><span>Dagelijks vers</span></div>
-          <span class="price-badge">€8,50</span>
+    <div class="about-text reveal-right">
+      <div class="section-tag">Over Ons</div>
+      <h2 class="section-title">Een boutique<br>met <em>ziel</em></h2>
+      <div class="divider"></div>
+      <p>Welkom bij Huda & Roses Dress – een handgepickte luxe kledingwinkel in het hart van Eindhoven. Wij geloven dat mode meer is dan kleding; het is een expressie van wie je bent.</p>
+      <p>Onze collectie combineert tijdloze elegantie met moderne stijl. Van avondjurken tot casual chic – elk stuk is zorgvuldig geselecteerd om jou te laten stralen bij elke gelegenheid.</p>
+      <div class="about-features">
+        <div class="feat">
+          <div class="feat-num">5★</div>
+          <div class="feat-label">Rating</div>
         </div>
-        <div class="h-card g-v2">
-          <div class="h-img g-v2"><div class="h-img-inner">🦐</div></div>
-          <div class="h-card-label"><strong>Hollandse Garnalen</strong><span>Dagvers</span></div>
-          <span class="price-badge">€6,50</span>
+        <div class="feat">
+          <div class="feat-num">∞</div>
+          <div class="feat-label">Stijlen</div>
         </div>
-        <div class="h-card g-v3">
-          <div class="h-img g-v3"><div class="h-img-inner">🍣</div></div>
-          <div class="h-card-label"><strong>Gerookte Zalm</strong><span>Ambachtelijk</span></div>
-          <span class="price-badge">€7,50</span>
+        <div class="feat">
+          <div class="feat-num">1</div>
+          <div class="feat-label">Unieke Boutique</div>
         </div>
       </div>
     </div>
   </div>
 </section>
 
-<div class="wave-sep" style="background:var(--deep)">
-  <svg viewBox="0 0 1440 50" xmlns="http://www.w3.org/2000/svg">
-    <path d="M0,25 C360,50 720,0 1440,25 L1440,50 L0,50 Z" fill="#0c1117"/>
-  </svg>
-</div>
-
-<!-- ═══ GALLERY ═══ -->
-<section id="gallery">
-  <div class="section-header sr" style="max-width:1240px;margin:0 auto 3.5rem;">
+<!-- COLLECTION -->
+<section id="collection">
+  <div class="collection-header reveal">
     <div>
-      <div class="s-overline" data-i18n="gallery.overline">Ons Aanbod</div>
-      <h2 class="s-title">Verse <em>Galerij</em></h2>
+      <div class="section-tag">Onze Stijl</div>
+      <h2 class="section-title" style="color:var(--cream)">De <em style="color:var(--rose)">Collectie</em></h2>
+      <div class="divider" style="background:var(--rose)"></div>
     </div>
-    <a href="#menu" class="s-link" data-i18n="gallery.link">Bekijk menu</a>
+    <a href="#appointment" class="btn-ghost" style="color:var(--gold);border-color:rgba(201,169,110,0.3)">Persoonlijk advies →</a>
   </div>
-  <div class="gallery-grid sr">
-    <div class="g-item g-v1">
-      <div class="g-img-bg">🐟</div>
-      <div class="g-overlay"><div class="g-caption"><strong>Verse Zeebaars</strong><span>Dagelijks vers aangeleverd</span></div></div>
-      <span class="g-tag">Bestseller</span>
-    </div>
-    <div class="g-item g-v2">
-      <div class="g-img-bg">🦐</div>
-      <div class="g-overlay"><div class="g-caption"><strong>Hollandse Garnalen</strong><span>100% Dagvers</span></div></div>
-    </div>
-    <div class="g-item g-v3">
-      <div class="g-img-bg">🦞</div>
-      <div class="g-overlay"><div class="g-caption"><strong>Kreeft</strong><span>Op bestelling</span></div></div>
-      <span class="g-tag">Premium</span>
-    </div>
-    <div class="g-item g-v4">
-      <div class="g-img-bg">🦑</div>
-      <div class="g-overlay"><div class="g-caption"><strong>Calamares</strong><span>Vers inktvis</span></div></div>
-    </div>
-    <div class="g-item g-v5">
-      <div class="g-img-bg">🍤</div>
-      <div class="g-overlay"><div class="g-caption"><strong>Gebakken Scampi</strong><span>Krokant & lekker</span></div></div>
-    </div>
-    <div class="g-item g-v6">
-      <div class="g-img-bg">🐠</div>
-      <div class="g-overlay"><div class="g-caption"><strong>Dorade</strong><span>Heel of filet</span></div></div>
-    </div>
-    <div class="g-item g-v7">
-      <div class="g-img-bg">🍣</div>
-      <div class="g-overlay"><div class="g-caption"><strong>Gerookte Zalm</strong><span>Ambachtelijk gerookt</span></div></div>
-    </div>
-    <div class="g-item g-v8">
-      <div class="g-img-bg">🥪</div>
-      <div class="g-overlay"><div class="g-caption"><strong>Visbroodje</strong><span>Snel & vers</span></div></div>
-      <span class="g-tag">Favoriet</span>
-    </div>
-  </div>
-</section>
-
-<div class="wave-sep" style="background:var(--ink)">
-  <svg viewBox="0 0 1440 50" xmlns="http://www.w3.org/2000/svg">
-    <path d="M0,30 C480,55 960,5 1440,30 L1440,50 L0,50 Z" fill="#0e1f33"/>
-  </svg>
-</div>
-
-<!-- ═══ MENU ═══ -->
-<section id="menu">
-  <div class="menu-wrap">
-    <div class="section-header sr" style="margin-bottom:2.5rem;">
-      <div>
-        <div class="s-overline" data-i18n="menu.overline">Ons Aanbod</div>
-        <h2 class="s-title">Vers <em>Menu</em></h2>
+  <div class="collection-grid reveal">
+    <div class="collection-item">
+      <div class="item-bg item-bg-1" style="height:100%;position:relative;">
+        <div class="item-deco item-deco-1"></div>
+        <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;">
+          <div style="text-align:center;">
+            <div style="font-family:'Cormorant Garamond',serif;font-size:4rem;font-weight:200;color:rgba(247,243,238,0.15);letter-spacing:0.1em;">ROSE</div>
+          </div>
+        </div>
+      </div>
+      <div class="item-overlay">
+        <div class="item-name">Avondjurken</div>
+        <div class="item-cat">Elegance Collection</div>
       </div>
     </div>
-    <div class="menu-tabs-bar sr">
-      <button class="m-tab active" onclick="filterMenu('all',this)" data-i18n="tab.all">Alles</button>
-      <button class="m-tab" onclick="filterMenu('vis',this)" data-i18n="tab.vis">Vis</button>
-      <button class="m-tab" onclick="filterMenu('zeevruchten',this)" data-i18n="tab.zee">Zeevruchten</button>
-      <button class="m-tab" onclick="filterMenu('snack',this)" data-i18n="tab.snack">Snacks</button>
-    </div>
-    <div class="menu-list sr" id="menuGrid"></div>
-  </div>
-</section>
-
-<div class="wave-sep" style="background:var(--deep)">
-  <svg viewBox="0 0 1440 50" xmlns="http://www.w3.org/2000/svg">
-    <path d="M0,20 C360,45 900,5 1440,30 L1440,50 L0,50 Z" fill="#0e1f33"/>
-  </svg>
-</div>
-
-<!-- ═══ OVER ONS ═══ -->
-<section id="over">
-  <div class="about-wrap">
-    <div class="about-left sr">
-      <div class="s-overline" data-i18n="about.overline">Over Ons</div>
-      <h2 class="s-title">Passie voor<br><em>Verse Vis</em></h2>
-      <p data-i18n="about.p1">Bij Vis Enzo Food geloven we dat de beste maaltijden beginnen met de versste ingrediënten. Iedere dag selecteren wij zorgvuldig de mooiste producten uit zee.</p>
-      <p data-i18n="about.p2">Wij zijn gevestigd in Winkelcentrum Haagdijk in Eindhoven. Altijd vriendelijk, altijd vers, altijd met een glimlach.</p>
-      <div class="features-grid">
-        <div class="feat-item"><span class="fi">🐡</span><strong data-i18n="feat1.title">Dagverse producten</strong><span data-i18n="feat1.desc">Elke dag verse aanvoer</span></div>
-        <div class="feat-item"><span class="fi">🦞</span><strong data-i18n="feat2.title">Zeevruchten</strong><span data-i18n="feat2.desc">Verse schelpdieren & meer</span></div>
-        <div class="feat-item"><span class="fi">🤝</span><strong data-i18n="feat3.title">Persoonlijk advies</strong><span data-i18n="feat3.desc">Vriendelijke service</span></div>
-        <div class="feat-item"><span class="fi">📍</span><strong data-i18n="feat4.title">Centraal gelegen</strong><span data-i18n="feat4.desc">Winkelcentrum Haagdijk</span></div>
+    <div class="collection-item">
+      <div class="item-bg item-bg-2" style="height:100%;position:relative;"></div>
+      <div class="item-overlay">
+        <div class="item-name">Bruidslooks</div>
+        <div class="item-cat">Bridal Luxury</div>
       </div>
     </div>
-    <div class="about-right sr sr-delay-2">
-      <div class="about-img-stack">
-        <div class="a-img-main">🐟<div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(12,17,23,.5),transparent);border-radius:16px;"></div></div>
-        <div class="a-img-float">🦐</div>
-        <div class="badge-years"><strong>+</strong><span>Jaren</span></div>
+    <div class="collection-item">
+      <div class="item-bg item-bg-3" style="height:100%;position:relative;"></div>
+      <div class="item-overlay">
+        <div class="item-name">Galakleding</div>
+        <div class="item-cat">Gala Series</div>
+      </div>
+    </div>
+    <div class="collection-item">
+      <div class="item-bg item-bg-4" style="height:100%;position:relative;"></div>
+      <div class="item-overlay">
+        <div class="item-name">Casual Chic</div>
+        <div class="item-cat">Day Collection</div>
+      </div>
+    </div>
+    <div class="collection-item">
+      <div class="item-bg item-bg-5" style="height:100%;position:relative;"></div>
+      <div class="item-overlay">
+        <div class="item-name">Party Looks</div>
+        <div class="item-cat">Night Edition</div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ═══ OPENINGSTIJDEN ═══ -->
-<section id="tijden">
-  <div class="tijden-wrap">
-    <div class="tijden-header sr">
-      <div class="s-overline" style="justify-content:center;" data-i18n="hours.overline">Bezoek Ons</div>
-      <h2 class="s-title" data-i18n="hours.title">Openingstijden</h2>
+<!-- APPOINTMENT CTA -->
+<section id="appointment">
+  <div class="appt-inner">
+    <span class="section-tag">Persoonlijke Service</span>
+    <h2 class="section-title reveal">Jouw perfecte <em>look</em><br>begint hier</h2>
+    <div class="divider" style="margin: 1.5rem auto;"></div>
+    <p class="reveal">Boek een persoonlijke stijlsessie bij Huda & Roses Dress. Wij helpen je de perfecte outfit te vinden voor elke bijzondere gelegenheid – op maat, met aandacht.</p>
+    <a href="https://huda-roses-dress.reservio.com/booking" target="_blank" class="btn-glow reveal">
+      <span>✦</span> Boek Je Afspraak Nu
+    </a>
+    <div style="margin-top:2rem;" class="reveal">
+      <a href="https://g.page/r/CWhU2WVD7Bb9EAE/review" target="_blank" class="review-leave-btn">
+        ⭐ Laat een Review Achter
+      </a>
     </div>
-    <div class="hours-table sr" id="hoursTable"></div>
   </div>
 </section>
 
-<div class="wave-sep" style="background:var(--deep)">
-  <svg viewBox="0 0 1440 50" xmlns="http://www.w3.org/2000/svg">
-    <path d="M0,15 C500,50 940,0 1440,35 L1440,50 L0,50 Z" fill="#0e1f33"/>
-  </svg>
-</div>
+<!-- REVIEWS -->
+<section id="reviews">
+  <div class="reviews-header reveal">
+    <div>
+      <div class="section-tag">Klantervaring</div>
+      <h2 class="section-title">Wat onze klanten <em style="color:var(--rose)">zeggen</em></h2>
+      <div class="divider"></div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:1rem;align-items:flex-end;">
+      <div class="reviews-nav">
+        <button class="rev-btn" id="prevReview">←</button>
+        <button class="rev-btn" id="nextReview">→</button>
+      </div>
+      <a href="https://g.page/r/CWhU2WVD7Bb9EAE/review" target="_blank" class="review-leave-btn">⭐ Schrijf een Review</a>
+    </div>
+  </div>
+  <div class="reviews-track-wrap">
+    <div class="reviews-track" id="reviewsTrack">
+      <div class="review-card">
+        <div class="stars">★★★★★</div>
+        <div class="review-text">"Absoluut prachtige service! Huda hielp mij de perfecte jurk vinden voor mijn bruiloft. De aandacht en toewijding zijn ongeëvenaard."</div>
+        <div class="review-author">Fatima A. · <span>Bruid</span></div>
+      </div>
+      <div class="review-card">
+        <div class="stars">★★★★★</div>
+        <div class="review-text">"Wat een geweldige winkel! De collectie is uniek en de sfeer is zo warm en verwelkomend. Ik kom zeker terug voor mijn volgende gelegenheidskleding."</div>
+        <div class="review-author">Yasmine K. · <span>Vaste klant</span></div>
+      </div>
+      <div class="review-card">
+        <div class="stars">★★★★★</div>
+        <div class="review-text">"Ik was op zoek naar iets bijzonders voor een gala en werd perfect geholpen. De jurk was exact wat ik zocht – elegant, modern en op maat geadviseerd."</div>
+        <div class="review-author">Sara M. · <span>Gala klant</span></div>
+      </div>
+      <div class="review-card">
+        <div class="stars">★★★★★</div>
+        <div class="review-text">"Huda & Roses is een verborgen parel in Eindhoven. De kwaliteit van de kleding en de persoonlijke benadering maken het een unieke ervaring."</div>
+        <div class="review-author">Nadia B. · <span>Nieuwe klant</span></div>
+      </div>
+      <div class="review-card">
+        <div class="stars">★★★★★</div>
+        <div class="review-text">"Fantastische winkel met een prachtige collectie. De eigenaar neemt echt de tijd voor elke klant. Ik voelde mij een prinses in mijn uitgekozen jurk!"</div>
+        <div class="review-author">Laila H. · <span>Feestkleding</span></div>
+      </div>
+    </div>
+  </div>
+</section>
 
-<!-- ═══ CONTACT ═══ -->
+<!-- SOCIALS -->
+<section id="socials">
+  <div class="socials-inner reveal">
+    <div class="section-tag">Volg Ons</div>
+    <h2 class="section-title">Blijf <em>geïnspireerd</em></h2>
+    <div class="divider" style="margin: 1.5rem auto;"></div>
+    <p>Volg ons voor dagelijkse stijlinspiratie, nieuwe collecties en behind-the-scenes momenten.</p>
+    <div class="social-grid">
+      <a href="https://www.instagram.com/huda.roses_dress" target="_blank" class="social-card insta">
+        <div class="social-icon">📸</div>
+        <div class="social-name">Instagram</div>
+        <div class="social-handle">@huda.roses_dress</div>
+      </a>
+      <a href="https://www.tiktok.com/@huda.roses_dress" target="_blank" class="social-card tiktok">
+        <div class="social-icon">🎵</div>
+        <div class="social-name">TikTok</div>
+        <div class="social-handle">@huda.roses_dress</div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
 <section id="contact">
-  <div class="contact-wrap">
-    <div class="contact-left sr">
-      <div class="s-overline" data-i18n="contact.overline">Kom Langs</div>
-      <h2 class="s-title">Vind Ons in<br><em>Eindhoven</em></h2>
-      <div class="c-item">
-        <div class="c-icon">📍</div>
-        <div class="c-text">
-          <label data-i18n="contact.addr">Adres</label>
-          <p>Tongelresestraat 270A<br>5613 DV Eindhoven<br>Winkelcentrum Haagdijk</p>
+  <div class="contact-grid">
+    <div class="reveal-left">
+      <div class="section-tag">Bezoek Ons</div>
+      <h2 class="section-title" style="color:var(--cream)">Kom langs<br><em>in de boutique</em></h2>
+      <div class="divider"></div>
+      <div class="contact-info">
+        <div class="contact-block">
+          <div class="contact-label">Adres</div>
+          <div class="contact-value">Klein Tongelreplein 4<br>Winkelcentrum Haagdijk<br>Eindhoven</div>
         </div>
-      </div>
-      <div class="c-item">
-        <div class="c-icon">📞</div>
-        <div class="c-text">
-          <label data-i18n="contact.phone">Telefoon</label>
-          <p><a href="tel:0402024756">040 202 4756</a></p>
+        <div class="contact-block">
+          <div class="contact-label">Openingstijden</div>
+          <div class="hours-grid">
+            <div class="hours-day">Ma – Vr</div>
+            <div class="hours-time">10:00 – 18:00</div>
+            <div class="hours-day">Zaterdag</div>
+            <div class="hours-time">10:00 – 17:00</div>
+            <div class="hours-day">Zondag</div>
+            <div class="hours-time">Op afspraak</div>
+          </div>
         </div>
-      </div>
-      <div class="c-item">
-        <div class="c-icon">🕐</div>
-        <div class="c-text">
-          <label data-i18n="contact.today">Vandaag</label>
-          <p id="todayLine">–</p>
+        <div class="contact-block">
+          <a href="tel:+31" class="call-btn">📞 Bel ons direct</a>
         </div>
       </div>
     </div>
-    <div class="map-placeholder sr sr-delay-2">
-      <div class="map-pin-lg">📍</div>
-      <h3>Vis Enzo Food</h3>
-      <p>Tongelresestraat 270A<br>5613 DV Eindhoven</p>
-      <a href="https://www.google.com/maps/place/Tongelresestraat+270A,+5613+DV+Eindhoven" target="_blank" class="map-open-btn">Open in Google Maps →</a>
+    <div class="contact-map reveal-right">
+      <div class="map-pin">📍</div>
+      <div class="map-address">Klein Tongelreplein 4<br>Eindhoven</div>
+      <div class="map-sub">Winkelcentrum Haagdijk</div>
+      <a href="https://maps.google.com/?q=Klein+Tongelreplein+4+Eindhoven" target="_blank" class="map-link">Open in Maps →</a>
     </div>
   </div>
 </section>
 
-<!-- ═══ FOOTER ═══ -->
+<!-- FOOTER -->
 <footer>
-  <div class="footer-top">
-    <div class="footer-brand">
-      <a href="#hero" class="nav-logo">Vis Enzo<span class="dot">●</span><em>Food</em></a>
-      <p>Dagverse vis en zeevruchten in het hart van Eindhoven. Kwaliteit die u proeft bij elke hap.</p>
-      <div class="footer-social">
-        <a class="s-link" href="#">FB</a>
-        <a class="s-link" href="#">IG</a>
-        <a class="s-link" href="#">WA</a>
-        <a class="s-link" href="#">TK</a>
-      </div>
-    </div>
-    <div class="footer-col">
-      <h4 data-i18n="footer.nav">Navigatie</h4>
-      <ul>
-        <li><a href="#gallery">Galerij</a></li>
-        <li><a href="#menu">Menu</a></li>
-        <li><a href="#over">Over Ons</a></li>
-        <li><a href="#tijden">Openingstijden</a></li>
-        <li><a href="#contact">Contact</a></li>
-      </ul>
-    </div>
-    <div class="footer-col">
-      <h4 data-i18n="footer.products">Producten</h4>
-      <ul>
-        <li><a href="#menu">Verse Vis</a></li>
-        <li><a href="#menu">Zeevruchten</a></li>
-        <li><a href="#menu">Gerookte Zalm</a></li>
-        <li><a href="#menu">Garnalen</a></li>
-        <li><a href="#menu">Vissnacks</a></li>
-      </ul>
-    </div>
-    <div class="footer-col">
-      <h4 data-i18n="footer.contact">Contact</h4>
-      <div class="f-contact-item">Tongelresestraat 270A<br>5613 DV Eindhoven</div>
-      <div class="f-contact-item"><a href="tel:0402024756">040 202 4756</a></div>
-      <div class="f-contact-item" style="margin-top:.75rem;">
-        <div style="font-size:.7rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.25);margin-bottom:.35rem;" data-i18n="footer.lang">Taal</div>
-        <div style="display:flex;gap:.4rem;">
-          <button class="lang-btn active" data-lang="nl" onclick="setLang('nl',this)">NL</button>
-          <button class="lang-btn" data-lang="en" onclick="setLang('en',this)">EN</button>
-          <button class="lang-btn" data-lang="tr" onclick="setLang('tr',this)">TR</button>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="footer-bottom">
-    <p>© 2025 Vis Enzo Food · Eindhoven · Alle rechten voorbehouden</p>
-    <div class="footer-bottom-links">
-      <a href="#">Privacybeleid</a>
-      <a href="#">Algemene Voorwaarden</a>
-    </div>
+  <div class="footer-logo">Huda &amp; <span>Roses</span> Dress</div>
+  <div class="footer-copy">© 2025 Huda & Roses Dress · Eindhoven</div>
+  <div class="footer-socials">
+    <a href="https://www.instagram.com/huda.roses_dress" target="_blank" class="footer-social">Instagram</a>
+    <a href="https://www.tiktok.com/@huda.roses_dress" target="_blank" class="footer-social">TikTok</a>
+    <a href="https://huda-roses-dress.reservio.com/booking" target="_blank" class="footer-social">Reserveer</a>
+    <a href="https://g.page/r/CWhU2WVD7Bb9EAE/review" target="_blank" class="footer-social">Review</a>
   </div>
 </footer>
 
-<button id="btt" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+<!-- STICKY CTA -->
+<div id="sticky-cta">
+  <a href="https://huda-roses-dress.reservio.com/booking" target="_blank" class="sticky-btn sticky-appt">✦ Boek Afspraak</a>
+  <a href="https://www.instagram.com/huda.roses_dress" target="_blank" class="sticky-btn sticky-insta">📸 Instagram</a>
+</div>
 
 <script>
-/* ──────────────────────────────────────
-   i18n translations
-────────────────────────────────────── */
-const translations = {
-  nl: {
-    'hero.overline':'Vers uit de Zee · Eindhoven','hero.subtitle':'Food',
-    'hero.desc':'De lekkerste verse vis, zeevruchten en meer — dagvers bij u in Winkelcentrum Haagdijk, Eindhoven.',
-    'hero.cta1':'Bekijk Menu','hero.cta2':'Vind Ons',
-    'stat.products':'Producten','stat.days':'Dagen/week open','stat.fresh':'Dagvers',
-    'gallery.overline':'Ons Aanbod','gallery.link':'Bekijk menu',
-    'menu.overline':'Ons Aanbod','tab.all':'Alles','tab.vis':'Vis','tab.zee':'Zeevruchten','tab.snack':'Snacks',
-    'about.overline':'Over Ons','about.p1':'Bij Vis Enzo Food geloven we dat de beste maaltijden beginnen met de versste ingrediënten. Iedere dag selecteren wij zorgvuldig de mooiste producten uit zee.',
-    'about.p2':'Wij zijn gevestigd in Winkelcentrum Haagdijk in Eindhoven. Altijd vriendelijk, altijd vers, altijd met een glimlach.',
-    'feat1.title':'Dagverse producten','feat1.desc':'Elke dag verse aanvoer','feat2.title':'Zeevruchten','feat2.desc':'Verse schelpdieren & meer',
-    'feat3.title':'Persoonlijk advies','feat3.desc':'Vriendelijke service','feat4.title':'Centraal gelegen','feat4.desc':'Winkelcentrum Haagdijk',
-    'hours.overline':'Bezoek Ons','hours.title':'Openingstijden',
-    'contact.overline':'Kom Langs','contact.addr':'Adres','contact.phone':'Telefoon','contact.today':'Vandaag',
-    'footer.nav':'Navigatie','footer.products':'Producten','footer.contact':'Contact','footer.lang':'Taal'
-  },
-  en: {
-    'hero.overline':'Fresh from the Sea · Eindhoven','hero.subtitle':'Food',
-    'hero.desc':'The finest fresh fish, seafood and more — daily fresh at Winkelcentrum Haagdijk, Eindhoven.',
-    'hero.cta1':'View Menu','hero.cta2':'Find Us',
-    'stat.products':'Products','stat.days':'Days/week open','stat.fresh':'Daily fresh',
-    'gallery.overline':'Our Range','gallery.link':'View menu',
-    'menu.overline':'Our Range','tab.all':'All','tab.vis':'Fish','tab.zee':'Seafood','tab.snack':'Snacks',
-    'about.overline':'About Us','about.p1':'At Vis Enzo Food we believe the best meals start with the freshest ingredients. Every day we carefully select the finest products from the sea.',
-    'about.p2':'Located in Winkelcentrum Haagdijk in Eindhoven. Always friendly, always fresh, always with a smile.',
-    'feat1.title':'Daily fresh','feat1.desc':'Fresh stock every day','feat2.title':'Seafood','feat2.desc':'Fresh shellfish & more',
-    'feat3.title':'Personal advice','feat3.desc':'Friendly service','feat4.title':'Central location','feat4.desc':'Winkelcentrum Haagdijk',
-    'hours.overline':'Visit Us','hours.title':'Opening Hours',
-    'contact.overline':'Come Visit','contact.addr':'Address','contact.phone':'Phone','contact.today':'Today',
-    'footer.nav':'Navigation','footer.products':'Products','footer.contact':'Contact','footer.lang':'Language'
-  },
-  tr: {
-    'hero.overline':'Denizden Taze · Eindhoven','hero.subtitle':'Food',
-    'hero.desc':'En taze balık, deniz ürünleri ve daha fazlası — Winkelcentrum Haagdijk, Eindhoven\'da her gün taze.',
-    'hero.cta1':'Menüyü Gör','hero.cta2':'Bizi Bul',
-    'stat.products':'Ürün','stat.days':'Gün/hafta açık','stat.fresh':'Günlük taze',
-    'gallery.overline':'Ürünlerimiz','gallery.link':'Menüyü gör',
-    'menu.overline':'Ürünlerimiz','tab.all':'Tümü','tab.vis':'Balık','tab.zee':'Deniz Ürünleri','tab.snack':'Atıştırmalık',
-    'about.overline':'Hakkımızda','about.p1':'Vis Enzo Food olarak en iyi yemeklerin en taze malzemelerle başladığına inanıyoruz. Her gün denizden en güzel ürünleri özenle seçiyoruz.',
-    'about.p2':'Eindhoven\'daki Winkelcentrum Haagdijk\'te bulunuyoruz. Her zaman güler yüzlü, her zaman taze.',
-    'feat1.title':'Günlük taze ürünler','feat1.desc':'Her gün taze gelir','feat2.title':'Deniz ürünleri','feat2.desc':'Taze kabuklu & daha fazlası',
-    'feat3.title':'Kişisel tavsiye','feat3.desc':'Samimi hizmet','feat4.title':'Merkezi konum','feat4.desc':'Winkelcentrum Haagdijk',
-    'hours.overline':'Ziyaret Edin','hours.title':'Çalışma Saatleri',
-    'contact.overline':'Gelin','contact.addr':'Adres','contact.phone':'Telefon','contact.today':'Bugün',
-    'footer.nav':'Navigasyon','footer.products':'Ürünler','footer.contact':'İletişim','footer.lang':'Dil'
-  }
-};
-
-let currentLang = 'nl';
-function setLang(lang, btn) {
-  currentLang = lang;
-  // update all lang buttons
-  document.querySelectorAll('.lang-btn, .o-lang').forEach(b => {
-    if(b.dataset.lang === lang) b.classList.add('active');
-    else b.classList.remove('active');
-  });
-  // translate
-  const t = translations[lang] || translations.nl;
-  document.querySelectorAll('[data-i18n]').forEach(el => {
-    const key = el.dataset.i18n;
-    if(t[key]) el.textContent = t[key];
-  });
-  renderMenu(currentFilter);
-  buildHours();
+// ─── CURSOR ───
+const cursor = document.getElementById('cursor');
+const ring = document.getElementById('cursor-ring');
+let mx = 0, my = 0, rx = 0, ry = 0;
+document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; });
+function animCursor() {
+  cursor.style.left = mx + 'px'; cursor.style.top = my + 'px';
+  rx += (mx - rx) * 0.12; ry += (my - ry) * 0.12;
+  ring.style.left = rx + 'px'; ring.style.top = ry + 'px';
+  requestAnimationFrame(animCursor);
 }
-
-/* ──────────────────────────────────────
-   Menu data
-────────────────────────────────────── */
-const menuItems = [
-  { emoji:'🐟', name:'Gekruide Zeebaars', desc:'Vers gemarineerd met kruiden en citroen', price:'€8,50', cat:'vis', badge:'pop', badgeLabel:'Aanbevolen' },
-  { emoji:'🍤', name:'Gebakken Scampi', desc:'Knapperig gebakken scampi met knoflook', price:'€9,50', cat:'zeevruchten', badge:'pop', badgeLabel:'Populair' },
-  { emoji:'🐠', name:'Hele Dorade', desc:'Vers gevangen, gegrild of gebakken', price:'€10,00', cat:'vis', badge:'', badgeLabel:'' },
-  { emoji:'🦐', name:'Gepelde Garnalen', desc:'Verse Hollandse garnalen, dagvers', price:'€6,50', cat:'zeevruchten', badge:'vers', badgeLabel:'Dagvers' },
-  { emoji:'🐡', name:'Vis Snack Mix', desc:'Diverse krokante vissnacks', price:'€5,00', cat:'snack', badge:'', badgeLabel:'' },
-  { emoji:'🦞', name:'Kreeft Segment', desc:'Verse kreeft, op bestelling', price:'€18,00', cat:'zeevruchten', badge:'prem', badgeLabel:'Premium' },
-  { emoji:'🍣', name:'Gerookte Zalm', desc:'Ambachtelijk gerookte Noorse zalm', price:'€7,50', cat:'vis', badge:'', badgeLabel:'' },
-  { emoji:'🦑', name:'Calamares', desc:'Verse inktvisringen, licht gekruid', price:'€7,00', cat:'zeevruchten', badge:'', badgeLabel:'' },
-  { emoji:'🥪', name:'Visbroodje', desc:'Vers broodje met vis & saus', price:'€4,50', cat:'snack', badge:'pop', badgeLabel:'Favoriet' },
-];
-
-let currentFilter = 'all';
-function filterMenu(cat, btn) {
-  currentFilter = cat;
-  document.querySelectorAll('.m-tab').forEach(b => b.classList.remove('active'));
-  btn.classList.add('active');
-  renderMenu(cat);
-}
-
-function renderMenu(filter) {
-  const filtered = filter === 'all' ? menuItems : menuItems.filter(i => i.cat === filter);
-  const grid = document.getElementById('menuGrid');
-  grid.innerHTML = filtered.map(item => `
-    <div class="menu-row">
-      <div class="menu-row-left">
-        <span class="menu-icon">${item.emoji}</span>
-        <div class="menu-row-info">
-          <div class="menu-row-name">${item.name}</div>
-          <div class="menu-row-desc">${item.desc}</div>
-        </div>
-      </div>
-      <div class="menu-row-right">
-        ${item.badge ? `<span class="m-badge ${item.badge}">${item.badgeLabel}</span>` : ''}
-        <span class="menu-price">${item.price}</span>
-      </div>
-    </div>
-  `).join('');
-}
-renderMenu('all');
-
-/* ──────────────────────────────────────
-   Hours
-────────────────────────────────────── */
-const days = [
-  { nl:'Maandag', en:'Monday', tr:'Pazartesi', time:'09:00 – 20:00' },
-  { nl:'Dinsdag', en:'Tuesday', tr:'Salı', time:'09:00 – 20:00' },
-  { nl:'Woensdag', en:'Wednesday', tr:'Çarşamba', time:'09:00 – 20:00' },
-  { nl:'Donderdag', en:'Thursday', tr:'Perşembe', time:'09:00 – 20:00' },
-  { nl:'Vrijdag', en:'Friday', tr:'Cuma', time:'09:00 – 20:00' },
-  { nl:'Zaterdag', en:'Saturday', tr:'Cumartesi', time:'09:00 – 20:00' },
-  { nl:'Zondag', en:'Sunday', tr:'Pazar', time:null },
-];
-
-const todayIdx = (new Date().getDay() + 6) % 7;
-
-function buildHours() {
-  const todayLabels = { nl: 'Vandaag', en: 'Today', tr: 'Bugün' };
-  const closedLabels = { nl: 'Gesloten', en: 'Closed', tr: 'Kapalı' };
-  const table = document.getElementById('hoursTable');
-  table.innerHTML = days.map((d, i) => `
-    <div class="hours-row ${i === todayIdx ? 'today-row' : ''}">
-      <span class="h-day">${d[currentLang] || d.nl}</span>
-      <span class="h-time ${!d.time ? 'closed' : ''}">${d.time || closedLabels[currentLang] || 'Gesloten'}</span>
-      ${i === todayIdx ? `<span class="h-tag">${todayLabels[currentLang] || 'Vandaag'}</span>` : '<span></span>'}
-    </div>
-  `).join('');
-
-  const todayLine = document.getElementById('todayLine');
-  const td = days[todayIdx];
-  if(td.time) {
-    const openMsgs = {nl:`Geopend · ${td.time}`, en:`Open · ${td.time}`, tr:`Açık · ${td.time}`};
-    todayLine.textContent = openMsgs[currentLang] || openMsgs.nl;
-  } else {
-    const closedMsgs = {nl:'Vandaag gesloten', en:'Closed today', tr:'Bugün kapalı'};
-    todayLine.textContent = closedMsgs[currentLang] || closedMsgs.nl;
-  }
-}
-buildHours();
-
-/* ──────────────────────────────────────
-   Overlay
-────────────────────────────────────── */
-function toggleOverlay() {
-  const o = document.getElementById('overlay');
-  const t = document.getElementById('mToggle');
-  const isOpen = o.classList.toggle('open');
-  t.classList.toggle('open', isOpen);
-  document.body.style.overflow = isOpen ? 'hidden' : '';
-}
-function closeOverlay() {
-  document.getElementById('overlay').classList.remove('open');
-  document.getElementById('mToggle').classList.remove('open');
-  document.body.style.overflow = '';
-}
-
-/* ──────────────────────────────────────
-   Scroll effects
-────────────────────────────────────── */
-const nav = document.getElementById('nav');
-const btt = document.getElementById('btt');
-window.addEventListener('scroll', () => {
-  nav.classList.toggle('solid', scrollY > 40);
-  btt.classList.toggle('show', scrollY > 500);
+animCursor();
+document.querySelectorAll('a, button, .collection-item').forEach(el => {
+  el.addEventListener('mouseenter', () => { cursor.style.transform = 'translate(-50%,-50%) scale(2.5)'; ring.style.opacity = '0.2'; });
+  el.addEventListener('mouseleave', () => { cursor.style.transform = 'translate(-50%,-50%) scale(1)'; ring.style.opacity = '0.6'; });
 });
 
-const srEls = document.querySelectorAll('.sr');
-const srObs = new IntersectionObserver(entries => {
-  entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible'); });
-}, { threshold: 0.1 });
-srEls.forEach(el => srObs.observe(el));
+// ─── PRELOADER ───
+const preloader = document.getElementById('preloader');
+const preloaderBrand = document.querySelector('.preloader-brand');
+setTimeout(() => { preloader.classList.add('active'); }, 100);
+setTimeout(() => { preloader.classList.add('open'); }, 1500);
+setTimeout(() => { preloader.style.display = 'none'; }, 3000);
+
+// ─── NAV ───
+const navbar = document.getElementById('navbar');
+window.addEventListener('scroll', () => {
+  navbar.classList.toggle('scrolled', window.scrollY > 50);
+  document.getElementById('sticky-cta').classList.toggle('visible', window.scrollY > 400);
+});
+
+// ─── PORTAL MENU ───
+const hamburger = document.getElementById('hamburger');
+const portal = document.getElementById('portal');
+hamburger.addEventListener('click', () => {
+  hamburger.classList.toggle('open');
+  portal.classList.toggle('open');
+});
+document.querySelectorAll('.portal-link').forEach(link => {
+  link.addEventListener('click', () => {
+    hamburger.classList.remove('open');
+    portal.classList.remove('open');
+  });
+});
+
+// ─── HERO SLIDER ───
+const slides = document.querySelectorAll('.hero-slide');
+const dots = document.querySelectorAll('.dot');
+let current = 0;
+function goSlide(n) {
+  slides[current].classList.remove('active');
+  dots[current].classList.remove('active');
+  current = (n + slides.length) % slides.length;
+  slides[current].classList.add('active');
+  dots[current].classList.add('active');
+}
+dots.forEach(d => d.addEventListener('click', () => goSlide(+d.dataset.index)));
+setInterval(() => goSlide(current + 1), 5000);
+
+// ─── REVIEWS CAROUSEL ───
+const track = document.getElementById('reviewsTrack');
+const cards = track.querySelectorAll('.review-card');
+let revIdx = 0;
+function getCardWidth() {
+  const card = cards[0];
+  return card.offsetWidth + 24; // gap
+}
+function moveReviews() {
+  track.style.transform = `translateX(-${revIdx * getCardWidth()}px)`;
+}
+document.getElementById('nextReview').addEventListener('click', () => {
+  if (revIdx < cards.length - 1) { revIdx++; moveReviews(); }
+});
+document.getElementById('prevReview').addEventListener('click', () => {
+  if (revIdx > 0) { revIdx--; moveReviews(); }
+});
+setInterval(() => {
+  revIdx = revIdx < cards.length - 1 ? revIdx + 1 : 0;
+  moveReviews();
+}, 4000);
+
+// ─── SCROLL REVEAL ───
+const revealObserver = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('visible');
+      revealObserver.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.15 });
+document.querySelectorAll('.reveal, .reveal-left, .reveal-right').forEach(el => revealObserver.observe(el));
+
+// ─── STAGGER CHILDREN ───
+document.querySelectorAll('.collection-grid .collection-item').forEach((el, i) => {
+  el.style.transitionDelay = `${i * 0.08}s`;
+  el.classList.add('reveal');
+  revealObserver.observe(el);
+});
 </script>
 </body>
 </html>
