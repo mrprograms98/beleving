@@ -3,1236 +3,801 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Huda & Roses Dress – Luxury Boutique Eindhoven</title>
+<title>Nails & Beauty by Jade | Luxe Nagelsalon in Helmond</title>
+<meta name="description" content="Nails & Beauty by Jade — luxe nagelsalon in Helmond voor BIAB, gelnagels, acrylnagels, wimperextensions en meer. Gediplomeerd en gecertificeerd. Boek vandaag nog je afspraak.">
+<meta name="keywords" content="nagelsalon Helmond, BIAB, gelnagels, acrylnagels, wimperextensions, lash lift, manicure, pedicure, Nails & Beauty by Jade">
+<meta name="author" content="Nails & Beauty by Jade">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://www.nailsandbeautybyjade.nl/">
+
+<!-- Open Graph -->
+<meta property="og:type" content="business.business">
+<meta property="og:title" content="Nails & Beauty by Jade | Luxe Nagelsalon in Helmond">
+<meta property="og:description" content="Waar schoonheid en perfectie samenkomen. Boek jouw luxe nagel- en beautybehandeling bij Jade.">
+<meta property="og:image" content="images/logo.jpg">
+<meta property="og:url" content="https://www.nailsandbeautybyjade.nl/">
+<meta property="og:locale" content="nl_NL">
+
+<!-- Favicon -->
+<link rel="icon" type="image/jpeg" href="images/logo.jpg">
+
+<!-- Fonts -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Jost:wght@200;300;400;500&display=swap" rel="stylesheet">
-<style>
-:root {
-  --cream: #f7f3ee;
-  --gold: #c9a96e;
-  --gold-light: #e8d5b0;
-  --gold-glow: rgba(201,169,110,0.4);
-  --black: #0d0b09;
-  --dark: #1a1612;
-  --warm-gray: #8a7f74;
-  --rose: #c4879a;
-  --rose-light: #f0d8df;
-  --white: #fdfbf8;
-  --glass: rgba(253,251,248,0.08);
-  --glass-border: rgba(201,169,110,0.2);
-}
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,500&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
-*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+<link rel="stylesheet" href="css/style.css">
 
-html { scroll-behavior: smooth; overflow-x: hidden; }
-
-body {
-  font-family: 'Jost', sans-serif;
-  background: var(--cream);
-  color: var(--black);
-  cursor: none;
-  overflow-x: hidden;
-}
-
-/* ─── CUSTOM CURSOR ─── */
-#cursor {
-  width: 12px; height: 12px;
-  background: var(--gold);
-  border-radius: 50%;
-  position: fixed; top: 0; left: 0;
-  pointer-events: none; z-index: 9999;
-  transform: translate(-50%,-50%);
-  transition: transform 0.1s, width 0.3s, height 0.3s, background 0.3s;
-  mix-blend-mode: multiply;
-}
-#cursor-ring {
-  width: 36px; height: 36px;
-  border: 1px solid var(--gold);
-  border-radius: 50%;
-  position: fixed; top: 0; left: 0;
-  pointer-events: none; z-index: 9998;
-  transform: translate(-50%,-50%);
-  transition: transform 0.15s ease, width 0.3s, height 0.3s, opacity 0.3s;
-  opacity: 0.6;
-}
-body:hover #cursor { opacity: 1; }
-a:hover ~ #cursor, button:hover ~ #cursor { transform: translate(-50%,-50%) scale(2.5); }
-
-/* ─── PRELOADER ─── */
-#preloader {
-  position: fixed; inset: 0;
-  background: var(--black);
-  z-index: 10000;
-  display: flex; align-items: center; justify-content: center;
-  overflow: hidden;
-}
-.curtain-left, .curtain-right {
-  position: absolute; top: 0; width: 50%; height: 100%;
-  background: var(--dark);
-  transition: transform 1.4s cubic-bezier(0.76, 0, 0.24, 1);
-  z-index: 2;
-}
-.curtain-left { left: 0; transform-origin: left; }
-.curtain-right { right: 0; transform-origin: right; }
-.preloader-brand {
-  text-align: center; z-index: 3; position: relative;
-  opacity: 0; transform: translateY(20px);
-  transition: opacity 0.8s ease 0.3s, transform 0.8s ease 0.3s;
-}
-.preloader-brand .pre-name {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: clamp(2.5rem, 6vw, 5rem);
-  font-weight: 300;
-  color: var(--cream);
-  letter-spacing: 0.15em;
-  line-height: 1.1;
-}
-.preloader-brand .pre-sub {
-  font-family: 'Jost', sans-serif;
-  font-weight: 200;
-  font-size: 0.7rem;
-  letter-spacing: 0.4em;
-  color: var(--gold);
-  text-transform: uppercase;
-  margin-top: 0.8rem;
-}
-.pre-line {
-  width: 0; height: 1px; background: var(--gold);
-  margin: 1rem auto;
-  transition: width 1s ease 0.8s;
-}
-#preloader.active .preloader-brand { opacity: 1; transform: translateY(0); }
-#preloader.active .pre-line { width: 120px; }
-#preloader.open .curtain-left { transform: translateX(-100%); }
-#preloader.open .curtain-right { transform: translateX(100%); }
-
-/* ─── NAVBAR ─── */
-nav {
-  position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
-  padding: 1.5rem 4rem;
-  display: flex; align-items: center; justify-content: space-between;
-  transition: background 0.4s, padding 0.4s, backdrop-filter 0.4s;
-}
-nav.scrolled {
-  background: rgba(247,243,238,0.92);
-  backdrop-filter: blur(20px);
-  padding: 1rem 4rem;
-  border-bottom: 1px solid var(--glass-border);
-}
-.nav-logo {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 1.4rem; font-weight: 400;
-  letter-spacing: 0.12em;
-  color: var(--cream);
-  text-decoration: none;
-  transition: color 0.4s;
-}
-nav.scrolled .nav-logo { color: var(--black); }
-.nav-logo span { color: var(--gold); }
-
-.hamburger {
-  width: 36px; height: 20px;
-  display: flex; flex-direction: column;
-  justify-content: space-between;
-  cursor: pointer; z-index: 1001; background: none; border: none;
-}
-.hamburger span {
-  display: block; height: 1px;
-  background: var(--cream);
-  transition: transform 0.4s, opacity 0.4s, background 0.4s, width 0.4s;
-  transform-origin: center;
-}
-.hamburger span:nth-child(2) { width: 60%; margin-left: auto; }
-nav.scrolled .hamburger span { background: var(--black); }
-.hamburger.open span:nth-child(1) { transform: translateY(9.5px) rotate(45deg); background: var(--cream) !important; }
-.hamburger.open span:nth-child(2) { opacity: 0; width: 100%; }
-.hamburger.open span:nth-child(3) { transform: translateY(-9.5px) rotate(-45deg); background: var(--cream) !important; }
-
-/* ─── PORTAL MENU ─── */
-#portal {
-  position: fixed; inset: 0; z-index: 999;
-  background: rgba(13,11,9,0.96);
-  backdrop-filter: blur(30px);
-  display: flex; align-items: center; justify-content: center;
-  clip-path: circle(0% at 95% 5%);
-  transition: clip-path 0.8s cubic-bezier(0.76, 0, 0.24, 1);
-  pointer-events: none;
-}
-#portal.open {
-  clip-path: circle(150% at 95% 5%);
-  pointer-events: all;
-}
-.portal-inner { text-align: center; }
-.portal-nav {
-  list-style: none;
-  display: flex; flex-direction: column; gap: 0.5rem;
-}
-.portal-nav li {
-  opacity: 0; transform: translateY(30px);
-  transition: opacity 0.5s ease, transform 0.5s ease;
-}
-#portal.open .portal-nav li:nth-child(1) { opacity:1; transform:translateY(0); transition-delay:0.2s; }
-#portal.open .portal-nav li:nth-child(2) { opacity:1; transform:translateY(0); transition-delay:0.28s; }
-#portal.open .portal-nav li:nth-child(3) { opacity:1; transform:translateY(0); transition-delay:0.36s; }
-#portal.open .portal-nav li:nth-child(4) { opacity:1; transform:translateY(0); transition-delay:0.44s; }
-#portal.open .portal-nav li:nth-child(5) { opacity:1; transform:translateY(0); transition-delay:0.52s; }
-#portal.open .portal-nav li:nth-child(6) { opacity:1; transform:translateY(0); transition-delay:0.6s; }
-.portal-nav a {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: clamp(2.5rem, 6vw, 5rem);
-  font-weight: 300;
-  color: var(--cream);
-  text-decoration: none;
-  letter-spacing: 0.05em;
-  line-height: 1.2;
-  display: inline-block;
-  position: relative;
-  transition: color 0.3s;
-}
-.portal-nav a::after {
-  content: '';
-  position: absolute; bottom: 2px; left: 0;
-  width: 0; height: 1px;
-  background: var(--gold);
-  transition: width 0.4s ease;
-}
-.portal-nav a:hover { color: var(--gold); }
-.portal-nav a:hover::after { width: 100%; }
-.portal-bottom {
-  margin-top: 3rem;
-  display: flex; gap: 2rem; justify-content: center;
-  opacity: 0; transform: translateY(20px);
-  transition: opacity 0.5s ease 0.65s, transform 0.5s ease 0.65s;
-}
-#portal.open .portal-bottom { opacity: 1; transform: translateY(0); }
-.portal-social {
-  font-size: 0.65rem; letter-spacing: 0.3em;
-  text-transform: uppercase; color: var(--gold);
-  text-decoration: none;
-  transition: opacity 0.3s;
-}
-.portal-social:hover { opacity: 0.6; }
-
-/* ─── HERO ─── */
-#hero {
-  height: 100vh; min-height: 700px;
-  position: relative; overflow: hidden;
-  display: flex; align-items: flex-end;
-  padding: 0 4rem 5rem;
-}
-.hero-slides { position: absolute; inset: 0; }
-.hero-slide {
-  position: absolute; inset: 0;
-  background-size: cover; background-position: center;
-  opacity: 0;
-  transition: opacity 1.5s ease;
-}
-.hero-slide.active { opacity: 1; }
-/* Gradient overlays as hero bg visuals */
-.hero-slide:nth-child(1) { background: linear-gradient(135deg, #1a0e0a 0%, #3d2219 40%, #6b3d2e 70%, #c4879a 100%); }
-.hero-slide:nth-child(2) { background: linear-gradient(135deg, #0d0b09 0%, #2a2018 40%, #5c4a2e 70%, #c9a96e 100%); }
-.hero-slide:nth-child(3) { background: linear-gradient(135deg, #12100e 0%, #1e1a15 40%, #3d3028 70%, #8a7f74 100%); }
-/* Decorative fabric texture */
-.hero-slide::before {
-  content: '';
-  position: absolute; inset: 0;
-  background-image: repeating-linear-gradient(
-    45deg, transparent, transparent 2px,
-    rgba(255,255,255,0.015) 2px, rgba(255,255,255,0.015) 4px
-  );
-}
-.hero-overlay {
-  position: absolute; inset: 0;
-  background: linear-gradient(to top, rgba(13,11,9,0.7) 0%, rgba(13,11,9,0.1) 60%, transparent 100%);
-}
-.hero-content { position: relative; z-index: 2; max-width: 700px; }
-.hero-tag {
-  font-size: 0.65rem; letter-spacing: 0.4em;
-  text-transform: uppercase; color: var(--gold);
-  margin-bottom: 1.5rem;
-  opacity: 0; transform: translateY(20px);
-  animation: fadeUp 0.8s ease 0.5s forwards;
-}
-.hero-title {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: clamp(3.5rem, 8vw, 7rem);
-  font-weight: 300;
-  color: var(--cream);
-  line-height: 0.95;
-  letter-spacing: -0.01em;
-  opacity: 0; transform: translateY(30px);
-  animation: fadeUp 0.9s ease 0.7s forwards;
-}
-.hero-title em { font-style: italic; color: var(--gold-light); }
-.hero-subtitle {
-  font-size: 0.8rem; letter-spacing: 0.2em;
-  text-transform: uppercase; color: var(--warm-gray);
-  margin: 1.5rem 0 2.5rem;
-  opacity: 0; transform: translateY(20px);
-  animation: fadeUp 0.8s ease 0.9s forwards;
-}
-.hero-ctas {
-  display: flex; gap: 1.2rem; flex-wrap: wrap;
-  opacity: 0; transform: translateY(20px);
-  animation: fadeUp 0.8s ease 1.1s forwards;
-}
-.btn-primary {
-  display: inline-flex; align-items: center; gap: 0.6rem;
-  padding: 1rem 2.2rem;
-  background: var(--gold);
-  color: var(--black);
-  font-family: 'Jost', sans-serif;
-  font-size: 0.72rem; font-weight: 500;
-  letter-spacing: 0.2em; text-transform: uppercase;
-  text-decoration: none; border: none; cursor: pointer;
-  position: relative; overflow: hidden;
-  transition: transform 0.3s, box-shadow 0.3s;
-}
-.btn-primary::before {
-  content: '';
-  position: absolute; inset: 0;
-  background: rgba(255,255,255,0.15);
-  transform: translateX(-100%);
-  transition: transform 0.4s ease;
-}
-.btn-primary:hover::before { transform: translateX(0); }
-.btn-primary:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 30px var(--gold-glow);
-}
-.btn-ghost {
-  display: inline-flex; align-items: center; gap: 0.6rem;
-  padding: 1rem 2.2rem;
-  background: transparent;
-  color: var(--cream);
-  font-family: 'Jost', sans-serif;
-  font-size: 0.72rem; font-weight: 400;
-  letter-spacing: 0.2em; text-transform: uppercase;
-  text-decoration: none; border: 1px solid rgba(247,243,238,0.3);
-  cursor: pointer;
-  transition: border-color 0.3s, color 0.3s, transform 0.3s;
-}
-.btn-ghost:hover {
-  border-color: var(--gold);
-  color: var(--gold);
-  transform: translateY(-2px);
-}
-
-/* Slide indicators */
-.hero-dots {
-  position: absolute; right: 4rem; bottom: 5rem;
-  display: flex; flex-direction: column; gap: 0.6rem; z-index: 2;
-}
-.dot {
-  width: 4px; height: 20px; background: rgba(247,243,238,0.3);
-  cursor: pointer; transition: background 0.3s, height 0.3s;
-}
-.dot.active { background: var(--gold); height: 40px; }
-
-/* ─── SECTIONS COMMON ─── */
-section { padding: 7rem 4rem; }
-.section-tag {
-  font-size: 0.6rem; letter-spacing: 0.5em;
-  text-transform: uppercase; color: var(--gold);
-  margin-bottom: 1rem;
-}
-.section-title {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: clamp(2.5rem, 5vw, 4.5rem);
-  font-weight: 300;
-  line-height: 1.05;
-  color: var(--black);
-}
-.section-title em { font-style: italic; color: var(--rose); }
-.divider {
-  width: 60px; height: 1px;
-  background: var(--gold);
-  margin: 2rem 0;
-}
-
-/* ─── ABOUT ─── */
-#about { background: var(--white); }
-.about-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 6rem;
-  align-items: center;
-  max-width: 1300px; margin: 0 auto;
-}
-.about-visual {
-  position: relative; height: 600px;
-}
-.about-card {
-  position: absolute;
-  border: 1px solid var(--glass-border);
-  overflow: hidden;
-}
-.about-card-main {
-  inset: 0; bottom: 80px;
-  background: linear-gradient(135deg, #3d2219, #c4879a 60%, #e8d5b0);
-}
-.about-card-accent {
-  bottom: 0; right: 0; width: 55%; height: 200px;
-  background: var(--black);
-  display: flex; align-items: center; justify-content: center;
-}
-.about-card-accent-inner {
-  text-align: center;
-  font-family: 'Cormorant Garamond', serif;
-  color: var(--gold);
-}
-.about-card-accent-inner .num {
-  font-size: 3.5rem; font-weight: 300; line-height: 1;
-}
-.about-card-accent-inner .label {
-  font-size: 0.55rem; letter-spacing: 0.35em;
-  text-transform: uppercase; color: var(--warm-gray);
-  margin-top: 0.4rem;
-}
-/* Fabric pattern on card */
-.about-card-main::before {
-  content: '';
-  position: absolute; inset: 0;
-  background-image: radial-gradient(circle at 30% 50%, rgba(247,243,238,0.12) 0%, transparent 60%),
-    radial-gradient(circle at 80% 80%, rgba(201,169,110,0.15) 0%, transparent 50%);
-}
-.about-text p {
-  font-size: 1.05rem; line-height: 1.9;
-  color: var(--warm-gray); font-weight: 300;
-  margin-bottom: 1.5rem;
-}
-.about-features {
-  display: flex; gap: 2.5rem; margin-top: 2.5rem; flex-wrap: wrap;
-}
-.feat { text-align: center; }
-.feat-num {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 2.5rem; font-weight: 300; color: var(--gold);
-  line-height: 1;
-}
-.feat-label {
-  font-size: 0.6rem; letter-spacing: 0.3em;
-  text-transform: uppercase; color: var(--warm-gray);
-  margin-top: 0.3rem;
-}
-
-/* ─── COLLECTION ─── */
-#collection { background: var(--black); padding-bottom: 5rem; }
-#collection .section-title { color: var(--cream); }
-#collection .divider { background: var(--rose); }
-.collection-header {
-  display: flex; justify-content: space-between; align-items: flex-end;
-  max-width: 1300px; margin: 0 auto 3rem;
-  flex-wrap: wrap; gap: 1rem;
-}
-.collection-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 1px;
-  max-width: 1300px; margin: 0 auto;
-}
-.collection-item {
-  position: relative; overflow: hidden;
-  aspect-ratio: 3/4;
-  cursor: pointer;
-}
-.collection-item:first-child {
-  grid-row: span 2;
-  aspect-ratio: auto;
-}
-.item-bg {
-  width: 100%; height: 100%;
-  transition: transform 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-}
-.collection-item:hover .item-bg { transform: scale(1.06); }
-.item-bg-1 { background: linear-gradient(160deg, #2a1515, #8b3a52, #c4879a); }
-.item-bg-2 { background: linear-gradient(160deg, #1a1410, #4a3520, #c9a96e); }
-.item-bg-3 { background: linear-gradient(160deg, #0d0f14, #1e2840, #4a6fa5); }
-.item-bg-4 { background: linear-gradient(160deg, #14100d, #3d2a1a, #8a6040); }
-.item-bg-5 { background: linear-gradient(160deg, #0d1210, #1a3028, #4a8060); }
-/* Fabric shimmer overlay */
-.item-bg::after {
-  content: '';
-  position: absolute; inset: 0;
-  background: linear-gradient(45deg,
-    transparent 0%, rgba(255,255,255,0.05) 30%,
-    transparent 50%, rgba(255,255,255,0.03) 70%, transparent 100%
-  );
-}
-.item-overlay {
-  position: absolute; inset: 0;
-  background: linear-gradient(to top, rgba(13,11,9,0.85) 0%, transparent 60%);
-  opacity: 0; transition: opacity 0.4s;
-  display: flex; flex-direction: column;
-  justify-content: flex-end; padding: 2rem;
-}
-.collection-item:hover .item-overlay { opacity: 1; }
-.item-name {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 1.6rem; font-weight: 300; color: var(--cream);
-  transform: translateY(10px); transition: transform 0.4s;
-}
-.item-cat {
-  font-size: 0.6rem; letter-spacing: 0.35em;
-  text-transform: uppercase; color: var(--gold);
-  margin-top: 0.3rem;
-  transform: translateY(10px); transition: transform 0.4s 0.05s;
-}
-.collection-item:hover .item-name,
-.collection-item:hover .item-cat { transform: translateY(0); }
-/* Large item decorative elements */
-.item-deco {
-  position: absolute;
-  border: 1px solid rgba(201,169,110,0.2);
-  pointer-events: none;
-}
-.item-deco-1 { inset: 20px; }
-
-/* ─── APPOINTMENT CTA ─── */
-#appointment {
-  background: var(--cream);
-  text-align: center;
-  padding: 6rem 4rem;
-}
-.appt-inner {
-  max-width: 700px; margin: 0 auto;
-}
-.appt-inner .section-tag { display: block; margin-bottom: 1.2rem; }
-.appt-inner .section-title { margin-bottom: 1rem; }
-.appt-inner p {
-  color: var(--warm-gray); font-weight: 300;
-  font-size: 1rem; line-height: 1.8; margin-bottom: 2.5rem;
-}
-.btn-glow {
-  display: inline-flex; align-items: center; gap: 0.8rem;
-  padding: 1.2rem 3rem;
-  background: var(--black);
-  color: var(--gold);
-  font-family: 'Jost', sans-serif;
-  font-size: 0.75rem; font-weight: 500;
-  letter-spacing: 0.25em; text-transform: uppercase;
-  text-decoration: none; border: 1px solid var(--gold);
-  position: relative; overflow: hidden;
-  transition: transform 0.3s, box-shadow 0.3s;
-  animation: pulse-glow 3s ease-in-out infinite;
-}
-@keyframes pulse-glow {
-  0%, 100% { box-shadow: 0 0 0 rgba(201,169,110,0); }
-  50% { box-shadow: 0 0 35px rgba(201,169,110,0.4); }
-}
-.btn-glow:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 12px 40px var(--gold-glow) !important;
-  animation: none;
-}
-.btn-glow::before {
-  content: '';
-  position: absolute; top: 0; left: -100%;
-  width: 100%; height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(201,169,110,0.15), transparent);
-  transition: left 0.5s ease;
-}
-.btn-glow:hover::before { left: 100%; }
-
-/* ─── REVIEWS ─── */
-#reviews { background: var(--dark); overflow: hidden; }
-#reviews .section-title { color: var(--cream); }
-.reviews-header {
-  max-width: 1300px; margin: 0 auto 3rem;
-  display: flex; justify-content: space-between; align-items: flex-end;
-  flex-wrap: wrap; gap: 1rem;
-}
-.reviews-track-wrap { overflow: hidden; position: relative; max-width: 100%; }
-.reviews-track {
-  display: flex; gap: 1.5rem;
-  transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-  will-change: transform;
-}
-.review-card {
-  min-width: 380px;
-  background: rgba(247,243,238,0.05);
-  border: 1px solid rgba(201,169,110,0.12);
-  padding: 2.5rem;
-  flex-shrink: 0;
-  transition: background 0.3s, border-color 0.3s;
-}
-.review-card:hover {
-  background: rgba(247,243,238,0.08);
-  border-color: rgba(201,169,110,0.3);
-}
-.stars { color: var(--gold); font-size: 0.85rem; letter-spacing: 0.1em; margin-bottom: 1.2rem; }
-.review-text {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 1.2rem; font-weight: 300; font-style: italic;
-  color: var(--cream); line-height: 1.6;
-  margin-bottom: 1.5rem;
-}
-.review-author {
-  font-size: 0.65rem; letter-spacing: 0.3em;
-  text-transform: uppercase; color: var(--warm-gray);
-}
-.review-author span { color: var(--gold); }
-.reviews-nav {
-  display: flex; gap: 1rem; align-items: center;
-}
-.rev-btn {
-  width: 44px; height: 44px;
-  border: 1px solid rgba(201,169,110,0.3);
-  background: none; color: var(--gold);
-  font-size: 1.1rem;
-  cursor: pointer;
-  transition: background 0.3s, border-color 0.3s;
-  display: flex; align-items: center; justify-content: center;
-}
-.rev-btn:hover { background: rgba(201,169,110,0.1); border-color: var(--gold); }
-.review-leave-btn {
-  display: inline-flex; align-items: center; gap: 0.5rem;
-  padding: 0.8rem 1.8rem;
-  background: transparent; color: var(--gold);
-  font-family: 'Jost', sans-serif;
-  font-size: 0.65rem; font-weight: 400;
-  letter-spacing: 0.25em; text-transform: uppercase;
-  text-decoration: none; border: 1px solid rgba(201,169,110,0.4);
-  transition: all 0.3s;
-}
-.review-leave-btn:hover {
-  background: var(--gold); color: var(--black);
-  box-shadow: 0 0 25px var(--gold-glow);
-}
-
-/* ─── SOCIALS ─── */
-#socials { background: var(--white); text-align: center; }
-.socials-inner { max-width: 800px; margin: 0 auto; }
-.socials-inner .section-title { margin-bottom: 1rem; }
-.socials-inner > p {
-  color: var(--warm-gray); font-weight: 300; margin-bottom: 3rem;
-}
-.social-grid {
-  display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;
-}
-.social-card {
-  padding: 3rem 2rem;
-  border: 1px solid var(--glass-border);
-  text-decoration: none; color: inherit;
-  position: relative; overflow: hidden;
-  transition: transform 0.3s, box-shadow 0.3s;
-  display: flex; flex-direction: column; align-items: center;
-}
-.social-card::before {
-  content: '';
-  position: absolute; inset: 0;
-  opacity: 0; transition: opacity 0.4s;
-}
-.social-card.insta::before { background: linear-gradient(135deg, rgba(240,216,223,0.3), rgba(201,169,110,0.2)); }
-.social-card.tiktok::before { background: linear-gradient(135deg, rgba(13,11,9,0.1), rgba(201,169,110,0.15)); }
-.social-card:hover::before { opacity: 1; }
-.social-card:hover { transform: translateY(-4px); box-shadow: 0 12px 40px rgba(0,0,0,0.1); }
-.social-icon {
-  font-size: 2.5rem; margin-bottom: 1rem;
-  transition: transform 0.3s;
-}
-.social-card:hover .social-icon { transform: scale(1.1); }
-.social-name {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 1.8rem; font-weight: 300; color: var(--black);
-  margin-bottom: 0.5rem;
-}
-.social-handle {
-  font-size: 0.65rem; letter-spacing: 0.25em;
-  text-transform: uppercase; color: var(--gold);
-}
-
-/* ─── CONTACT ─── */
-#contact { background: var(--black); }
-#contact .section-title { color: var(--cream); }
-.contact-grid {
-  display: grid; grid-template-columns: 1fr 1fr; gap: 5rem;
-  max-width: 1300px; margin: 0 auto;
-  align-items: start;
-}
-.contact-info { margin-top: 1rem; }
-.contact-block { margin-bottom: 2.5rem; }
-.contact-label {
-  font-size: 0.6rem; letter-spacing: 0.35em;
-  text-transform: uppercase; color: var(--gold);
-  margin-bottom: 0.6rem;
-}
-.contact-value {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 1.3rem; font-weight: 300; color: var(--cream);
-  line-height: 1.5;
-}
-.contact-value a { color: inherit; text-decoration: none; transition: color 0.3s; }
-.contact-value a:hover { color: var(--gold); }
-.hours-grid {
-  display: grid; grid-template-columns: auto 1fr;
-  gap: 0.4rem 1.5rem;
-}
-.hours-day { font-size: 0.7rem; letter-spacing: 0.1em; color: var(--warm-gray); }
-.hours-time { font-size: 0.7rem; color: var(--cream); }
-.call-btn {
-  display: inline-flex; align-items: center; gap: 0.7rem;
-  padding: 1rem 2rem;
-  border: 1px solid rgba(201,169,110,0.3);
-  color: var(--gold);
-  font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase;
-  text-decoration: none;
-  transition: all 0.3s; margin-top: 1rem;
-}
-.call-btn:hover {
-  background: var(--gold); color: var(--black);
-  box-shadow: 0 0 25px var(--gold-glow);
-}
-.contact-map {
-  aspect-ratio: 1;
-  background: linear-gradient(135deg, #1a1612, #2e2318);
-  border: 1px solid rgba(201,169,110,0.1);
-  display: flex; flex-direction: column;
-  align-items: center; justify-content: center;
-  text-align: center; padding: 3rem;
-}
-.map-pin {
-  font-size: 3rem; margin-bottom: 1rem;
-  animation: float 3s ease-in-out infinite;
-}
-@keyframes float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-8px)} }
-.map-address {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 1.4rem; font-weight: 300; color: var(--cream);
-  line-height: 1.4; margin-bottom: 0.8rem;
-}
-.map-sub { font-size: 0.65rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--warm-gray); }
-.map-link {
-  display: inline-block; margin-top: 1.5rem;
-  padding: 0.8rem 1.8rem;
-  border: 1px solid rgba(201,169,110,0.3);
-  color: var(--gold); font-size: 0.65rem;
-  letter-spacing: 0.25em; text-transform: uppercase;
-  text-decoration: none; transition: all 0.3s;
-}
-.map-link:hover { background: rgba(201,169,110,0.1); }
-
-/* ─── FOOTER ─── */
-footer {
-  background: var(--black);
-  border-top: 1px solid rgba(201,169,110,0.1);
-  padding: 3rem 4rem;
-  display: flex; justify-content: space-between; align-items: center;
-  flex-wrap: wrap; gap: 2rem;
-}
-.footer-logo {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 1.3rem; font-weight: 300;
-  color: var(--cream); letter-spacing: 0.1em;
-}
-.footer-logo span { color: var(--gold); }
-.footer-copy {
-  font-size: 0.6rem; letter-spacing: 0.2em;
-  color: var(--warm-gray); text-transform: uppercase;
-}
-.footer-socials { display: flex; gap: 1.5rem; }
-.footer-social {
-  font-size: 0.6rem; letter-spacing: 0.25em;
-  text-transform: uppercase; color: var(--warm-gray);
-  text-decoration: none; transition: color 0.3s;
-}
-.footer-social:hover { color: var(--gold); }
-
-/* ─── STICKY CTA ─── */
-#sticky-cta {
-  position: fixed; bottom: 2rem; right: 2rem;
-  z-index: 500; display: flex; flex-direction: column; gap: 0.8rem;
-  opacity: 0; transform: translateX(20px);
-  transition: opacity 0.5s, transform 0.5s;
-  pointer-events: none;
-}
-#sticky-cta.visible { opacity: 1; transform: translateX(0); pointer-events: all; }
-.sticky-btn {
-  display: flex; align-items: center; gap: 0.6rem;
-  padding: 0.8rem 1.4rem;
-  font-size: 0.62rem; letter-spacing: 0.2em; text-transform: uppercase;
-  text-decoration: none; font-weight: 500;
-  transition: transform 0.3s, box-shadow 0.3s;
-  white-space: nowrap;
-}
-.sticky-appt {
-  background: var(--gold); color: var(--black);
-  box-shadow: 0 4px 20px var(--gold-glow);
-  animation: pulse-glow 3s ease-in-out infinite;
-}
-.sticky-appt:hover { transform: translateX(-4px); box-shadow: 0 8px 30px var(--gold-glow); }
-.sticky-insta {
-  background: var(--black); color: var(--cream);
-  border: 1px solid rgba(201,169,110,0.3);
-}
-.sticky-insta:hover { transform: translateX(-4px); border-color: var(--rose); }
-
-/* ─── ANIMATIONS ─── */
-@keyframes fadeUp {
-  to { opacity: 1; transform: translateY(0); }
-}
-.reveal {
-  opacity: 0; transform: translateY(40px);
-  transition: opacity 0.8s ease, transform 0.8s ease;
-}
-.reveal.visible { opacity: 1; transform: translateY(0); }
-.reveal-left { opacity: 0; transform: translateX(-40px); transition: opacity 0.8s, transform 0.8s; }
-.reveal-left.visible { opacity: 1; transform: translateX(0); }
-.reveal-right { opacity: 0; transform: translateX(40px); transition: opacity 0.8s, transform 0.8s; }
-.reveal-right.visible { opacity: 1; transform: translateX(0); }
-
-/* ─── RESPONSIVE ─── */
-@media (max-width: 1024px) {
-  nav { padding: 1.5rem 2.5rem; }
-  nav.scrolled { padding: 1rem 2.5rem; }
-  section { padding: 5rem 2.5rem; }
-  #hero { padding: 0 2.5rem 4rem; }
-  .about-grid { grid-template-columns: 1fr; gap: 3rem; }
-  .about-visual { height: 400px; }
-  .contact-grid { grid-template-columns: 1fr; gap: 3rem; }
-  .collection-grid { grid-template-columns: repeat(2, 1fr); }
-  .collection-item:first-child { grid-row: span 1; aspect-ratio: 3/4; }
-  footer { flex-direction: column; text-align: center; }
-}
-@media (max-width: 768px) {
-  nav { padding: 1.2rem 1.5rem; }
-  nav.scrolled { padding: 0.9rem 1.5rem; }
-  section { padding: 4rem 1.5rem; }
-  #hero { padding: 0 1.5rem 3rem; }
-  .hero-dots { display: none; }
-  .collection-grid { grid-template-columns: 1fr; }
-  .social-grid { grid-template-columns: 1fr; }
-  .hero-ctas { flex-direction: column; }
-  .hero-ctas .btn-primary, .hero-ctas .btn-ghost { text-align: center; justify-content: center; }
-  .review-card { min-width: 280px; }
-  #sticky-cta { bottom: 1rem; right: 1rem; }
-  .sticky-btn { padding: 0.7rem 1rem; font-size: 0.58rem; }
-  footer { padding: 2rem 1.5rem; }
-}
-@media (max-width: 480px) {
-  .portal-nav a { font-size: 2.2rem; }
-  .about-features { gap: 1.5rem; }
-}
-
-/* ─── GOLD SHIMMER DECORATIONS ─── */
-.shimmer-line {
-  position: absolute;
-  background: linear-gradient(90deg, transparent, var(--gold), transparent);
-  height: 1px; width: 100%;
-  opacity: 0.2; pointer-events: none;
-}
-</style>
+<!-- Prevent theme flash: set theme before paint -->
+<script>
+  (function(){
+    try{
+      var saved = localStorage.getItem('jade_theme');
+      var theme = saved || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+      document.documentElement.setAttribute('data-theme', theme);
+    }catch(e){ document.documentElement.setAttribute('data-theme','light'); }
+  })();
+</script>
 </head>
 <body>
 
-<!-- CURSOR -->
-<div id="cursor"></div>
-<div id="cursor-ring"></div>
-
-<!-- PRELOADER -->
-<div id="preloader">
-  <div class="curtain-left"></div>
-  <div class="curtain-right"></div>
-  <div class="preloader-brand">
-    <div class="pre-name">Huda &amp;<br><em style="font-style:italic;color:var(--gold)">Roses</em></div>
-    <div class="pre-line"></div>
-    <div class="pre-sub">Luxury Boutique · Eindhoven</div>
+<!-- ============ PRELOADER ============ -->
+<div class="preloader" id="preloader" aria-hidden="true">
+  <div class="preloader-inner">
+    <svg class="preloader-ring" viewBox="0 0 120 120">
+      <circle class="ring-track" cx="60" cy="60" r="52"></circle>
+      <circle class="ring-sweep" cx="60" cy="60" r="52"></circle>
+    </svg>
+    <div class="preloader-mark">
+      <img src="images/logo.jpg" alt="Nails & Beauty by Jade logo">
+    </div>
+    <p class="preloader-label">Nails &amp; Beauty <em>by Jade</em></p>
   </div>
 </div>
 
-<!-- NAV -->
-<nav id="navbar">
-  <a href="#hero" class="nav-logo">Huda &amp; <span>Roses</span></a>
-  <button class="hamburger" id="hamburger" aria-label="Menu">
-    <span></span><span></span><span></span>
-  </button>
-</nav>
+<!-- ============ CURSOR GLOW (desktop only) ============ -->
+<div class="cursor-glow" id="cursorGlow" aria-hidden="true"></div>
 
-<!-- PORTAL MENU -->
-<div id="portal">
-  <div class="portal-inner">
-    <ul class="portal-nav">
-      <li><a href="#hero" class="portal-link">Home</a></li>
-      <li><a href="#collection" class="portal-link">Collectie</a></li>
-      <li><a href="#appointment" class="portal-link">Boek Afspraak</a></li>
-      <li><a href="#reviews" class="portal-link">Reviews</a></li>
-      <li><a href="#socials" class="portal-link">Socials</a></li>
-      <li><a href="#contact" class="portal-link">Contact</a></li>
-    </ul>
-    <div class="portal-bottom">
-      <a href="https://www.instagram.com/huda.roses_dress" target="_blank" class="portal-social">Instagram</a>
-      <a href="https://www.tiktok.com/@huda.roses_dress" target="_blank" class="portal-social">TikTok</a>
-      <a href="https://huda-roses-dress.reservio.com/booking" target="_blank" class="portal-social">Reserveer</a>
-    </div>
+<!-- ============ SCROLL PROGRESS ============ -->
+<div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
+
+<!-- ============ COOKIE BANNER ============ -->
+<div class="cookie-banner" id="cookieBanner" role="dialog" aria-live="polite">
+  <p>We gebruiken cookies om jouw ervaring op onze website te verbeteren. <a href="privacy.html">Lees meer</a></p>
+  <div class="cookie-actions">
+    <button class="btn btn-ghost btn-sm" id="cookieDecline">Weigeren</button>
+    <button class="btn btn-gold btn-sm" id="cookieAccept">Accepteren</button>
   </div>
 </div>
 
-<!-- HERO -->
-<section id="hero">
-  <div class="hero-slides">
-    <div class="hero-slide active"></div>
-    <div class="hero-slide"></div>
-    <div class="hero-slide"></div>
-  </div>
-  <div class="hero-overlay"></div>
-  <div class="hero-content">
-    <div class="hero-tag">Luxury Boutique · Eindhoven · Haagdijk</div>
-    <h1 class="hero-title">Huda &amp;<br><em>Roses</em><br>Dress</h1>
-    <p class="hero-subtitle">Waar stijl ontmoet passie</p>
-    <div class="hero-ctas">
-      <a href="https://huda-roses-dress.reservio.com/booking" target="_blank" class="btn-primary">
-        <span>✦</span> Boek Afspraak
-      </a>
-      <a href="#collection" class="btn-ghost">Bekijk Collectie →</a>
-    </div>
-  </div>
-  <div class="hero-dots">
-    <div class="dot active" data-index="0"></div>
-    <div class="dot" data-index="1"></div>
-    <div class="dot" data-index="2"></div>
-  </div>
-</section>
-
-<!-- ABOUT -->
-<section id="about">
-  <div class="about-grid">
-    <div class="about-visual reveal-left">
-      <div class="about-card about-card-main">
-        <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;">
-          <div style="text-align:center;z-index:1;">
-            <div style="font-family:'Cormorant Garamond',serif;font-size:clamp(3rem,5vw,5rem);font-weight:300;color:var(--cream);line-height:1;letter-spacing:0.05em;">H&amp;R</div>
-            <div style="font-size:0.55rem;letter-spacing:0.5em;text-transform:uppercase;color:var(--gold-light);margin-top:0.5rem;">Dress Boutique</div>
-          </div>
-        </div>
-      </div>
-      <div class="about-card about-card-accent">
-        <div class="about-card-accent-inner">
-          <div class="num">100<small style="font-size:1.5rem;">+</small></div>
-          <div class="label">Tevreden klanten</div>
-        </div>
-      </div>
-    </div>
-    <div class="about-text reveal-right">
-      <div class="section-tag">Over Ons</div>
-      <h2 class="section-title">Een boutique<br>met <em>ziel</em></h2>
-      <div class="divider"></div>
-      <p>Welkom bij Huda & Roses Dress – een handgepickte luxe kledingwinkel in het hart van Eindhoven. Wij geloven dat mode meer is dan kleding; het is een expressie van wie je bent.</p>
-      <p>Onze collectie combineert tijdloze elegantie met moderne stijl. Van avondjurken tot casual chic – elk stuk is zorgvuldig geselecteerd om jou te laten stralen bij elke gelegenheid.</p>
-      <div class="about-features">
-        <div class="feat">
-          <div class="feat-num">5★</div>
-          <div class="feat-label">Rating</div>
-        </div>
-        <div class="feat">
-          <div class="feat-num">∞</div>
-          <div class="feat-label">Stijlen</div>
-        </div>
-        <div class="feat">
-          <div class="feat-num">1</div>
-          <div class="feat-label">Unieke Boutique</div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- COLLECTION -->
-<section id="collection">
-  <div class="collection-header reveal">
-    <div>
-      <div class="section-tag">Onze Stijl</div>
-      <h2 class="section-title" style="color:var(--cream)">De <em style="color:var(--rose)">Collectie</em></h2>
-      <div class="divider" style="background:var(--rose)"></div>
-    </div>
-    <a href="#appointment" class="btn-ghost" style="color:var(--gold);border-color:rgba(201,169,110,0.3)">Persoonlijk advies →</a>
-  </div>
-  <div class="collection-grid reveal">
-    <div class="collection-item">
-      <div class="item-bg item-bg-1" style="height:100%;position:relative;">
-        <div class="item-deco item-deco-1"></div>
-        <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;">
-          <div style="text-align:center;">
-            <div style="font-family:'Cormorant Garamond',serif;font-size:4rem;font-weight:200;color:rgba(247,243,238,0.15);letter-spacing:0.1em;">ROSE</div>
-          </div>
-        </div>
-      </div>
-      <div class="item-overlay">
-        <div class="item-name">Avondjurken</div>
-        <div class="item-cat">Elegance Collection</div>
-      </div>
-    </div>
-    <div class="collection-item">
-      <div class="item-bg item-bg-2" style="height:100%;position:relative;"></div>
-      <div class="item-overlay">
-        <div class="item-name">Bruidslooks</div>
-        <div class="item-cat">Bridal Luxury</div>
-      </div>
-    </div>
-    <div class="collection-item">
-      <div class="item-bg item-bg-3" style="height:100%;position:relative;"></div>
-      <div class="item-overlay">
-        <div class="item-name">Galakleding</div>
-        <div class="item-cat">Gala Series</div>
-      </div>
-    </div>
-    <div class="collection-item">
-      <div class="item-bg item-bg-4" style="height:100%;position:relative;"></div>
-      <div class="item-overlay">
-        <div class="item-name">Casual Chic</div>
-        <div class="item-cat">Day Collection</div>
-      </div>
-    </div>
-    <div class="collection-item">
-      <div class="item-bg item-bg-5" style="height:100%;position:relative;"></div>
-      <div class="item-overlay">
-        <div class="item-name">Party Looks</div>
-        <div class="item-cat">Night Edition</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- APPOINTMENT CTA -->
-<section id="appointment">
-  <div class="appt-inner">
-    <span class="section-tag">Persoonlijke Service</span>
-    <h2 class="section-title reveal">Jouw perfecte <em>look</em><br>begint hier</h2>
-    <div class="divider" style="margin: 1.5rem auto;"></div>
-    <p class="reveal">Boek een persoonlijke stijlsessie bij Huda & Roses Dress. Wij helpen je de perfecte outfit te vinden voor elke bijzondere gelegenheid – op maat, met aandacht.</p>
-    <a href="https://huda-roses-dress.reservio.com/booking" target="_blank" class="btn-glow reveal">
-      <span>✦</span> Boek Je Afspraak Nu
+<!-- ============ NAVBAR ============ -->
+<header class="navbar" id="navbar">
+  <div class="nav-container">
+    <a href="#home" class="nav-logo">
+      <span class="logo-mark"><img src="images/logo.jpg" alt="Nails & Beauty by Jade"></span>
+      <span class="logo-text">Nails <em>&amp;</em> Beauty <strong>by Jade</strong></span>
     </a>
-    <div style="margin-top:2rem;" class="reveal">
-      <a href="https://g.page/r/CWhU2WVD7Bb9EAE/review" target="_blank" class="review-leave-btn">
-        ⭐ Laat een Review Achter
+
+    <nav class="nav-links" id="navLinks" aria-label="Hoofdmenu">
+      <a href="#home" class="nav-link active">Home</a>
+      <a href="#over-ons" class="nav-link">Over ons</a>
+      <a href="#behandelingen" class="nav-link">Behandelingen</a>
+      <a href="#galerij" class="nav-link">Galerij</a>
+      <a href="#reviews" class="nav-link">Reviews</a>
+      <a href="#afspraken" class="nav-link">Afspraken</a>
+      <a href="#contact" class="nav-link">Contact</a>
+    </nav>
+
+    <div class="nav-actions">
+      <button class="theme-toggle" id="themeToggle" aria-label="Wissel tussen licht en donker thema">
+        <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="4.6"/><path d="M12 2.5v2.4M12 19.1v2.4M4.2 4.2l1.7 1.7M18.1 18.1l1.7 1.7M2.5 12h2.4M19.1 12h2.4M4.2 19.8l1.7-1.7M18.1 5.9l1.7-1.7"/></svg>
+        <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20 14.5A8.5 8.5 0 1 1 9.5 4a7 7 0 0 0 10.5 10.5z"/></svg>
+      </button>
+
+      <a href="https://instagram.com" target="_blank" rel="noopener" class="social-icon social-instagram" aria-label="Instagram">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="3" y="3" width="18" height="18" rx="5.5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.4" cy="6.6" r="1.1" fill="currentColor" stroke="none"/></svg>
       </a>
+      <a href="https://wa.me/31600000000" target="_blank" rel="noopener" class="social-icon social-whatsapp" aria-label="WhatsApp">
+        <svg viewBox="0 0 32 32" fill="currentColor"><path d="M16.02 3C9.4 3 4 8.4 4 15.02c0 2.6.85 5 2.3 6.98L4.9 28l6.15-1.6a12 12 0 0 0 4.97 1.08c6.62 0 12.02-5.4 12.02-12.02C28.04 8.4 22.64 3 16.02 3zm0 21.8c-1.72 0-3.4-.46-4.86-1.33l-.35-.2-3.65.95.97-3.56-.23-.37a9.76 9.76 0 0 1-1.5-5.27c0-5.4 4.39-9.79 9.79-9.79 5.4 0 9.79 4.39 9.79 9.79-.16 5.4-4.55 9.78-9.96 9.78z"/><path d="M21.2 18.02c-.28-.14-1.66-.82-1.92-.91-.26-.1-.44-.14-.63.14-.18.28-.72.9-.88 1.09-.16.18-.32.2-.6.07-.28-.14-1.18-.44-2.24-1.4-.83-.74-1.39-1.65-1.55-1.93-.16-.28-.02-.43.12-.57.13-.13.28-.32.42-.49.14-.16.18-.28.28-.46.09-.18.05-.35-.02-.49-.07-.14-.63-1.53-.87-2.1-.23-.55-.46-.47-.63-.48-.16-.01-.35-.01-.53-.01-.19 0-.49.07-.75.35-.26.28-.98.96-.98 2.35 0 1.39 1 2.73 1.14 2.92.14.18 1.97 3.02 4.78 4.23.67.29 1.19.46 1.6.59.67.21 1.28.18 1.76.11.54-.08 1.66-.68 1.89-1.33.24-.65.24-1.21.16-1.33-.07-.12-.25-.19-.53-.32z"/></svg>
+      </a>
+      <a href="https://tiktok.com" target="_blank" rel="noopener" class="social-icon social-tiktok" aria-label="TikTok">
+        <svg viewBox="0 0 32 32">
+          <path class="tt-accent1" d="M21.6 8.4c-1.1-.9-1.8-2.3-1.8-3.8h-3.2v16.4c0 1.6-1.3 2.9-2.9 2.9-1.6 0-2.9-1.3-2.9-2.9s1.3-2.9 2.9-2.9c.3 0 .6.05.9.14v-3.3a6.15 6.15 0 0 0-.9-.07 6.16 6.16 0 1 0 6.16 6.16V12.3a9.3 9.3 0 0 0 5.4 1.7v-3.2c-1.3 0-2.5-.4-3.66-1.4z" transform="translate(0.5,0.3)"/>
+          <path class="tt-main" d="M20.6 8.1c-1.1-.9-1.8-2.3-1.8-3.8h-3.2v16.4c0 1.6-1.3 2.9-2.9 2.9-1.6 0-2.9-1.3-2.9-2.9s1.3-2.9 2.9-2.9c.3 0 .6.05.9.14v-3.3a6.15 6.15 0 0 0-.9-.07 6.16 6.16 0 1 0 6.16 6.16V12a9.3 9.3 0 0 0 5.4 1.7v-3.2c-1.3 0-2.5-.4-3.66-1.4z"/>
+        </svg>
+      </a>
+
+      <a href="#afspraken" class="btn btn-gold btn-sm nav-cta">Maak afspraak</a>
+      <button class="hamburger" id="hamburger" aria-label="Menu openen" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
     </div>
   </div>
+</header>
+
+<!-- ============ HERO ============ -->
+<section class="hero" id="home">
+  <div class="hero-media">
+    <img src="https://images.unsplash.com/photo-1604654894610-df63bc536371?q=80&w=1600&auto=format&fit=crop" alt="Luxe verzorgde nagels met gouden accenten" class="hero-img" loading="eager">
+    <div class="hero-overlay"></div>
+  </div>
+
+  <div class="hero-floaters" aria-hidden="true">
+    <span class="floater f1"></span>
+    <span class="floater f2"></span>
+    <span class="floater f3"></span>
+    <span class="sparkle s1"></span>
+    <span class="sparkle s2"></span>
+    <span class="sparkle s3"></span>
+    <span class="sparkle s4"></span>
+  </div>
+
+  <div class="hero-content">
+    <p class="hero-eyebrow" data-aos>Studio aan de Statenlaan · Helmond</p>
+    <h1 class="hero-title" data-aos>Nails &amp; Beauty <span>by Jade</span></h1>
+    <p class="hero-subtitle" data-aos>Waar schoonheid en perfectie samenkomen.</p>
+    <div class="hero-actions" data-aos>
+      <a href="#afspraken" class="btn btn-gold btn-lg">Maak afspraak</a>
+      <a href="#galerij" class="btn btn-outline btn-lg">Bekijk galerij</a>
+    </div>
+  </div>
+
+  <a href="#over-ons" class="scroll-indicator" aria-label="Scroll naar beneden">
+    <span class="mouse"><span class="wheel"></span></span>
+  </a>
 </section>
 
-<!-- REVIEWS -->
-<section id="reviews">
-  <div class="reviews-header reveal">
-    <div>
-      <div class="section-tag">Klantervaring</div>
-      <h2 class="section-title">Wat onze klanten <em style="color:var(--rose)">zeggen</em></h2>
-      <div class="divider"></div>
+<!-- ============ OVER ONS ============ -->
+<section class="section about" id="over-ons">
+  <div class="container about-grid">
+    <div class="about-media" data-aos="fade-right">
+      <div class="about-frame">
+        <img src="https://images.unsplash.com/photo-1487412947147-5cebf100ffc2?q=80&w=1200&auto=format&fit=crop" alt="Jade, eigenaresse van Nails & Beauty by Jade, aan het werk" loading="lazy">
+      </div>
+      <span class="frame-accent" aria-hidden="true"></span>
     </div>
-    <div style="display:flex;flex-direction:column;gap:1rem;align-items:flex-end;">
-      <div class="reviews-nav">
-        <button class="rev-btn" id="prevReview">←</button>
-        <button class="rev-btn" id="nextReview">→</button>
-      </div>
-      <a href="https://g.page/r/CWhU2WVD7Bb9EAE/review" target="_blank" class="review-leave-btn">⭐ Schrijf een Review</a>
-    </div>
-  </div>
-  <div class="reviews-track-wrap">
-    <div class="reviews-track" id="reviewsTrack">
-      <div class="review-card">
-        <div class="stars">★★★★★</div>
-        <div class="review-text">"Absoluut prachtige service! Huda hielp mij de perfecte jurk vinden voor mijn bruiloft. De aandacht en toewijding zijn ongeëvenaard."</div>
-        <div class="review-author">Fatima A. · <span>Bruid</span></div>
-      </div>
-      <div class="review-card">
-        <div class="stars">★★★★★</div>
-        <div class="review-text">"Wat een geweldige winkel! De collectie is uniek en de sfeer is zo warm en verwelkomend. Ik kom zeker terug voor mijn volgende gelegenheidskleding."</div>
-        <div class="review-author">Yasmine K. · <span>Vaste klant</span></div>
-      </div>
-      <div class="review-card">
-        <div class="stars">★★★★★</div>
-        <div class="review-text">"Ik was op zoek naar iets bijzonders voor een gala en werd perfect geholpen. De jurk was exact wat ik zocht – elegant, modern en op maat geadviseerd."</div>
-        <div class="review-author">Sara M. · <span>Gala klant</span></div>
-      </div>
-      <div class="review-card">
-        <div class="stars">★★★★★</div>
-        <div class="review-text">"Huda & Roses is een verborgen parel in Eindhoven. De kwaliteit van de kleding en de persoonlijke benadering maken het een unieke ervaring."</div>
-        <div class="review-author">Nadia B. · <span>Nieuwe klant</span></div>
-      </div>
-      <div class="review-card">
-        <div class="stars">★★★★★</div>
-        <div class="review-text">"Fantastische winkel met een prachtige collectie. De eigenaar neemt echt de tijd voor elke klant. Ik voelde mij een prinses in mijn uitgekozen jurk!"</div>
-        <div class="review-author">Laila H. · <span>Feestkleding</span></div>
-      </div>
-    </div>
-  </div>
-</section>
 
-<!-- SOCIALS -->
-<section id="socials">
-  <div class="socials-inner reveal">
-    <div class="section-tag">Volg Ons</div>
-    <h2 class="section-title">Blijf <em>geïnspireerd</em></h2>
-    <div class="divider" style="margin: 1.5rem auto;"></div>
-    <p>Volg ons voor dagelijkse stijlinspiratie, nieuwe collecties en behind-the-scenes momenten.</p>
-    <div class="social-grid">
-      <a href="https://www.instagram.com/huda.roses_dress" target="_blank" class="social-card insta">
-        <div class="social-icon">📸</div>
-        <div class="social-name">Instagram</div>
-        <div class="social-handle">@huda.roses_dress</div>
-      </a>
-      <a href="https://www.tiktok.com/@huda.roses_dress" target="_blank" class="social-card tiktok">
-        <div class="social-icon">🎵</div>
-        <div class="social-name">TikTok</div>
-        <div class="social-handle">@huda.roses_dress</div>
-      </a>
-    </div>
-  </div>
-</section>
+    <div class="about-text" data-aos="fade-left">
+      <p class="eyebrow">Over Jade</p>
+      <h2 class="section-title">Vakmanschap met <span class="text-gold">persoonlijke</span> touch</h2>
+      <p class="lead">Als gediplomeerd schoonheidsspecialiste en gecertificeerd allround nagelstyliste &amp; wimperstyliste zet Jade al meer dan 8 jaar haar precisie en passie in voor het mooiste resultaat.</p>
+      <p>Elke afspraak begint met aandacht: voor jouw wensen, jouw huid en jouw nagels. Met hoogwaardige producten, hygiënische werkwijze en oog voor detail creëert Jade een behandeling die niet alleen mooi oogt, maar ook aanvoelt als een moment van rust in een luxe omgeving.</p>
 
-<!-- CONTACT -->
-<section id="contact">
-  <div class="contact-grid">
-    <div class="reveal-left">
-      <div class="section-tag">Bezoek Ons</div>
-      <h2 class="section-title" style="color:var(--cream)">Kom langs<br><em>in de boutique</em></h2>
-      <div class="divider"></div>
-      <div class="contact-info">
-        <div class="contact-block">
-          <div class="contact-label">Adres</div>
-          <div class="contact-value">Klein Tongelreplein 4<br>Winkelcentrum Haagdijk<br>Eindhoven</div>
+      <ul class="about-tags">
+        <li>Allround nagelstyliste</li>
+        <li>Wimperstyliste</li>
+        <li>Schoonheidsspecialiste</li>
+      </ul>
+
+      <div class="counters">
+        <div class="counter-item">
+          <span class="counter-number" data-target="8" data-suffix="+">0</span>
+          <span class="counter-label">Jaar ervaring</span>
         </div>
-        <div class="contact-block">
-          <div class="contact-label">Openingstijden</div>
-          <div class="hours-grid">
-            <div class="hours-day">Ma – Vr</div>
-            <div class="hours-time">10:00 – 18:00</div>
-            <div class="hours-day">Zaterdag</div>
-            <div class="hours-time">10:00 – 17:00</div>
-            <div class="hours-day">Zondag</div>
-            <div class="hours-time">Op afspraak</div>
+        <div class="counter-item">
+          <span class="counter-number" data-target="2600" data-suffix="+">0</span>
+          <span class="counter-label">Instagram volgers</span>
+        </div>
+        <div class="counter-item">
+          <span class="counter-number" data-target="978" data-suffix="+">0</span>
+          <span class="counter-label">Behandelingen</span>
+        </div>
+        <div class="counter-item">
+          <span class="counter-number" data-target="100" data-suffix="%">0</span>
+          <span class="counter-label">Tevreden klanten</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ DIENSTEN ============ -->
+<section class="section services" id="behandelingen">
+  <div class="container">
+    <p class="eyebrow center">Behandelingen</p>
+    <h2 class="section-title center" data-aos>Onze <span class="text-gold">diensten</span></h2>
+    <p class="section-intro center" data-aos>Van een strakke BIAB-set tot een volledige lashlift: elke behandeling wordt afgestemd op jou.</p>
+
+    <div class="services-grid stagger">
+
+      <article class="service-card" data-aos data-category="nagels">
+        <div class="service-icon">
+          <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M24 6c6 4 10 12 10 20a10 10 0 0 1-20 0c0-8 4-16 10-20z"/></svg>
+        </div>
+        <h3>BIAB</h3>
+        <p>Sterke, natuurlijke gel-versteviging voor gezonde nagels met een glossy finish.</p>
+        <span class="service-price">v.a. €35</span>
+        <a href="#afspraken" class="service-link">Boek behandeling <span>→</span></a>
+      </article>
+
+      <article class="service-card" data-aos data-category="nagels">
+        <div class="service-icon">
+          <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 8h24l4 10-16 22L8 18z"/></svg>
+        </div>
+        <h3>Gelnagels</h3>
+        <p>Duurzame gellak in de kleur en vorm naar keuze, perfect glad afgewerkt.</p>
+        <span class="service-price">v.a. €32</span>
+        <a href="#afspraken" class="service-link">Boek behandeling <span>→</span></a>
+      </article>
+
+      <article class="service-card" data-aos data-category="nagels">
+        <div class="service-icon">
+          <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M24 4v18M14 12l10 10 10-10M10 44h28"/></svg>
+        </div>
+        <h3>Acrylnagels</h3>
+        <p>Extra sterk en flexibel in lengte en vorm — ideaal voor een statement look.</p>
+        <span class="service-price">v.a. €38</span>
+        <a href="#afspraken" class="service-link">Boek behandeling <span>→</span></a>
+      </article>
+
+      <article class="service-card" data-aos data-category="nagels">
+        <div class="service-icon">
+          <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="24" cy="24" r="16"/><path d="M24 16v8l6 4"/></svg>
+        </div>
+        <h3>Manicure</h3>
+        <p>Complete handverzorging: nagelriemen, vijlen, handmassage en polish.</p>
+        <span class="service-price">v.a. €28</span>
+        <a href="#afspraken" class="service-link">Boek behandeling <span>→</span></a>
+      </article>
+
+      <article class="service-card" data-aos data-category="nagels">
+        <div class="service-icon">
+          <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M8 34c4-14 12-22 16-22s12 8 16 22"/><path d="M8 34h32"/></svg>
+        </div>
+        <h3>Pedicure</h3>
+        <p>Verzorgende voetbehandeling voor gladde, verzorgde en ontspannen voeten.</p>
+        <span class="service-price">v.a. €38</span>
+        <a href="#afspraken" class="service-link">Boek behandeling <span>→</span></a>
+      </article>
+
+      <article class="service-card" data-aos data-category="wimpers">
+        <div class="service-icon">
+          <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 26c8-10 28-10 36 0"/><path d="M10 26v-6M18 22v-7M26 21v-7M34 22v-6M42 26v-5"/></svg>
+        </div>
+        <h3>Wimperextensions</h3>
+        <p>Volle, natuurlijke of glamoureuze wimpers, volledig op maat aangebracht.</p>
+        <span class="service-price">v.a. €55</span>
+        <a href="#afspraken" class="service-link">Boek behandeling <span>→</span></a>
+      </article>
+
+      <article class="service-card" data-aos data-category="wimpers">
+        <div class="service-icon">
+          <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M8 28c8-6 24-6 32 0" /><path d="M24 28c0-4 2-8 2-8"/></svg>
+        </div>
+        <h3>Lash Lift</h3>
+        <p>Natuurlijke krul in je eigen wimpers voor een open, wakkere blik.</p>
+        <span class="service-price">v.a. €45</span>
+        <a href="#afspraken" class="service-link">Boek behandeling <span>→</span></a>
+      </article>
+
+      <article class="service-card" data-aos data-category="wimpers">
+        <div class="service-icon">
+          <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M10 30c4-8 10-12 14-12s10 4 14 12"/></svg>
+        </div>
+        <h3>Brow Styling</h3>
+        <p>Wenkbrauwen in model gebracht met verven en epileren voor een strakke blik.</p>
+        <span class="service-price">v.a. €25</span>
+        <a href="#afspraken" class="service-link">Boek behandeling <span>→</span></a>
+      </article>
+
+      <article class="service-card" data-aos data-category="beauty">
+        <div class="service-icon">
+          <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="24" cy="24" r="18"/><path d="M17 22c1-2 3-2 4 0M27 22c1-2 3-2 4 0M18 30c3 3 9 3 12 0"/></svg>
+        </div>
+        <h3>Gezichtsbehandeling</h3>
+        <p>Reinigende en verzorgende behandeling voor een frisse, stralende huid.</p>
+        <span class="service-price">v.a. €50</span>
+        <a href="#afspraken" class="service-link">Boek behandeling <span>→</span></a>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<!-- ============ GALERIJ ============ -->
+<section class="section gallery" id="galerij">
+  <div class="container">
+    <p class="eyebrow center">Portfolio</p>
+    <h2 class="section-title center" data-aos>Onze <span class="text-gold">galerij</span></h2>
+    <p class="section-intro center" data-aos>Een impressie van recent werk uit de salon.</p>
+
+    <div class="gallery-filters" data-aos>
+      <button class="filter-btn active" data-filter="all">Alle</button>
+      <button class="filter-btn" data-filter="nagels">Nagels</button>
+      <button class="filter-btn" data-filter="wimpers">Wimpers</button>
+      <button class="filter-btn" data-filter="beauty">Beauty</button>
+    </div>
+
+    <div class="gallery-grid" id="galleryGrid"></div>
+  </div>
+</section>
+
+<!-- Lightbox -->
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-hidden="true">
+  <button class="lightbox-close" id="lightboxClose" aria-label="Sluiten">&times;</button>
+  <button class="lightbox-nav prev" id="lightboxPrev" aria-label="Vorige">&#10094;</button>
+  <img src="" alt="" id="lightboxImg">
+  <button class="lightbox-nav next" id="lightboxNext" aria-label="Volgende">&#10095;</button>
+</div>
+
+<!-- ============ WAAROM KIEZEN VOOR ONS ============ -->
+<section class="section why">
+  <div class="container">
+    <p class="eyebrow center">Waarom Jade</p>
+    <h2 class="section-title center" data-aos>Waarom kiezen voor <span class="text-gold">ons</span></h2>
+
+    <div class="why-grid stagger">
+      <div class="why-card" data-aos>
+        <span class="why-check">✓</span>
+        <h3>8 jaar ervaring</h3>
+        <p>Ruime ervaring in nagel- en wimperbehandelingen.</p>
+      </div>
+      <div class="why-card" data-aos>
+        <span class="why-check">✓</span>
+        <h3>Gediplomeerd</h3>
+        <p>Gediplomeerd schoonheidsspecialiste.</p>
+      </div>
+      <div class="why-card" data-aos>
+        <span class="why-check">✓</span>
+        <h3>Gecertificeerd</h3>
+        <p>Allround nagel- en wimperstyliste.</p>
+      </div>
+      <div class="why-card" data-aos>
+        <span class="why-check">✓</span>
+        <h3>Persoonlijke aandacht</h3>
+        <p>Elke behandeling volledig op jou afgestemd.</p>
+      </div>
+      <div class="why-card" data-aos>
+        <span class="why-check">✓</span>
+        <h3>Luxe salon</h3>
+        <p>Een rustige, sfeervolle omgeving om even tot rust te komen.</p>
+      </div>
+      <div class="why-card" data-aos>
+        <span class="why-check">✓</span>
+        <h3>Hoogwaardige producten</h3>
+        <p>Uitsluitend professionele, kwalitatieve merken.</p>
+      </div>
+      <div class="why-card" data-aos>
+        <span class="why-check">✓</span>
+        <h3>Hygiënisch</h3>
+        <p>Strikte hygiëneprotocollen bij elke behandeling.</p>
+      </div>
+      <div class="why-card" data-aos>
+        <span class="why-check">✓</span>
+        <h3>Perfecte afwerking</h3>
+        <p>Oog voor detail van begin tot eind.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ REVIEWS (revamped, extra duidelijk) ============ -->
+<section class="section reviews" id="reviews">
+  <div class="container">
+    <p class="eyebrow center">Klantervaringen</p>
+    <h2 class="section-title center" data-aos>Wat klanten <span class="text-gold">zeggen</span></h2>
+    <p class="section-intro center" data-aos>Onze klanten waarderen ons gemiddeld met een 5.0 — bekijk hieronder waarom.</p>
+
+    <div class="reviews-summary" data-aos>
+      <div class="reviews-score">
+        <span class="reviews-score-number">5.0</span>
+        <div class="reviews-score-stars">★★★★★</div>
+        <span class="reviews-score-count">Gebaseerd op 214 reviews</span>
+      </div>
+      <div class="reviews-divider"></div>
+      <div class="reviews-breakdown">
+        <div class="breakdown-row"><span class="stars-label">5 ★</span><span class="breakdown-bar"><span class="breakdown-fill" style="--pct:96%"></span></span><span class="pct">96%</span></div>
+        <div class="breakdown-row"><span class="stars-label">4 ★</span><span class="breakdown-bar"><span class="breakdown-fill" style="--pct:3%"></span></span><span class="pct">3%</span></div>
+        <div class="breakdown-row"><span class="stars-label">3 ★</span><span class="breakdown-bar"><span class="breakdown-fill" style="--pct:1%"></span></span><span class="pct">1%</span></div>
+        <div class="breakdown-row"><span class="stars-label">2 ★</span><span class="breakdown-bar"><span class="breakdown-fill" style="--pct:0%"></span></span><span class="pct">0%</span></div>
+        <div class="breakdown-row"><span class="stars-label">1 ★</span><span class="breakdown-bar"><span class="breakdown-fill" style="--pct:0%"></span></span><span class="pct">0%</span></div>
+      </div>
+    </div>
+
+    <div class="reviews-platforms" data-aos>
+      <span class="platform-badge">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M21.6 12.23c0-.75-.07-1.47-.19-2.16H12v4.1h5.4a4.6 4.6 0 0 1-2 3.02v2.5h3.24c1.9-1.75 3-4.32 3-7.46z" fill="#4285F4"/><path d="M12 22c2.7 0 4.96-.9 6.62-2.42l-3.23-2.5c-.9.6-2.05.96-3.39.96-2.6 0-4.8-1.76-5.6-4.12H3.06v2.58A10 10 0 0 0 12 22z" fill="#34A853"/><path d="M6.4 13.92a5.98 5.98 0 0 1 0-3.84V7.5H3.06a10 10 0 0 0 0 9l3.34-2.58z" fill="#FBBC05"/><path d="M12 5.98c1.47 0 2.79.5 3.83 1.5l2.87-2.87A9.6 9.6 0 0 0 12 2a10 10 0 0 0-8.94 5.5l3.34 2.58c.8-2.36 3-4.1 5.6-4.1z" fill="#EA4335"/></svg>
+        <span class="p-stars">★★★★★</span> Google
+      </span>
+      <span class="platform-badge">
+        <svg viewBox="0 0 24 24"><rect width="24" height="24" rx="6" fill="#00B67A"/><path d="M12 5l1.85 5.7h6l-4.85 3.53L16.85 20 12 16.47 7.15 20l1.85-5.77L4.15 10.7h6z" fill="#fff"/></svg>
+        <span class="p-stars">★★★★★</span> Trustpilot
+      </span>
+      <span class="platform-badge">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#833AB4" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="5.5"/><circle cx="12" cy="12" r="4"/></svg>
+        <span class="p-stars">★★★★★</span> Instagram
+      </span>
+    </div>
+
+    <div class="reviews-slider" id="reviewsSlider" data-aos>
+      <div class="reviews-track" id="reviewsTrack">
+
+        <div class="review-card">
+          <span class="review-quote-mark" aria-hidden="true">&rdquo;</span>
+          <div class="review-stars">★★★★★</div>
+          <p class="review-text">"Al jaren mijn vaste adres voor mijn nagels. Altijd stipt, netjes en de sfeer is heerlijk rustgevend."</p>
+          <div class="review-author">
+            <span class="review-avatar">L</span>
+            <div>
+              <strong>Lisa <svg class="review-verified" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.4 2.1 3.1-.5 1 3 2.8 1.5-.9 3 .9 3-2.8 1.5-1 3-3.1-.5L12 22l-2.4-2.1-3.1.5-1-3-2.8-1.5.9-3-.9-3 2.8-1.5 1-3 3.1.5z"/><path d="M9 12.3l2 2 4-4.2" stroke="#fff" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></strong>
+              <span>Helmond · Google review</span>
+            </div>
           </div>
         </div>
-        <div class="contact-block">
-          <a href="tel:+31" class="call-btn">📞 Bel ons direct</a>
+
+        <div class="review-card">
+          <span class="review-quote-mark" aria-hidden="true">&rdquo;</span>
+          <div class="review-stars">★★★★★</div>
+          <p class="review-text">"Mijn wimpers hebben nog nooit zo mooi gezeten. Jade denkt echt met je mee over wat past."</p>
+          <div class="review-author">
+            <span class="review-avatar">S</span>
+            <div>
+              <strong>Sanne <svg class="review-verified" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.4 2.1 3.1-.5 1 3 2.8 1.5-.9 3 .9 3-2.8 1.5-1 3-3.1-.5L12 22l-2.4-2.1-3.1.5-1-3-2.8-1.5.9-3-.9-3 2.8-1.5 1-3 3.1.5z"/><path d="M9 12.3l2 2 4-4.2" stroke="#fff" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></strong>
+              <span>Mierlo · Trustpilot</span>
+            </div>
+          </div>
         </div>
+
+        <div class="review-card">
+          <span class="review-quote-mark" aria-hidden="true">&rdquo;</span>
+          <div class="review-stars">★★★★★</div>
+          <p class="review-text">"Super professioneel en het resultaat is elke keer weer perfect. De salon voelt heel luxe aan."</p>
+          <div class="review-author">
+            <span class="review-avatar">N</span>
+            <div>
+              <strong>Noor <svg class="review-verified" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.4 2.1 3.1-.5 1 3 2.8 1.5-.9 3 .9 3-2.8 1.5-1 3-3.1-.5L12 22l-2.4-2.1-3.1.5-1-3-2.8-1.5.9-3-.9-3 2.8-1.5 1-3 3.1.5z"/><path d="M9 12.3l2 2 4-4.2" stroke="#fff" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></strong>
+              <span>Deurne · Google review</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="review-card">
+          <span class="review-quote-mark" aria-hidden="true">&rdquo;</span>
+          <div class="review-stars">★★★★★</div>
+          <p class="review-text">"Eindelijk een salon waar mijn BIAB weken mooi blijft zitten. Aanrader voor iedereen!"</p>
+          <div class="review-author">
+            <span class="review-avatar">E</span>
+            <div>
+              <strong>Eva <svg class="review-verified" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.4 2.1 3.1-.5 1 3 2.8 1.5-.9 3 .9 3-2.8 1.5-1 3-3.1-.5L12 22l-2.4-2.1-3.1.5-1-3-2.8-1.5.9-3-.9-3 2.8-1.5 1-3 3.1.5z"/><path d="M9 12.3l2 2 4-4.2" stroke="#fff" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></strong>
+              <span>Helmond · Instagram</span>
+            </div>
+          </div>
+        </div>
+
       </div>
-    </div>
-    <div class="contact-map reveal-right">
-      <div class="map-pin">📍</div>
-      <div class="map-address">Klein Tongelreplein 4<br>Eindhoven</div>
-      <div class="map-sub">Winkelcentrum Haagdijk</div>
-      <a href="https://maps.google.com/?q=Klein+Tongelreplein+4+Eindhoven" target="_blank" class="map-link">Open in Maps →</a>
+      <div class="reviews-dots" id="reviewsDots"></div>
     </div>
   </div>
 </section>
 
-<!-- FOOTER -->
-<footer>
-  <div class="footer-logo">Huda &amp; <span>Roses</span> Dress</div>
-  <div class="footer-copy">© 2025 Huda & Roses Dress · Eindhoven</div>
-  <div class="footer-socials">
-    <a href="https://www.instagram.com/huda.roses_dress" target="_blank" class="footer-social">Instagram</a>
-    <a href="https://www.tiktok.com/@huda.roses_dress" target="_blank" class="footer-social">TikTok</a>
-    <a href="https://huda-roses-dress.reservio.com/booking" target="_blank" class="footer-social">Reserveer</a>
-    <a href="https://g.page/r/CWhU2WVD7Bb9EAE/review" target="_blank" class="footer-social">Review</a>
+<!-- ============ OPENINGSTIJDEN ============ -->
+<section class="section hours">
+  <div class="container hours-grid">
+    <div class="hours-intro" data-aos="fade-right">
+      <p class="eyebrow">Openingstijden</p>
+      <h2 class="section-title">Wanneer je <span class="text-gold">welkom</span> bent</h2>
+      <p>Loop je liever eerst even binnen? Check hieronder of we op dit moment geopend zijn.</p>
+      <div class="status-pill" id="statusPill">
+        <span class="status-dot"></span>
+        <span id="statusText">Status wordt geladen…</span>
+      </div>
+    </div>
+
+    <div class="hours-card" data-aos="fade-left">
+      <ul class="hours-list" id="hoursList">
+        <li data-day="1"><span>Maandag</span><span>09:00 – 17:30</span></li>
+        <li data-day="2"><span>Dinsdag</span><span>09:00 – 17:00</span></li>
+        <li data-day="3"><span>Woensdag</span><span>09:00 – 17:00</span></li>
+        <li data-day="4"><span>Donderdag</span><span>09:00 – 17:00</span></li>
+        <li data-day="5"><span>Vrijdag</span><span>09:00 – 17:00</span></li>
+        <li data-day="6"><span>Zaterdag</span><span class="closed">Gesloten</span></li>
+        <li data-day="0"><span>Zondag</span><span class="closed">Gesloten</span></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ============ AFSPRAAKFORMULIER (overzichtelijk in stappen) ============ -->
+<section class="section booking" id="afspraken">
+  <div class="container">
+    <p class="eyebrow center">Boeken</p>
+    <h2 class="section-title center" data-aos>Maak een <span class="text-gold">afspraak</span></h2>
+    <p class="section-intro center" data-aos>Vul het formulier in en Jade neemt zo snel mogelijk contact met je op om de afspraak te bevestigen.</p>
+
+    <form class="booking-form" id="bookingForm" novalidate data-aos>
+
+      <div class="form-progress" aria-hidden="true">
+        <div class="form-progress-bar" id="formProgressBar"></div>
+      </div>
+
+      <!-- Stap 1: Persoonlijke gegevens -->
+      <div class="form-section">
+        <div class="form-section-head">
+          <span class="form-section-num">1</span>
+          <div>
+            <h3>Jouw gegevens</h3>
+            <p>Zodat Jade weet wie ze mag verwachten</p>
+          </div>
+        </div>
+        <div class="form-grid">
+          <div class="field">
+            <label for="firstName">Voornaam *</label>
+            <input type="text" id="firstName" name="firstName" required autocomplete="given-name">
+            <span class="field-error"></span>
+          </div>
+          <div class="field">
+            <label for="lastName">Achternaam *</label>
+            <input type="text" id="lastName" name="lastName" required autocomplete="family-name">
+            <span class="field-error"></span>
+          </div>
+          <div class="field">
+            <label for="phone">Telefoonnummer *</label>
+            <input type="tel" id="phone" name="phone" required autocomplete="tel" placeholder="06 12345678">
+            <span class="field-error"></span>
+          </div>
+          <div class="field">
+            <label for="email">E-mailadres *</label>
+            <input type="email" id="email" name="email" required autocomplete="email">
+            <span class="field-error"></span>
+          </div>
+          <div class="field full">
+            <label for="instagram">Instagram naam <em>(optioneel)</em></label>
+            <input type="text" id="instagram" name="instagram" placeholder="@jouwnaam">
+          </div>
+        </div>
+      </div>
+
+      <div class="form-divider"></div>
+
+      <!-- Stap 2: Behandeling & planning -->
+      <div class="form-section">
+        <div class="form-section-head">
+          <span class="form-section-num">2</span>
+          <div>
+            <h3>Behandeling &amp; planning</h3>
+            <p>Kies wat je wilt laten doen en wanneer</p>
+          </div>
+        </div>
+        <div class="form-grid">
+          <div class="field">
+            <label for="treatment">Behandeling *</label>
+            <select id="treatment" name="treatment" required>
+              <option value="">Kies een behandeling</option>
+              <option>BIAB</option>
+              <option>Gelnagels</option>
+              <option>Acrylnagels</option>
+              <option>Manicure</option>
+              <option>Pedicure</option>
+              <option>Wimperextensions</option>
+              <option>Lash Lift</option>
+              <option>Brow Styling</option>
+              <option>Gezichtsbehandeling</option>
+            </select>
+            <span class="field-error"></span>
+          </div>
+          <div class="field">
+            <label for="date">Datum *</label>
+            <input type="date" id="date" name="date" required>
+            <span class="field-error"></span>
+          </div>
+          <div class="field">
+            <label for="time">Tijd *</label>
+            <input type="time" id="time" name="time" required>
+            <span class="field-error"></span>
+          </div>
+          <div class="field">
+            <label for="length">Gewenste nagellengte</label>
+            <select id="length" name="length">
+              <option value="">Maakt niet uit</option>
+              <option>Kort</option>
+              <option>Medium</option>
+              <option>Lang</option>
+              <option>Extra lang</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-divider"></div>
+
+      <!-- Stap 3: Stijl & inspiratie -->
+      <div class="form-section">
+        <div class="form-section-head">
+          <span class="form-section-num">3</span>
+          <div>
+            <h3>Stijl &amp; inspiratie</h3>
+            <p>Help Jade jouw droomlook voor te bereiden</p>
+          </div>
+        </div>
+        <div class="form-grid">
+          <div class="field">
+            <label for="color">Gewenste kleur</label>
+            <input type="text" id="color" name="color" placeholder="Bijv. nude, rosé, chroom...">
+          </div>
+          <div class="field">
+            <label for="wishes">Extra wensen</label>
+            <input type="text" id="wishes" name="wishes" placeholder="Vertel iets meer over wat je in gedachten hebt...">
+          </div>
+          <div class="field full">
+            <label for="inspiration">Upload inspiratiefoto</label>
+            <div class="file-upload" id="fileUpload">
+              <input type="file" id="inspiration" name="inspiration" accept="image/*">
+              <span class="file-upload-label">Sleep een bestand hierheen of klik om te uploaden</span>
+              <span class="file-upload-name" id="fileUploadName"></span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-divider"></div>
+
+      <!-- Stap 4: Tot slot -->
+      <div class="form-section">
+        <div class="form-section-head">
+          <span class="form-section-num">4</span>
+          <div>
+            <h3>Tot slot</h3>
+            <p>Nog iets dat Jade moet weten?</p>
+          </div>
+        </div>
+        <div class="form-grid">
+          <div class="field full checks">
+            <label class="checkbox-line">
+              <input type="checkbox" name="firstVisit"> Dit is mijn eerste bezoek aan de salon
+            </label>
+            <label class="checkbox-line">
+              <input type="checkbox" name="allergies"> Ik heb allergieën of huidgevoeligheden
+            </label>
+          </div>
+          <div class="field full">
+            <label for="comments">Opmerkingen</label>
+            <textarea id="comments" name="comments" rows="2" placeholder="Overige opmerkingen voor Jade"></textarea>
+          </div>
+          <div class="field full checks">
+            <label class="checkbox-line required-check">
+              <input type="checkbox" id="terms" name="terms" required>
+              Ik ga akkoord met de <a href="terms.html" target="_blank">algemene voorwaarden</a> *
+            </label>
+            <span class="field-error" id="termsError"></span>
+          </div>
+        </div>
+      </div>
+
+      <button type="submit" class="btn btn-gold btn-lg btn-submit" id="submitBtn">
+        <span class="btn-label">Afspraak aanvragen</span>
+        <span class="btn-loader" aria-hidden="true"></span>
+      </button>
+    </form>
+
+    <div class="form-success" id="formSuccess" aria-live="polite">
+      <div class="success-check">
+        <svg viewBox="0 0 52 52"><circle cx="26" cy="26" r="24"/><path d="M14 27l8 8 16-16"/></svg>
+      </div>
+      <h3>Aanvraag verzonden!</h3>
+      <p>Bedankt voor je aanvraag. Jade neemt binnen 24 uur contact met je op om de afspraak te bevestigen.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CONTACT ============ -->
+<section class="section contact" id="contact">
+  <div class="container contact-grid">
+    <div class="contact-info" data-aos="fade-right">
+      <p class="eyebrow">Contact</p>
+      <h2 class="section-title">Kom <span class="text-gold">langs</span> of neem contact op</h2>
+
+      <ul class="contact-list">
+        <li>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 21s7-7.2 7-12a7 7 0 1 0-14 0c0 4.8 7 12 7 12z"/><circle cx="12" cy="9" r="2.5"/></svg>
+          <span>Statenlaan 193<br>5708 ZX Helmond</span>
+        </li>
+        <li>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 5c0 8.3 6.7 15 15 15l3-4-6-3-2 2c-2-1-4-3-5-5l2-2-3-6z"/></svg>
+          <span>+31 6 12 34 56 78</span>
+        </li>
+        <li>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m4 7 8 6 8-6"/></svg>
+          <span>info@nailsandbeautybyjade.nl</span>
+        </li>
+      </ul>
+
+      <div class="contact-buttons">
+        <a href="tel:+310612345678" class="btn btn-outline btn-sm">Bel</a>
+        <a href="https://wa.me/31600000000" target="_blank" rel="noopener" class="btn btn-outline btn-sm">WhatsApp</a>
+        <a href="https://instagram.com" target="_blank" rel="noopener" class="btn btn-outline btn-sm">Instagram</a>
+        <a href="https://maps.google.com/?q=Statenlaan+193+Helmond" target="_blank" rel="noopener" class="btn btn-gold btn-sm">Route</a>
+      </div>
+    </div>
+
+    <div class="contact-map" data-aos="fade-left">
+      <iframe
+        src="https://www.google.com/maps?q=Statenlaan%20193%2C%205708%20ZX%20Helmond&output=embed"
+        loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade"
+        title="Locatie Nails & Beauty by Jade op Google Maps">
+      </iframe>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer class="footer">
+  <div class="footer-glow" aria-hidden="true"></div>
+  <div class="container footer-grid">
+
+    <div class="footer-col footer-brand">
+      <a href="#home" class="nav-logo">
+        <span class="logo-mark"><img src="images/logo.jpg" alt="Nails & Beauty by Jade"></span>
+        <span class="logo-text">Nails <em>&amp;</em> Beauty <strong>by Jade</strong></span>
+      </a>
+      <p>Luxe nagel- en beautysalon in Helmond. Waar schoonheid en perfectie samenkomen.</p>
+      <div class="footer-socials">
+        <a href="https://instagram.com" target="_blank" rel="noopener" class="social-icon social-instagram" aria-label="Instagram">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="3" y="3" width="18" height="18" rx="5.5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.4" cy="6.6" r="1.1" fill="currentColor" stroke="none"/></svg>
+        </a>
+        <a href="https://wa.me/31600000000" target="_blank" rel="noopener" class="social-icon social-whatsapp" aria-label="WhatsApp">
+          <svg viewBox="0 0 32 32" fill="currentColor"><path d="M16.02 3C9.4 3 4 8.4 4 15.02c0 2.6.85 5 2.3 6.98L4.9 28l6.15-1.6a12 12 0 0 0 4.97 1.08c6.62 0 12.02-5.4 12.02-12.02C28.04 8.4 22.64 3 16.02 3zm0 21.8c-1.72 0-3.4-.46-4.86-1.33l-.35-.2-3.65.95.97-3.56-.23-.37a9.76 9.76 0 0 1-1.5-5.27c0-5.4 4.39-9.79 9.79-9.79 5.4 0 9.79 4.39 9.79 9.79-.16 5.4-4.55 9.78-9.96 9.78z"/><path d="M21.2 18.02c-.28-.14-1.66-.82-1.92-.91-.26-.1-.44-.14-.63.14-.18.28-.72.9-.88 1.09-.16.18-.32.2-.6.07-.28-.14-1.18-.44-2.24-1.4-.83-.74-1.39-1.65-1.55-1.93-.16-.28-.02-.43.12-.57.13-.13.28-.32.42-.49.14-.16.18-.28.28-.46.09-.18.05-.35-.02-.49-.07-.14-.63-1.53-.87-2.1-.23-.55-.46-.47-.63-.48-.16-.01-.35-.01-.53-.01-.19 0-.49.07-.75.35-.26.28-.98.96-.98 2.35 0 1.39 1 2.73 1.14 2.92.14.18 1.97 3.02 4.78 4.23.67.29 1.19.46 1.6.59.67.21 1.28.18 1.76.11.54-.08 1.66-.68 1.89-1.33.24-.65.24-1.21.16-1.33-.07-.12-.25-.19-.53-.32z"/></svg>
+        </a>
+        <a href="https://tiktok.com" target="_blank" rel="noopener" class="social-icon social-tiktok" aria-label="TikTok">
+          <svg viewBox="0 0 32 32">
+            <path class="tt-accent1" d="M21.6 8.4c-1.1-.9-1.8-2.3-1.8-3.8h-3.2v16.4c0 1.6-1.3 2.9-2.9 2.9-1.6 0-2.9-1.3-2.9-2.9s1.3-2.9 2.9-2.9c.3 0 .6.05.9.14v-3.3a6.15 6.15 0 0 0-.9-.07 6.16 6.16 0 1 0 6.16 6.16V12.3a9.3 9.3 0 0 0 5.4 1.7v-3.2c-1.3 0-2.5-.4-3.66-1.4z" transform="translate(0.5,0.3)"/>
+            <path class="tt-main" d="M20.6 8.1c-1.1-.9-1.8-2.3-1.8-3.8h-3.2v16.4c0 1.6-1.3 2.9-2.9 2.9-1.6 0-2.9-1.3-2.9-2.9s1.3-2.9 2.9-2.9c.3 0 .6.05.9.14v-3.3a6.15 6.15 0 0 0-.9-.07 6.16 6.16 0 1 0 6.16 6.16V12a9.3 9.3 0 0 0 5.4 1.7v-3.2c-1.3 0-2.5-.4-3.66-1.4z"/>
+          </svg>
+        </a>
+        <a href="https://facebook.com" target="_blank" rel="noopener" class="social-icon social-facebook" aria-label="Facebook">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M14.5 8.5h2V5.3c-.35-.05-1.5-.15-2.85-.15-2.82 0-4.75 1.72-4.75 4.9v2.6H6v3.6h3.4V21h3.7v-4.75h3.4l.55-3.6h-3.95v-2.2c0-1.05.3-1.75 1.8-1.75z"/></svg>
+        </a>
+      </div>
+    </div>
+
+    <div class="footer-col">
+      <h4>Snelle links</h4>
+      <a href="#over-ons">Over ons</a>
+      <a href="#behandelingen">Behandelingen</a>
+      <a href="#galerij">Galerij</a>
+      <a href="#reviews">Reviews</a>
+      <a href="#afspraken">Afspraken</a>
+    </div>
+
+    <div class="footer-col">
+      <h4>Openingstijden</h4>
+      <p>Ma 09:00–17:30</p>
+      <p>Di t/m Vr 09:00–17:00</p>
+      <p>Za &amp; Zo Gesloten</p>
+    </div>
+
+    <div class="footer-col">
+      <h4>Contact</h4>
+      <p>Statenlaan 193<br>5708 ZX Helmond</p>
+      <p>+31 6 12 34 56 78</p>
+      <p>info@nailsandbeautybyjade.nl</p>
+    </div>
+
+    <div class="footer-col footer-newsletter">
+      <h4>Nieuwsbrief</h4>
+      <p>Als eerste op de hoogte van beschikbare plekken en acties.</p>
+      <form class="newsletter-form" id="newsletterForm">
+        <input type="email" placeholder="Jouw e-mailadres" required aria-label="E-mailadres voor nieuwsbrief">
+        <button type="submit" aria-label="Aanmelden">→</button>
+      </form>
+      <p class="newsletter-msg" id="newsletterMsg"></p>
+    </div>
+
+  </div>
+
+  <div class="footer-bottom">
+    <p>&copy; <span id="year"></span> Nails &amp; Beauty by Jade. Alle rechten voorbehouden.</p>
+    <div class="footer-legal">
+      <a href="privacy.html">Privacybeleid</a>
+      <a href="terms.html">Algemene voorwaarden</a>
+    </div>
   </div>
 </footer>
 
-<!-- STICKY CTA -->
-<div id="sticky-cta">
-  <a href="https://huda-roses-dress.reservio.com/booking" target="_blank" class="sticky-btn sticky-appt">✦ Boek Afspraak</a>
-  <a href="https://www.instagram.com/huda.roses_dress" target="_blank" class="sticky-btn sticky-insta">📸 Instagram</a>
-</div>
+<button class="scroll-top" id="scrollTop" aria-label="Scroll naar boven">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
+</button>
 
-<script>
-// ─── CURSOR ───
-const cursor = document.getElementById('cursor');
-const ring = document.getElementById('cursor-ring');
-let mx = 0, my = 0, rx = 0, ry = 0;
-document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; });
-function animCursor() {
-  cursor.style.left = mx + 'px'; cursor.style.top = my + 'px';
-  rx += (mx - rx) * 0.12; ry += (my - ry) * 0.12;
-  ring.style.left = rx + 'px'; ring.style.top = ry + 'px';
-  requestAnimationFrame(animCursor);
-}
-animCursor();
-document.querySelectorAll('a, button, .collection-item').forEach(el => {
-  el.addEventListener('mouseenter', () => { cursor.style.transform = 'translate(-50%,-50%) scale(2.5)'; ring.style.opacity = '0.2'; });
-  el.addEventListener('mouseleave', () => { cursor.style.transform = 'translate(-50%,-50%) scale(1)'; ring.style.opacity = '0.6'; });
-});
-
-// ─── PRELOADER ───
-const preloader = document.getElementById('preloader');
-const preloaderBrand = document.querySelector('.preloader-brand');
-setTimeout(() => { preloader.classList.add('active'); }, 100);
-setTimeout(() => { preloader.classList.add('open'); }, 1500);
-setTimeout(() => { preloader.style.display = 'none'; }, 3000);
-
-// ─── NAV ───
-const navbar = document.getElementById('navbar');
-window.addEventListener('scroll', () => {
-  navbar.classList.toggle('scrolled', window.scrollY > 50);
-  document.getElementById('sticky-cta').classList.toggle('visible', window.scrollY > 400);
-});
-
-// ─── PORTAL MENU ───
-const hamburger = document.getElementById('hamburger');
-const portal = document.getElementById('portal');
-hamburger.addEventListener('click', () => {
-  hamburger.classList.toggle('open');
-  portal.classList.toggle('open');
-});
-document.querySelectorAll('.portal-link').forEach(link => {
-  link.addEventListener('click', () => {
-    hamburger.classList.remove('open');
-    portal.classList.remove('open');
-  });
-});
-
-// ─── HERO SLIDER ───
-const slides = document.querySelectorAll('.hero-slide');
-const dots = document.querySelectorAll('.dot');
-let current = 0;
-function goSlide(n) {
-  slides[current].classList.remove('active');
-  dots[current].classList.remove('active');
-  current = (n + slides.length) % slides.length;
-  slides[current].classList.add('active');
-  dots[current].classList.add('active');
-}
-dots.forEach(d => d.addEventListener('click', () => goSlide(+d.dataset.index)));
-setInterval(() => goSlide(current + 1), 5000);
-
-// ─── REVIEWS CAROUSEL ───
-const track = document.getElementById('reviewsTrack');
-const cards = track.querySelectorAll('.review-card');
-let revIdx = 0;
-function getCardWidth() {
-  const card = cards[0];
-  return card.offsetWidth + 24; // gap
-}
-function moveReviews() {
-  track.style.transform = `translateX(-${revIdx * getCardWidth()}px)`;
-}
-document.getElementById('nextReview').addEventListener('click', () => {
-  if (revIdx < cards.length - 1) { revIdx++; moveReviews(); }
-});
-document.getElementById('prevReview').addEventListener('click', () => {
-  if (revIdx > 0) { revIdx--; moveReviews(); }
-});
-setInterval(() => {
-  revIdx = revIdx < cards.length - 1 ? revIdx + 1 : 0;
-  moveReviews();
-}, 4000);
-
-// ─── SCROLL REVEAL ───
-const revealObserver = new IntersectionObserver((entries) => {
-  entries.forEach(e => {
-    if (e.isIntersecting) {
-      e.target.classList.add('visible');
-      revealObserver.unobserve(e.target);
-    }
-  });
-}, { threshold: 0.15 });
-document.querySelectorAll('.reveal, .reveal-left, .reveal-right').forEach(el => revealObserver.observe(el));
-
-// ─── STAGGER CHILDREN ───
-document.querySelectorAll('.collection-grid .collection-item').forEach((el, i) => {
-  el.style.transitionDelay = `${i * 0.08}s`;
-  el.classList.add('reveal');
-  revealObserver.observe(el);
-});
-</script>
+<script src="js/script.js"></script>
 </body>
 </html>
